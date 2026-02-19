@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@300;400;600;700&display=swap" rel="stylesheet">
+<link rel="icon" type="image/png" href="imagenes/iconoae.png">
+<title>NIKAT INVASIÓN</title>
+
+<style>
+
+html{
+  scroll-behavior: smooth;
+}
+
+body{
+  margin:0;
+  font-family:'Exo 2', sans-serif;
+  background:linear-gradient(135deg,#0b1c2d,#112f4a);
+  color:#e0f4ff;
+  display:flex;
+}
+
+h1{
+  font-weight:300;
+}
+
+/* MENÚ IZQUIERDO */
+nav{
+  width:220px;
+  background:#0e2438;
+  padding:25px;
+  height:100vh;
+  position:fixed;
+  border-right:1px solid #1f4f75;
+}
+
+nav a{
+  font-weight:600;
+}
+
+nav h2{
+  text-align:center;
+  margin-bottom:40px;
+  letter-spacing:2px;
+}
+
+nav a{
+  display:block;
+  color:#a8dfff;
+  text-decoration:none;
+  margin-bottom:20px;
+  font-weight:600;
+  transition:.3s;
+}
+
+nav a:hover{
+  color:#ffffff;
+}
+
+/* CONTENIDO CENTRAL */
+main{
+  margin-left:240px;
+  margin-right:240px;
+  padding:40px;
+  flex:1;
+}
+
+h1{
+  text-align:center;
+  margin-bottom:40px;
+  letter-spacing:3px;
+  font-weight:300;
+}
+
+.gallery{
+  display:grid;
+  grid-template-columns:1fr; /* UNA sola columna */
+  gap:60px;
+  justify-items:center;
+}
+
+.item img{
+  width:100%;
+  max-width:1000px; /* mucho más grande */
+  padding:15px;
+  background:rgba(255,255,255,0.03);
+  border:1px solid #2f6e9e;
+  border-radius:12px;
+  box-shadow:0 0 20px rgba(0,180,255,0.25);
+  transition:.4s;
+}
+
+.item{
+  text-align:center;
+}
+
+.item{
+  scroll-margin-top: 60px;
+}
+
+.item img:hover{
+  transform:scale(1.05);
+  box-shadow:0 0 25px rgba(0,200,255,0.5);
+}
+
+.item h3{
+  margin-top:20px;
+  font-size:1.3rem;
+  letter-spacing:2px;
+}
+
+/* PANEL DERECHO */
+aside{
+  width:220px;
+  background:#0e2438;
+  padding:25px;
+  height:100vh;
+  position:fixed;
+  right:0;
+  border-left:1px solid #1f4f75;
+}
+
+aside h2{
+  text-align:center;
+  margin-bottom:30px;
+  letter-spacing:2px;
+}
+
+.buy-button{
+  display:block;
+  text-align:center;
+  padding:12px;
+  background:#00b4ff;
+  color:#00111a;
+  text-decoration:none;
+  font-weight:bold;
+  border-radius:8px;
+  transition:.3s;
+}
+
+.buy-button:hover{
+  background:#00d0ff;
+}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+  nav,aside{
+    display:none;
+  }
+  main{
+    margin:0;
+  }
+}
+
+.book-cover{
+  width:100%;
+  max-width:180px;
+  display:block;
+  margin:0 auto 20px auto;
+  border-radius:8px;
+  box-shadow:0 0 20px rgba(0,180,255,0.3);
+  transition:.3s;
+}
+
+.book-cover:hover{
+  transform:scale(1.05);
+}
+
+.transmisor-img{
+  max-height:600px;
+  width:100%;
+  object-fit:cover;
+}
+
+.site-footer{
+  position:fixed;
+  bottom:0;
+  left:240px;   /* mismo margen que el main */
+  right:240px;  /* mismo margen que el aside */
+  text-align:center;
+  padding:15px;
+  font-size:0.8rem;
+  letter-spacing:1px;
+  opacity:0.6;
+}
+</style>
+</head>
+
+<body>
+
+<nav>
+  <h1>NIKAT INVASIÓN</h1>
+  <h2>ARCHIVO</h2>
+  <a href="#nave-maestra">NAVE MAESTRA NIKAT</a>
+  <a href="#estacion-orbital">EDE</a>
+  <a href="#transmisor">TRANSMISOR</a>
+  <a href="#Nox">NOX</a>
+  <a href="#Umbra">UMBRA</a>
+  <a href="#Vesper">VESPER</a>
+  <a href="#secundarios">SECUNDARIOS</a>
+  <a href="#nikat">NIKAT</a>
+  <a href="#generales">GENERALES NIKAT</a>
+  
+</nav>
+
+<main>
+  <h1>Archivo Visual</h1>
+
+  <div class="gallery">
+
+    <h2 style="text-align:center; letter-spacing:3px; opacity:0.6;">
+    INFRAESTRUCTURA
+    </h2>
+
+    <div class="item" id="nave-maestra">
+      <img src="imagenes/navenikat.png" alt="Nave Maestra">
+      <h3>NAVE MAESTRA</h3>
+    </div>
+
+    <div class="item" id="estacion-orbital">
+      <img src="imagenes/EDE.png" alt="Estación Orbital">
+      <h3>EDE (ESTACIÓN DE DEFENSA ESPACIAL)</h3>
+    </div>
+
+    <div class="item" id="transmisor">
+      <img src="imagenes/Transmisor interuniversar.png" alt="Transmisor Interuniversal" class="transmisor-img">
+      <h3>TRANSMISOR INTERUNIVERSAL</h3>
+    </div>
+
+    <h2 style="text-align:center; letter-spacing:3px; opacity:0.6; margin-top:80px;">
+    UNIDADES
+    </h2>
+
+    <div class="item" id="Nox">
+      <img src="imagenes/nox.png" alt="Nox">
+      <h3>EQUIPO NOX</h3>
+    </div>
+
+    <div class="item" id="Umbra">
+      <img src="imagenes/umbra.png" alt="Umbra">
+      <h3>EQUIPO UMBRA</h3>
+    </div>
+
+    <div class="item" id="Vesper">
+      <img src="imagenes/vesper.png" alt="Vesper">
+      <h3>EQUIPO VESPER</h3>
+    </div>
+
+    <div class="item" id="secundarios">
+      <img src="imagenes/secundarios.png" alt="Secundarios">
+      <h3>PERSONAJES SECUNDARIOS</h3>
+    </div>
+
+    <div class="item" id="nikat">
+      <img src="imagenes/nikat.png" alt="Nikat">
+      <h3>SOLDADOS NIKAT</h3>
+    </div>
+
+    <div class="item" id="generales">
+      <img src="imagenes/generales.png" alt="Generales">
+      <h3>GENERALES NIKAT</h3>
+    </div>
+
+    
+
+  </div>
+</main>
+
+<aside>
+  <h2>LIBRO</h2>
+
+  <img src="imagenes/portada.png" alt="Portada del libro" class="book-cover">
+
+  <a href="https://amazon.com/tu-libro" class="buy-button" target="_blank">
+    Comprar en Amazon
+  </a>
+</aside>
+
+<footer class="site-footer">
+  © 2026 Nikat Universe. Todos los derechos reservados.
+</footer>
+
+</body>
+</html>
