@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@300;400;600;700&family=Courier+Prime&display=swap" rel="stylesheet">
+<link rel="icon" type="image/png" href="imagenes/iconoae.png">
+<title>REGISTROS | NIKAT INVASIÓN</title>
+
+<style>
+    /* ESTRUCTURA BASE */
+    html { scroll-behavior: smooth; }
+    body { margin: 0; font-family: 'Exo 2', sans-serif; background: linear-gradient(135deg, #050a0f, #0b1c2d); color: #e0f4ff; display: flex; }
+
+    /* EFECTO DE ESCANEO */
+    body::before { content: ""; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%); background-size: 100% 4px; pointer-events: none; z-index: 100; opacity: 0.1; }
+
+    /* MENÚ IZQUIERDO */
+    nav { width: 250px; background: #091a2a; padding: 30px; height: 100vh; position: fixed; border-right: 1px solid #1f4f75; }
+    nav h2 { color: #00b4ff; font-size: 1.2rem; }
+    nav a { display: block; color: #a8dfff; text-decoration: none; margin-bottom: 15px; font-weight: 600; font-size: 0.85rem; text-transform: uppercase; transition: .3s; }
+    nav a:hover { color: #ffffff; padding-left: 10px; }
+
+    /* CONTENIDO CENTRAL */
+    main { margin-left: 310px; margin-right: 280px; padding: 40px; flex: 1; }
+    h1 { text-align: center; letter-spacing: 5px; font-weight: 300; margin-bottom: 50px; border-bottom: 2px solid #00b4ff; padding-bottom: 20px; }
+    .section-title { text-align: center; letter-spacing: 4px; color: #00b4ff; margin-top: 80px; padding-bottom: 10px; }
+
+    /* TARJETAS DE ARCHIVO */
+    .gallery { display: grid; gap: 40px; justify-items: center; }
+    .item { width: 100%; max-width: 800px; background: rgba(14, 36, 56, 0.4); padding: 20px; border: 1px solid #2f6e9e; border-radius: 8px; text-align: center; transition: 0.3s; }
+    .item:hover { border-color: #00b4ff; box-shadow: 0 0 15px rgba(0, 180, 255, 0.2); }
+    .item img { width: 100%; border: 1px solid #00b4ff; border-radius: 4px; }
+    .item h3 { margin-top: 15px; letter-spacing: 2px; font-family: 'Courier Prime', monospace; }
+
+    /* PANEL DERECHO */
+    aside { width: 250px; background: #091a2a; padding: 30px; height: 100vh; position: fixed; right: 0; border-left: 1px solid #1f4f75; }
+    .buy-button { display: block; text-align: center; padding: 12px; background: #00b4ff; color: #050a0f; text-decoration: none; font-weight: bold; border-radius: 4px; margin-top: 20px; }
+
+    @media(max-width:1100px){ nav, aside { display: none; } main { margin: 0; padding: 20px; } }
+
+    /* Añadimos solo esto para la lista de registros: */
+    .gallery-informes { display: grid; gap: 20px; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
+    .card-informe { background: #091a2a; border: 1px solid #00b4ff; padding: 25px; border-radius: 8px; cursor: pointer; transition: 0.3s; }
+    .card-informe:hover { background: #12283d; border-color: #ffffff; }
+    .card-informe h3 { margin-top: 0; color: #00b4ff; font-family: 'Courier Prime', monospace; }
+    
+    /* Estilo del Modal */
+    .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 1000; }
+    .modal-contenido { background: #091a2a; margin: 10% auto; padding: 40px; width: 60%; border: 2px solid #00b4ff; border-radius: 8px; color: white; position: relative; }
+    .cerrar { position: absolute; top: 10px; right: 20px; cursor: pointer; color: #00b4ff; font-size: 2rem; }
+
+    .modal-contenido { 
+    background: #091a2a; 
+    margin: 5% auto; /* Reduje el margen superior para aprovechar más espacio vertical */
+    padding: 40px; 
+    width: 60%; 
+    border: 2px solid #00b4ff; 
+    border-radius: 8px; 
+    color: white; 
+    position: relative;
+    
+    /* MODIFICACIONES PARA EL SCROLL */
+    max-height: 80vh;      /* Limita la altura al 80% de la ventana */
+    overflow-y: auto;      /* Activa la barra de scroll vertical si es necesario */
+}
+
+/* Opcional: Para que el botón de cerrar no se mueva con el scroll */
+.cerrar { 
+    position: sticky; /* O fixed si prefieres, pero sticky queda mejor dentro del flujo */
+    top: -20px;       /* Ajusta según el padding del contenedor */
+    float: right; 
+    cursor: pointer; 
+    color: #00b4ff; 
+    font-size: 2rem; 
+    z-index: 10;
+}
+
+/* 1. Ancho de la barra */
+.modal-contenido::-webkit-scrollbar {
+    width: 8px;
+}
+
+/* 2. El fondo de la barra (el "canal") */
+.modal-contenido::-webkit-scrollbar-track {
+    background: #050a0f; 
+    border-left: 1px solid #1f4f75;
+}
+
+/* 3. La parte que se mueve (el "thumb") */
+.modal-contenido::-webkit-scrollbar-thumb {
+    background: #00b4ff; 
+    border-radius: 4px;
+    border: 1px solid #050a0f;
+}
+
+/* 4. Efecto al pasar el mouse sobre la barra */
+.modal-contenido::-webkit-scrollbar-thumb:hover {
+    background: #00d4ff;
+    box-shadow: 0 0 8px #00b4ff;
+}
+    
+    /* Estilo del slider de frecuencia */
+    #slider {
+    appearance: none;
+    width: 100%;
+    height: 10px;
+    background: #091a2a;
+    border: 1px solid #00b4ff;
+    outline: none;
+    }
+
+    #slider::-webkit-slider-thumb {
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    background: #00b4ff;
+    cursor: pointer;
+    border: 2px solid #fff;
+    }
+
+    #escaneo-area {
+    width: 100%; height: 300px;
+    background: #000; position: relative;
+    cursor: crosshair; overflow: hidden;
+    border: 1px solid #1f4f75;
+    }
+
+    /* El "foco" de la linterna */
+    #linterna {
+    position: absolute; width: 100px; height: 100px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(0, 180, 255, 0.3) 0%, rgba(0,0,0,0) 70%);
+    pointer-events: none;
+    transform: translate(-50%, -50%);
+    }
+
+    .num-oculto {
+    transition: opacity 0.8s ease, transform 0.8s ease;
+    transform: scale(0.8);
+    }
+
+    .num-oculto.revelado {
+    opacity: 1 !important;
+    transform: scale(1);
+    }
+</style>
+</head>
+
+<body>
+
+<nav>
+  <h2>N.I. ARCHIVE</h2>
+  <a href="index.html">INICIO</a>
+  <a href="registros.html">REGISTROS</a>
+</nav>
+
+<main>
+  <h1>REGISTROS DESCLASIFICADOS</h1>
+  <div id="lista-registros" class="gallery-informes"></div>
+</main>
+
+<div id="modal-informe" class="modal">
+  <div id="modal-caja" class="modal-contenido"> <span class="cerrar" onclick="cerrarModal()">&times;</span>
+    <div id="modal-nivel" style="font-size: 0.7rem; letter-spacing: 2px; margin-bottom: 10px; font-weight: bold;"></div>
+    <h2 id="modal-titulo"></h2>
+    <p id="modal-texto" style="font-family: 'Courier Prime', monospace; white-space: pre-line;"></p>
+    <hr style="border: 0; border-top: 1px solid #1f4f75; margin: 20px 0;">
+    <small id="modal-firma" style="color: #00b4ff;"></small>
+  </div>
+</div>
+
+<div id="pantalla-seguridad" class="modal" style="z-index: 2000;">
+  <div class="modal-contenido" style="text-align: center;">
+    <span class="cerrar" onclick="cerrarSeguridad()">&times;</span>
+
+    <div id="terminal-carga" style="display:none; text-align:center; padding: 20px;">
+        <div id="texto-consola" style="font-family: 'Courier Prime', monospace; color: #00ff00; font-size: 0.9rem; margin-bottom: 10px;">INICIANDO...</div>
+        <div style="width: 100%; height: 5px; background: #050a0f; border: 1px solid #00ff00;">
+            <div id="barra-progreso" style="width: 0%; height: 100%; background: #00ff00; transition: width 0.4s;"></div>
+        </div>
+    </div>
+
+    <div id="contenido-juego">
+        <h2 id="titulo-seguridad">AUTENTICACIÓN REQUERIDA</h2>
+        <div id="area-minijuego" style="margin: 30px 0;"></div>
+        <button id="btn-validar" onclick="verificarAcceso()" class="buy-button">VALIDAR ACCESO</button>
+    </div>
+  </div>
+</div>
+
+<aside id="libro">
+  <div style="border: 1px solid #00b4ff; padding: 15px; border-radius: 8px; background: rgba(0, 30, 50, 0.5);">
+    <h2 style="margin-top: 0; color: #00b4ff; text-align: center;">OBRA OFICIAL</h2>
+    <img src="imagenes/portada.png" alt="Portada" style="width:100%; border-radius:4px; margin-bottom: 10px;">
+    <p style="font-size: 0.85rem; text-align: center; color: #a8dfff;">
+      La guerra con los Nikat ha comenzado. Adquiere el volumen completo.
+    </p>
+    <a href="https://amazon.com/tu-libro" class="buy-button" target="_blank">COMPRAR EN AMAZON</a>
+  </div>
+</aside>
+
+<script>
+// --- CONFIGURACIÓN Y VARIABLES ---
+let registroPendiente = null;
+let frecuenciaObjetivo = 50;
+let numerosEncontrados = [];
+let codigoObjetivo = [];
+let combinacionSecreta = [];
+let faseJuego = 'RECOLECCION'; 
+
+// --- FUNCIONES DE AYUDA ---
+function getColorPorNivel(nivel) {
+  if (nivel === 'TOP SECRET') return '#ff0000';
+  if (nivel === 'CONFIDENCIAL') return '#ffaa00';
+  return '#00b4ff';
+}
+
+function getIconoPorNivel(nivel) {
+  const color = getColorPorNivel(nivel);
+  return `<svg width="24" height="24" viewBox="0 0 24 24" fill="${color}" stroke="none"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/></svg>`;
+}
+
+function reproducirClick() {
+  const audio = document.getElementById("audio-click");
+  if(audio) { audio.pause(); audio.currentTime = 0; audio.play().catch(e => {}); }
+}
+
+// --- LÓGICA DE PROCESAMIENTO (LA BARRA DE CARGA HACKER) ---
+function procesarAcceso() {
+    document.getElementById('contenido-juego').style.display = 'none';
+    document.getElementById('terminal-carga').style.display = 'block';
+    document.getElementById('btn-validar').style.display = 'none';
+    
+    let barra = document.getElementById('barra-progreso');
+    let texto = document.getElementById('texto-consola');
+    let pasos = ["Bypass de Firewall...", "Desencriptando credenciales...", "Sincronizando...", "ACCESO CONCEDIDO"];
+    let i = 0;
+
+    let interval = setInterval(() => {
+        i++;
+        barra.style.width = (i * 25) + "%";
+        if (pasos[i-1]) texto.innerText = pasos[i-1];
+        
+        if (i >= 4) {
+            clearInterval(interval);
+            setTimeout(() => {
+                abrirModal(registroPendiente);
+                document.getElementById("pantalla-seguridad").style.display = "none";
+                cerrarSeguridad();
+            }, 500);
+        }
+    }, 600);
+}
+
+function cerrarSeguridad() {
+    document.getElementById('pantalla-seguridad').style.display = 'none';
+    document.getElementById('terminal-carga').style.display = 'none';
+    document.getElementById('contenido-juego').style.display = 'block';
+    document.getElementById('btn-validar').style.display = 'block';
+}
+
+// --- LÓGICA DEL MODAL ---
+function abrirModal(item) {
+  const modal = document.getElementById("modal-informe");
+  const caja = document.getElementById("modal-caja");
+  const nivelDiv = document.getElementById("modal-nivel");
+  const color = getColorPorNivel(item.nivel);
+  
+  document.getElementById("modal-titulo").innerText = item.titulo;
+  document.getElementById("modal-texto").innerText = item.descripcion;
+  document.getElementById("modal-firma").innerText = "Firma: " + item.firma;
+  nivelDiv.innerHTML = `${getIconoPorNivel(item.nivel)} <span style="margin-left: 8px; vertical-align: super;">NIVEL: ${item.nivel}</span>`;
+  caja.style.borderColor = color;
+  modal.style.display = "block";
+}
+
+function cerrarModal() { document.getElementById("modal-informe").style.display = "none"; }
+
+// --- LÓGICA DE MINIJUEGOS ---
+function intentarAbrir(item) {
+  if (item.nivel === 'PÚBLICO') {
+    abrirModal(item);
+  } else {
+    registroPendiente = item;
+    document.getElementById("pantalla-seguridad").style.display = "block";
+    if (item.nivel === 'CONFIDENCIAL') cargarSlider();
+    else if (item.nivel === 'TOP SECRET') iniciarEscaneo();
+  }
+}
+
+function cargarSlider() {
+  frecuenciaObjetivo = Math.floor(Math.random() * 81) + 10;
+  document.getElementById("area-minijuego").innerHTML = `
+    <div style="margin-bottom: 25px;">
+      <p style="font-size: 0.7rem; color: #aaa; margin: 0; letter-spacing: 2px;">FRECUENCIA DE TRANSMISIÓN:</p>
+      <h2 style="color: #00b4ff; margin: 5px 0;">${frecuenciaObjetivo} MHz</h2>
+    </div>
+    <input type="range" id="slider" min="0" max="100" value="0" style="width:100%" oninput="reproducirClick()">
+    <div style="display: flex; justify-content: space-between; font-size: 0.6rem; color: #555; padding: 5px 2px 0;">
+      ${Array(11).fill('<span>|</span>').join('')}
+    </div>
+  `;
+}
+
+function iniciarEscaneo() {
+  faseJuego = 'RECOLECCION';
+  numerosEncontrados = [];
+  codigoObjetivo = Array.from({length: 4}, () => Math.floor(Math.random() * 10));
+  document.getElementById("area-minijuego").innerHTML = `
+    <div id="contenedor-juego">
+      <p id="instruccion">FASE 1: Escanee el área para revelar la secuencia base.</p>
+      <div id="escaneo-area" onmousemove="moverLinterna(event)" style="position:relative; width:100%; height:200px; background:#000; border:1px solid #1f4f75; overflow:hidden; cursor:crosshair;">
+        <div id="linterna"></div>
+        ${codigoObjetivo.map((num, i) => `
+          <div class="num-oculto" id="n${i}" style="position:absolute; top:${Math.random()*150}px; left:${Math.random()*80}%; opacity:0; color:#00b4ff; font-weight:bold; font-size:2rem; transition:0.3s;" onmouseover="revelarNumero(${i}, ${num})">${num}</div>
+        `).join('')}
+      </div>
+    </div>
+  `;
+}
+
+function moverLinterna(e) {
+  const linterna = document.getElementById("linterna");
+  const area = document.getElementById("escaneo-area");
+  const rect = area.getBoundingClientRect();
+  linterna.style.left = (e.clientX - rect.left) + "px";
+  linterna.style.top = (e.clientY - rect.top) + "px";
+}
+
+function revelarNumero(id, num) {
+  const el = document.getElementById('n'+id);
+  if (!el.classList.contains('revelado')) {
+    el.classList.add('revelado');
+    numerosEncontrados.push(num);
+    el.style.textShadow = "0 0 10px #00b4ff";
+    if (numerosEncontrados.length === 4) {
+      setTimeout(() => {
+        combinacionSecreta = [...numerosEncontrados].sort(() => Math.random() - 0.5);
+        faseJuego = 'DESCIFRADO';
+        document.getElementById("contenedor-juego").innerHTML = `
+          <div style="animation: fadeIn 1s;">
+            <p>SECUENCIA REVELADA: ${numerosEncontrados.join(' ')}</p>
+            <p>FASE 2: Ingrese combinación (4 dígitos):</p>
+            <input type="text" id="input-combinacion" maxlength="4" style="background:#050a0f; color:#00b4ff; border:1px solid #00b4ff; padding:10px; font-size:1.5rem; text-align:center;">
+            <div id="bitacora" style="margin-top:15px; font-size:0.8rem; color:#ffaa00;"></div>
+          </div>
+        `;
+      }, 800);
+    }
+  }
+}
+
+function verificarCombinacion(intento, secreta) {
+    let fijos = 0; let desplazados = 0;
+    let iArr = intento.split(''); let sArr = secreta.map(String);
+    for (let i = 0; i < 4; i++) { if (iArr[i] === sArr[i]) { fijos++; iArr[i] = sArr[i] = null; } }
+    for (let i = 0; i < 4; i++) { if (iArr[i] && sArr.includes(iArr[i])) { desplazados++; sArr[sArr.indexOf(iArr[i])] = null; } }
+    return { fijos, desplazados };
+}
+
+function verificarAcceso() {
+  if (registroPendiente.nivel === 'CONFIDENCIAL') {
+    const val = document.getElementById('slider').value;
+    if (Math.abs(val - frecuenciaObjetivo) <= 2) procesarAcceso();
+    else alert("Sintonía incorrecta.");
+  } else if (registroPendiente.nivel === 'TOP SECRET') {
+    if (faseJuego !== 'DESCIFRADO') { alert("Fase de recolección incompleta."); return; }
+    const intento = document.getElementById("input-combinacion").value;
+    const { fijos, desplazados } = verificarCombinacion(intento, combinacionSecreta);
+    if (fijos === 4) procesarAcceso();
+    else { document.getElementById("bitacora").innerHTML += `<div>Intento ${intento}: ${fijos} Fijos, ${desplazados} Desplazados</div>`; }
+  }
+}
+
+fetch('registros.json').then(r => r.json()).then(data => {
+  const contenedor = document.getElementById('lista-registros');
+  data.forEach(item => {
+    const div = document.createElement('div');
+    div.className = 'card-informe';
+    div.innerHTML = `<div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">${getIconoPorNivel(item.nivel)}<h3 style="margin: 0; font-family: 'Courier Prime', monospace;">${item.titulo}</h3></div><p>${item.descripcion.substring(0, 80)}...</p><small>Nivel: ${item.nivel}</small>`;
+    div.onclick = () => intentarAbrir(item);
+    contenedor.appendChild(div);
+  });
+});
+</script>
+
+<audio id="audio-click" src="sonidos/click.mp3" preload="auto"></audio>
+</body>
+</html>
