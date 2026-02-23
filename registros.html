@@ -23,145 +23,45 @@
     /* CONTENIDO CENTRAL */
     main { margin-left: 310px; margin-right: 280px; padding: 40px; flex: 1; }
     h1 { text-align: center; letter-spacing: 5px; font-weight: 300; margin-bottom: 50px; border-bottom: 2px solid #00b4ff; padding-bottom: 20px; }
-    .section-title { text-align: center; letter-spacing: 4px; color: #00b4ff; margin-top: 80px; padding-bottom: 10px; }
-
-    /* TARJETAS DE ARCHIVO */
-    .gallery { display: grid; gap: 40px; justify-items: center; }
-    .item { width: 100%; max-width: 800px; background: rgba(14, 36, 56, 0.4); padding: 20px; border: 1px solid #2f6e9e; border-radius: 8px; text-align: center; transition: 0.3s; }
-    .item:hover { border-color: #00b4ff; box-shadow: 0 0 15px rgba(0, 180, 255, 0.2); }
-    .item img { width: 100%; border: 1px solid #00b4ff; border-radius: 4px; }
-    .item h3 { margin-top: 15px; letter-spacing: 2px; font-family: 'Courier Prime', monospace; }
+    
+    /* TARJETAS Y LISTA DE REGISTROS */
+    .gallery-informes { display: grid; gap: 20px; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
+    .card-informe { background: #091a2a; border: 1px solid #00b4ff; padding: 25px; border-radius: 8px; cursor: pointer; transition: 0.3s; }
+    .card-informe:hover { background: #12283d; border-color: #ffffff; }
+    .card-informe h3 { margin-top: 0; color: #00b4ff; font-family: 'Courier Prime', monospace; }
 
     /* PANEL DERECHO */
     aside { width: 250px; background: #091a2a; padding: 30px; height: 100vh; position: fixed; right: 0; border-left: 1px solid #1f4f75; }
     .buy-button { display: block; text-align: center; padding: 12px; background: #00b4ff; color: #050a0f; text-decoration: none; font-weight: bold; border-radius: 4px; margin-top: 20px; }
 
-    @media(max-width: 1100px) {
-    body { flex-direction: column; }
-    
-    /* Liberamos nav y aside del flujo fijo */
-    nav, aside { 
-        width: 100%; 
-        height: auto !important; 
-        position: relative !important; 
-        border: none;
-        padding: 20px;
-        box-sizing: border-box;
-    }
-    
-    /* El menú nav debe estar arriba, el main en medio, aside al final */
-    nav { order: 1; border-bottom: 1px solid #1f4f75; }
-    main { order: 2; margin: 0; padding: 20px; }
-    aside { order: 3; border-top: 1px solid #1f4f75; }
-    
-    /* Ocultamos el botón de menú si no quieres usar la lógica de JS todavía */
-    #menu-toggle { display: none !important; }
-}
-
-    /* Añadimos solo esto para la lista de registros: */
-    .gallery-informes { display: grid; gap: 20px; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
-    .card-informe { background: #091a2a; border: 1px solid #00b4ff; padding: 25px; border-radius: 8px; cursor: pointer; transition: 0.3s; }
-    .card-informe:hover { background: #12283d; border-color: #ffffff; }
-    .card-informe h3 { margin-top: 0; color: #00b4ff; font-family: 'Courier Prime', monospace; }
-    
-    /* Estilo del Modal */
+    /* MODAL */
     .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 1000; }
-    .modal-contenido { background: #091a2a; margin: 10% auto; padding: 40px; width: 60%; border: 2px solid #00b4ff; border-radius: 8px; color: white; position: relative; }
-    .cerrar { position: absolute; top: 10px; right: 20px; cursor: pointer; color: #00b4ff; font-size: 2rem; }
-
     .modal-contenido { 
-    background: #091a2a; 
-    margin: 5% auto; /* Reduje el margen superior para aprovechar más espacio vertical */
-    padding: 40px; 
-    width: 60%; 
-    border: 2px solid #00b4ff; 
-    border-radius: 8px; 
-    color: white; 
-    position: relative;
-    
-    /* MODIFICACIONES PARA EL SCROLL */
-    max-height: 80vh;      /* Limita la altura al 80% de la ventana */
-    overflow-y: auto;      /* Activa la barra de scroll vertical si es necesario */
-}
-
-/* Opcional: Para que el botón de cerrar no se mueva con el scroll */
-.cerrar { 
-    position: sticky; /* O fixed si prefieres, pero sticky queda mejor dentro del flujo */
-    top: -20px;       /* Ajusta según el padding del contenedor */
-    float: right; 
-    cursor: pointer; 
-    color: #00b4ff; 
-    font-size: 2rem; 
-    z-index: 10;
-}
-
-/* 1. Ancho de la barra */
-.modal-contenido::-webkit-scrollbar {
-    width: 8px;
-}
-
-/* 2. El fondo de la barra (el "canal") */
-.modal-contenido::-webkit-scrollbar-track {
-    background: #050a0f; 
-    border-left: 1px solid #1f4f75;
-}
-
-/* 3. La parte que se mueve (el "thumb") */
-.modal-contenido::-webkit-scrollbar-thumb {
-    background: #00b4ff; 
-    border-radius: 4px;
-    border: 1px solid #050a0f;
-}
-
-/* 4. Efecto al pasar el mouse sobre la barra */
-.modal-contenido::-webkit-scrollbar-thumb:hover {
-    background: #00d4ff;
-    box-shadow: 0 0 8px #00b4ff;
-}
-    
-    /* Estilo del slider de frecuencia */
-    #slider {
-    appearance: none;
-    width: 100%;
-    height: 10px;
-    background: #091a2a;
-    border: 1px solid #00b4ff;
-    outline: none;
+        background: #091a2a; margin: 5% auto; padding: 40px; width: 60%; border: 2px solid #00b4ff; border-radius: 8px; color: white; position: relative;
+        max-height: 80vh; overflow-y: auto; 
     }
+    .cerrar { position: sticky; top: -20px; float: right; cursor: pointer; color: #00b4ff; font-size: 2rem; z-index: 10; }
+    .modal-contenido::-webkit-scrollbar { width: 8px; }
+    .modal-contenido::-webkit-scrollbar-track { background: #050a0f; border-left: 1px solid #1f4f75; }
+    .modal-contenido::-webkit-scrollbar-thumb { background: #00b4ff; border-radius: 4px; }
 
-    #slider::-webkit-slider-thumb {
-    appearance: none;
-    width: 20px;
-    height: 20px;
-    background: #00b4ff;
-    cursor: pointer;
-    border: 2px solid #fff;
-    }
+    /* MINIJUEGOS */
+    #slider { appearance: none; width: 100%; height: 10px; background: #091a2a; border: 1px solid #00b4ff; }
+    #slider::-webkit-slider-thumb { appearance: none; width: 20px; height: 20px; background: #00b4ff; cursor: pointer; border: 2px solid #fff; }
+    #escaneo-area { width: 100%; height: 300px; background: #000; position: relative; cursor: crosshair; overflow: hidden; border: 1px solid #1f4f75; }
+    #linterna { position: absolute; width: 100px; height: 100px; border-radius: 50%; background: radial-gradient(circle, rgba(0, 180, 255, 0.3) 0%, rgba(0,0,0,0) 70%); pointer-events: none; transform: translate(-50%, -50%); }
+    .num-oculto { transition: opacity 0.8s ease, transform 0.8s ease; transform: scale(0.8); }
+    .num-oculto.revelado { opacity: 1 !important; transform: scale(1); }
 
-    #escaneo-area {
-    width: 100%; height: 300px;
-    background: #000; position: relative;
-    cursor: crosshair; overflow: hidden;
-    border: 1px solid #1f4f75;
-    }
-
-    /* El "foco" de la linterna */
-    #linterna {
-    position: absolute; width: 100px; height: 100px;
-    border-radius: 50%;
-    background: radial-gradient(circle, rgba(0, 180, 255, 0.3) 0%, rgba(0,0,0,0) 70%);
-    pointer-events: none;
-    transform: translate(-50%, -50%);
-    }
-
-    .num-oculto {
-    transition: opacity 0.8s ease, transform 0.8s ease;
-    transform: scale(0.8);
-    }
-
-    .num-oculto.revelado {
-    opacity: 1 !important;
-    transform: scale(1);
+    /* ADAPTACIÓN MÓVIL */
+    @media(max-width: 1100px) {
+        body { flex-direction: column; }
+        nav, aside { width: 100%; height: auto !important; position: relative !important; border: none; padding: 20px; box-sizing: border-box; }
+        nav { order: 1; border-bottom: 1px solid #1f4f75; }
+        main { order: 2; margin: 0; padding: 20px; }
+        aside { order: 3; border-top: 1px solid #1f4f75; }
+        #menu-toggle { display: none !important; }
+        .modal-contenido { width: 90% !important; }
     }
 </style>
 </head>
