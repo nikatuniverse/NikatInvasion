@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /NikatInvasion/
+Sitemap: https://nikatuniverse.github.io/NikatInvasion/sitemap.xml
