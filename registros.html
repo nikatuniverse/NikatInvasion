@@ -36,7 +36,27 @@
     aside { width: 250px; background: #091a2a; padding: 30px; height: 100vh; position: fixed; right: 0; border-left: 1px solid #1f4f75; }
     .buy-button { display: block; text-align: center; padding: 12px; background: #00b4ff; color: #050a0f; text-decoration: none; font-weight: bold; border-radius: 4px; margin-top: 20px; }
 
-    @media(max-width:1100px){ nav, aside { display: none; } main { margin: 0; padding: 20px; } }
+    @media(max-width: 1100px) {
+    body { flex-direction: column; }
+    
+    /* Liberamos nav y aside del flujo fijo */
+    nav, aside { 
+        width: 100%; 
+        height: auto !important; 
+        position: relative !important; 
+        border: none;
+        padding: 20px;
+        box-sizing: border-box;
+    }
+    
+    /* El menú nav debe estar arriba, el main en medio, aside al final */
+    nav { order: 1; border-bottom: 1px solid #1f4f75; }
+    main { order: 2; margin: 0; padding: 20px; }
+    aside { order: 3; border-top: 1px solid #1f4f75; }
+    
+    /* Ocultamos el botón de menú si no quieres usar la lógica de JS todavía */
+    #menu-toggle { display: none !important; }
+}
 
     /* Añadimos solo esto para la lista de registros: */
     .gallery-informes { display: grid; gap: 20px; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
@@ -200,6 +220,8 @@
 </aside>
 
 <script>
+
+  
 // --- CONFIGURACIÓN Y VARIABLES ---
 let registroPendiente = null;
 let frecuenciaObjetivo = 50;
@@ -382,6 +404,10 @@ fetch('registros.json').then(r => r.json()).then(data => {
     contenedor.appendChild(div);
   });
 });
+
+document.getElementById('menu-toggle').addEventListener('click', function() {
+        document.querySelector('nav').classList.toggle('activo');
+    });
 </script>
 
 <audio id="audio-click" src="sonidos/click.mp3" preload="auto"></audio>
