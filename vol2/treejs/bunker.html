@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="../imagenes/iconoae.png">
+    <title>Consola de monitoreo - Búnker Diomede</title>
+    <style>
+        body { 
+    margin: 0; 
+    background-color: #000; 
+    font-family: 'Courier New', Courier, monospace;
+    overflow: hidden; 
+}
+
+/* HUD Principal - Color Naranja Libro 2 */
+#ui-overlay {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    color: #ff8c00;
+    pointer-events: none;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    text-shadow: 0 0 5px #ff8c00;
+}
+
+/* Leyenda de Colores */
+#legend {
+    position: absolute;
+    bottom: 30px;
+    left: 20px;
+    background: rgba(20, 10, 0, 0.8); /* Fondo con tinte cálido */
+    padding: 15px;
+    border: 1px solid #ff8c00;
+    color: #ff8c00;
+    font-size: 12px;
+    pointer-events: none;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+}
+
+.color-box {
+    width: 12px;
+    height: 12px;
+    margin-right: 10px;
+    border: 1px solid #fff;
+}
+
+h1 { margin: 0; font-size: 24px; }
+p { margin: 5px 0; font-size: 14px; }
+
+canvas { 
+    display: block; 
+    outline: none; 
+}
+
+/* Panel de Información Dinámico */
+#info-panel {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 320px;
+    background: rgba(15, 5, 0, 0.95); /* Fondo más oscuro y cálido */
+    border: 1px solid #ff8c00;
+    color: #ff8c00;
+    padding: 15px;
+    display: none;
+    box-shadow: 0 0 15px rgba(255, 140, 0, 0.2);
+    z-index: 10;
+}
+
+#info-titulo {
+    font-size: 1.1em;
+    border-bottom: 1px dashed #ff8c00;
+    margin-bottom: 10px;
+    padding-bottom: 5px;
+    color: #fff; /* El título se mantiene blanco para legibilidad */
+}
+
+#info-desc {
+    font-size: 0.9em;
+    line-height: 1.4;
+    text-align: justify;
+}
+
+/* Evitar selección y highlights */
+* {
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
+}
+
+/* Botonera Inferior */
+#bottom-nav {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 10px;
+    z-index: 20;
+}
+
+#bottom-nav button {
+    background: rgba(15, 5, 0, 0.8);
+    border: 1px solid #ff8c00;
+    color: #ff8c00;
+    padding: 10px 15px;
+    font-family: 'Courier New', monospace;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-size: 11px;
+}
+
+#bottom-nav button:hover {
+    background: #ff8c00;
+    color: #000;
+    box-shadow: 0 0 15px #ff8c00;
+}
+
+/* Panel de Gráfica Inferior Derecha */
+#stats-panel {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    width: 320px;
+    background: rgba(10, 5, 0, 0.9);
+    border: 1px solid #ff8c00;
+    padding: 15px;
+    color: #ff8c00;
+    z-index: 20;
+    box-shadow: 0 0 20px rgba(255, 140, 0, 0.15);
+}
+
+#stats-header {
+    font-weight: bold;
+    font-size: 12px;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #ff8c00;
+    padding-bottom: 5px;
+}
+
+#stats-desc {
+    font-size: 11px;
+    line-height: 1.3;
+    color: #ffcc80;
+    height: 60px;
+    overflow-y: auto;
+}
+
+/* Permitir clics en la UI */
+#bottom-nav, #stats-panel {
+    pointer-events: auto;
+}
+    </style>
+</head>
+<body>
+
+    <!-- HUD Título (Superior Izquierda) -->
+    <div id="ui-overlay">
+        <h1>Instalación Diomede</h1>
+        <p>Estado: Operativo (Año 2354)</p>
+        <p id="loading-status">Sincronizando telemetría...</p>
+    </div>
+
+    <!-- Leyenda de Colores (Inferior Izquierda) -->
+    <div id="legend">
+        <div style="margin-bottom: 10px; font-weight: bold; border-bottom: 1px solid #0f0;">LEYENDA TÁCTICA (Seleccione una sección para ver la descripción)</div>
+        <div class="legend-item">
+    <div class="color-box" style="background: #f5bc00;"></div> Instalación (Blindaje Tyranium)
+</div>
+
+<div class="legend-item">
+    <div class="color-box" style="background: #956200;"></div> Antena Superlumínica
+</div>
+
+<div class="legend-item">
+    <div class="color-box" style="background: #b87a00;"></div> Ingeniería (Soporte Vital)
+</div>
+
+<div class="legend-item">
+    <div class="color-box" style="background: #c88400;"></div> Zona Habitacional
+</div>
+
+<div class="legend-item">
+    <div class="color-box" style="background: #f5d18a;"></div> Sala de Mando AE
+</div>
+
+<div class="legend-item">
+    <div class="color-box" style="background: #e9b363;"></div> Sala Militar (C.O.T.)
+</div>
+
+<div class="legend-item">
+    <div class="color-box" style="background: #e29600;"></div> Depósito de Recursos (Alerta Roja)
+</div>
+
+<div class="legend-item">
+    <div class="color-box" style="background: #956200;"></div> Transmisor (Alerta pordegradación  de Hafnio)
+</div>
+    </div>
+
+    <div id="bottom-nav">
+    <button onclick="actualizarGrafica('agua')">FILTROS AGUA</button>
+    <button onclick="actualizarGrafica('aire')">DEPURADORES CO2</button>
+    <button onclick="actualizarGrafica('energia')">NÚCLEO GEOTÉRMICO</button>
+    <button onclick="actualizarGrafica('miridium')">RESERVAS MIRIDIUM-7</button>
+</div>
+
+<div id="stats-panel">
+    <div id="stats-header">DIAGNÓSTICO DE SUBSISTEMA</div>
+    <div style="height: 150px; margin-bottom: 10px;">
+        <canvas id="degradationChart"></canvas>
+    </div>
+    <div id="stats-desc">Seleccione un sistema para análisis...</div>
+</div>
+
+    <!-- Panel de Información Dinámico (Derecha) -->
+    <div id="info-panel">
+        <h2 id="info-titulo">SECCIÓN</h2>
+        <p id="info-desc">Seleccione una sección para ver telemetría...</p>
+    </div>
+
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+                "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+            }
+        }
+    </script>
+
+    <script type="module">
+        import * as THREE from 'three';
+        import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+        import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+
+        const seccionesDiomede = {
+    "Antena": {
+    titulo: "Matriz Superlumínica de Disparo Cuántico",
+    descripcion: "Estructura colosal de 200 metros de altura diseñada para la focalización de haces de energía de alta densidad. El sistema opera mediante la ignición controlada de Miridium-7, proyectando un pulso térmico masivo para fracturar el tejido del espacio-tiempo. Tras la apertura de la brecha, la bobina de singularidad estabiliza el horizonte de sucesos, permitiendo el tránsito de paquetes de datos a través del portal. NOTA: Tras el último ciclo de transmisión, los superconductores sufrieron una degradación térmica del 98%, dejando el cañón de energía totalmente inoperativo."
+},
+    "Ingenieria": {
+    titulo: "Núcleo de Ingeniería y Soporte Vital",
+    descripcion: "Complejo de mantenimiento industrial. Centraliza el reciclaje de fluidos y la filtración de CO2 para los 300 residentes. Actualmente opera bajo protocolos de racionamiento estricto debido a la fatiga de materiales en los depuradores químicos. Estado: Crítico. Se han clausurado los sectores no esenciales para priorizar el soporte vital del área habitacional."
+},
+    "Instalacion": {
+    titulo: "Complejo de Superficie y Acceso Primario",
+    descripcion: "Antigua base de mando exterior, actualmente reducida a escombros tras la caída de la Deusitank y el bombardeo de los satélites cañón. Mientras que las estructuras habitacionales de superficie fueron erradicadas, el umbral del búnker permanece intacto. El suelo y el marco del ascensor están forjados en Tyranium de grado superior, un material de densidad ultra-alta diseñado para absorber impactos de magnitudes apoteósicas. Es la única fortificación que resistió la destrucción total, garantizando la integridad del sello hermético hacia los niveles inferiores."
+},
+    "Recursos": {
+    titulo: "Depósito de Contingencia Estratégica",
+    descripcion: "Bóveda de almacenamiento de suministros críticos. Diseñada originalmente para el sostenimiento de la población total durante un periodo máximo de 6 meses en escenario de aislamiento extremo. Tras 4 años de operación forzada, las reservas se encuentran en niveles de agotamiento terminal. Incluye: Raciones de supervivencia deshidratadas, kits médicos de trauma avanzado, polímeros de reparación estructural, filtros de intercambio iónico y reservas de munición táctica para el Mando AE. El excedente poblacional inicial y la falta de reabastecimiento han convertido esta zona en el punto más vulnerable de la instalación."
+},
+    "salaMando": {
+    titulo: "Centro de Operaciones y Mando AE",
+    descripcion: "Eje neurálgico de la Instalación Diomede. Gestiona la telemetría del Transmisor y la vigilancia perimetral. La dotación de oficiales se ha reducido al mínimo indispensable, operando en turnos rotativos de 12 horas. Desde aquí se autorizó el disparo final del Miridium-7, asumiendo la inhabilitación permanente de la antena en favor de la transmisión de datos crítica."
+},
+    "SalaMilitar": {
+    titulo: "C.O.T. (Centro de Operaciones Tácticas) - Reasignado",
+    descripcion: "Antiguo recinto de mando militar y almacenamiento de activos estratégicos. Tras la caída de la Tierra y la disolución de la cadena de mando global, el sector fue reconvertido en un centro médico de emergencia para los sobrevivientes de la invasión. Ante la escasez de efectivos, el personal militar restante fue reasignado a tareas críticas de mantenimiento y soporte técnico. Actualmente, el mando del búnker se rige por una estructura civil-militar de emergencia basada en figuras de autoridad preexistentes en la instalación."
+},
+    "transmisor": {
+    titulo: "Cámara de Transmisión Cuántica (Nivel Crítico)",
+    descripcion: "Compartimento de contención y procesamiento vital para el enlace interuniversal. Diseñado como un entorno de ultra-aislamiento térmico y refrigeración criogénica para garantizar la estabilidad del horizonte de sucesos. Tras el envío del mensaje interuniversal, la cámara fue sellada permanentemente debido a la degradación del Miridium-7 en Hafnio residual. Aunque la toxicidad inicial ha remitido, el impacto de la transmutación matérica dejó los componentes internos en un estado de obsolescencia física irreversible. El acceso permanece restringido para prevenir el colapso estructural de la bobina de singularidad degradada."
+},
+    "Viviendas": {
+    titulo: "Sectores Habitacionales B-01",
+    descripcion: "Módulo de residencia de alta densidad. Diseñado originalmente para albergar a una guarnición de 3,000 efectivos; tras la crisis y el aislamiento prolongado, solo el 10% de la capacidad está operativa. Las secciones restantes han sido despresurizadas y selladas para conservar energía. El ambiente presenta un deterioro estético avanzado, reflejando 4 años de uso ininterrumpido sin suministros de renovación."
+}
+};
+
+        const scene = new THREE.Scene();
+        scene.background = new THREE.Color(0x000000);
+
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 5000);
+        
+        // --- AJUSTE DE CÁMARA (Más cerca para impacto inicial) ---
+        camera.position.set(20 , 5, 20);
+
+        const renderer = new THREE.WebGLRenderer({ antialias: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setPixelRatio(window.devicePixelRatio);
+        document.body.appendChild(renderer.domElement);
+
+        const controls = new OrbitControls(camera, renderer.domElement);
+        controls.enableDamping = true;
+
+        const loader = new GLTFLoader();
+        const loadingStatus = document.getElementById('loading-status');
+
+        loader.load('bunker.glb', (gltf) => {
+            const model = gltf.scene;
+
+            // Centrar el modelo automáticamente
+            const box = new THREE.Box3().setFromObject(model);
+            const center = box.getCenter(new THREE.Vector3());
+            model.position.sub(center);
+
+            model.traverse((node) => {
+                if (node.isMesh) {
+                    node.material = new THREE.MeshBasicMaterial({
+                        color: node.material.color,
+                        transparent: true,
+                        opacity: 0.8,
+                        side: THREE.DoubleSide
+                    });
+                }
+            });
+
+            scene.add(model);
+            loadingStatus.innerText = "TELEMETRÍA: ONLINE";
+        }, 
+        (xhr) => {
+            loadingStatus.innerText = `DESCARGANDO DATOS: ${Math.round(xhr.loaded/xhr.total*100)}%`;
+        });
+
+        const raycaster = new THREE.Raycaster();
+const mouse = new THREE.Vector2();
+
+window.addEventListener('click', (event) => {
+    mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+    mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+
+    raycaster.setFromCamera(mouse, camera);
+    const intersects = raycaster.intersectObjects(scene.children, true);
+
+    if (intersects.length > 0) {
+        let objetoDetectado = intersects[0].object;
+        let info = null;
+        let nombreEncontrado = "";
+
+        // BÚSQUEDA ASCENDENTE: Si el objeto no tiene info, 
+        // revisamos sus "padres" hasta encontrar uno que coincida.
+        objetoDetectado.traverseAncestors((ancestor) => {
+            if (!info && seccionesDiomede[ancestor.name]) {
+                info = seccionesDiomede[ancestor.name];
+                nombreEncontrado = ancestor.name;
+            }
+        });
+
+        // Revisar también el objeto mismo por si acaso
+        if (!info && seccionesDiomede[objetoDetectado.name]) {
+            info = seccionesDiomede[objetoDetectado.name];
+            nombreEncontrado = objetoDetectado.name;
+        }
+
+        if (info) {
+            document.getElementById('info-panel').style.display = 'block';
+            document.getElementById('info-titulo').innerText = info.titulo;
+            document.getElementById('info-desc').innerText = info.descripcion;
+            console.log("Sistema Diomede detectó:", nombreEncontrado);
+        }
+    } else {
+        document.getElementById('info-panel').style.display = 'none';
+    }
+});
+
+        function animate() {
+            requestAnimationFrame(animate);
+            controls.update();
+            renderer.render(scene, camera);
+        }
+
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+
+        
+
+        animate();
+
+        // --- LÓGICA DE DIAGNÓSTICO Y GRÁFICAS ---
+
+const datosSubsistemas = {
+    agua: {
+        titulo: "SISTEMA DE OSMOSIS INVERSA",
+        desc: "Degradación crítica por acumulación de sedimentos radiactivos. Eficiencia actual: 14%. Riesgo de toxicidad en 120 ciclos.",
+        labels: ['Año 1', 'Año 2', 'Año 3', 'Año 4'],
+        valores: [95, 70, 40, 14],
+        color: '#ff8c00'
+    },
+    aire: {
+        titulo: "DEPURADORES DE CO2 (HAFNIO)",
+        desc: "Saturación de filtros HEPA al 88%. La mezcla de oxígeno presenta trazas de argón. Se recomienda sellado de niveles inferiores.",
+        labels: ['Año 1', 'Año 2', 'Año 3', 'Año 4'],
+        valores: [100, 98, 85, 45],
+        color: '#ffcc00'
+    },
+    energia: {
+        titulo: "NÚCLEO GEOTÉRMICO AUXILIAR",
+        desc: "Inestabilidad térmica en los acoplamientos del manto. Producción constante pero con micro-fracturas en la contención.",
+        labels: ['Año 1', 'Año 2', 'Año 3', 'Año 4'],
+        valores: [80, 82, 79, 75],
+        color: '#22ff00' // Energía estable
+    },
+    miridium: {
+        titulo: "RESERVAS DE MIRIDIUM-7",
+        desc: "RESERVA AGOTADA. El último remanente fue transmutado en el disparo interuniversal del Año 4. Sin capacidad de reinicio.",
+        labels: ['Año 1', 'Año 2', 'Año 3', 'Año 4'],
+        valores: [100, 50, 20, 0],
+        color: '#ff0000' // Crítico
+    }
+};
+
+let degradationChart;
+
+function inicializarGrafica() {
+    const ctx = document.getElementById('degradationChart').getContext('2d');
+    degradationChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: ['-','-','-','-'],
+            datasets: [{
+                label: '% Eficiencia',
+                data: [0, 0, 0, 0],
+                borderColor: '#ff8c00',
+                backgroundColor: 'rgba(255, 140, 0, 0.2)',
+                borderWidth: 2,
+                fill: true,
+                tension: 0.4
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                y: { beginAtZero: true, max: 100, grid: { color: '#331a00' }, ticks: { color: '#ff8c00', font: { size: 10 } } },
+                x: { grid: { display: false }, ticks: { color: '#ff8c00', font: { size: 10 } } }
+            },
+            plugins: {
+                legend: { display: false }
+            }
+        }
+    });
+}
+
+window.actualizarGrafica = function(id) {
+    const data = datosSubsistemas[id];
+    
+    if (data && degradationChart) {
+        // Actualizar Texto
+        document.getElementById('stats-header').innerText = data.titulo;
+        document.getElementById('stats-desc').innerText = data.desc;
+        
+        // Actualizar Gráfica
+        degradationChart.data.labels = data.labels;
+        degradationChart.data.datasets[0].data = data.valores;
+        degradationChart.data.datasets[0].borderColor = data.color;
+        degradationChart.data.datasets[0].backgroundColor = data.color + '33'; 
+        degradationChart.update();
+    }
+};
+
+// Llamar al inicio para que el canvas no nazca vacío
+inicializarGrafica();
+    </script>
+</body>
+</html>

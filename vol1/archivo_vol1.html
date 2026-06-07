@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta charset="UTF-8">
+<meta name="description" content="Explora los registros desclasificados de la invasión Nikat. Descubre la historia, tecnología y el destino de la resistencia en este archivo oficial del universo de ciencia ficción.">
+<meta name="keywords" content="Nikat, ciencia ficción, libro, invasión alienígena, archivos desclasificados, Jonatan Arley Hernández Chavarro, historia distópica">
+<meta name="author" content="Jonatan Arley Hernández Chavarro">
+
+<meta property="og:title" content="NIKAT INVASIÓN | ARCHIVO CLASIFICADO">
+<meta property="og:description" content="Acceso a los registros restringidos sobre la guerra contra los Nikat.">
+<meta property="og:image" content="https://tu-sitio.github.io/imagenes/portada.png">
+<meta property="og:url" content="https://tu-sitio.github.io/">
+<meta property="og:type" content="website">
+<meta name="google-site-verification" content="gdf8CoGBZx2gj_RoFmp-wvZrbNHVpr9vJW5yXOELPu8" />
+<link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@300;400;600;700&family=Courier+Prime&display=swap" rel="stylesheet">
+<link rel="icon" type="image/png" href="imagenes/iconoae.png">
+<title>NIKAT INVASIÓN | ARCHIVO CLASIFICADO</title>
+
+<style>
+/* ESTRUCTURA BASE */
+html { scroll-behavior: smooth; }
+body { margin: 0; font-family: 'Exo 2', sans-serif; background: linear-gradient(135deg, #050a0f, #0b1c2d); color: #e0f4ff; display: flex; }
+
+/* EFECTO DE ESCANEO */
+body::before { content: ""; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%); background-size: 100% 4px; pointer-events: none; z-index: 100; opacity: 0.1; }
+
+/* MENÚ IZQUIERDO */
+nav { width: 250px; background: #091a2a; padding: 30px; height: 100vh; position: fixed; border-right: 1px solid #1f4f75; }
+nav h2 { color: #00b4ff; font-size: 1.2rem; }
+nav a { display: block; color: #a8dfff; text-decoration: none; margin-bottom: 15px; font-weight: 600; font-size: 0.85rem; text-transform: uppercase; transition: .3s; }
+nav a:hover { color: #ffffff; padding-left: 10px; }
+
+/* CONTENIDO CENTRAL */
+main { margin-left: 310px; margin-right: 280px; padding: 40px; flex: 1; }
+h1 { text-align: center; letter-spacing: 5px; font-weight: 300; margin-bottom: 50px; border-bottom: 2px solid #00b4ff; padding-bottom: 20px; }
+.section-title { text-align: center; letter-spacing: 4px; color: #00b4ff; margin-top: 80px; padding-bottom: 10px; }
+
+/* TARJETAS DE ARCHIVO */
+.gallery { display: grid; gap: 40px; justify-items: center; }
+.item { width: 100%; max-width: 800px; background: rgba(14, 36, 56, 0.4); padding: 20px; border: 1px solid #2f6e9e; border-radius: 8px; text-align: center; transition: 0.3s; }
+.item:hover { border-color: #00b4ff; box-shadow: 0 0 15px rgba(0, 180, 255, 0.2); }
+.item img { width: 100%; border: 1px solid #00b4ff; border-radius: 4px; }
+.item h3 { margin-top: 15px; letter-spacing: 2px; font-family: 'Courier Prime', monospace; }
+
+/* PANEL DERECHO */
+aside { width: 250px; background: #091a2a; padding: 30px; height: 100vh; position: fixed; right: 0; border-left: 1px solid #1f4f75; }
+.buy-button { display: block; text-align: center; padding: 12px; background: #00b4ff; color: #050a0f; text-decoration: none; font-weight: bold; border-radius: 4px; margin-top: 20px; }
+
+@media(max-width: 1100px) {
+    body { flex-direction: column; }
+    
+    /* Liberamos nav y aside del flujo fijo */
+    nav, aside { 
+        width: 100%; 
+        height: auto !important; 
+        position: relative !important; 
+        border: none;
+        padding: 20px;
+        box-sizing: border-box;
+    }
+    
+    /* El menú nav debe estar arriba, el main en medio, aside al final */
+    nav { order: 1; border-bottom: 1px solid #1f4f75; }
+    main { order: 2; margin: 0; padding: 20px; }
+    aside { order: 3; border-top: 1px solid #1f4f75; }
+    
+    /* Ocultamos el botón de menú si no quieres usar la lógica de JS todavía */
+    #menu-toggle { display: none !important; }
+}
+
+/* Estilos para el logo y link */
+.logo-link {
+    text-decoration: none;
+    color: inherit;
+    margin-bottom: 30px;
+    display: block;
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 700;
+    font-size: 1.2rem;
+    color: #ffffff;
+}
+
+.logo-icon {
+    width: 35px; /* Ajusta el tamaño según necesites */
+    height: 35px;
+}
+
+</style>
+</head>
+
+<body>
+
+<nav>
+  <a href="../index.html" class="logo-link">
+    <div class="logo-container">
+      <img src="../comun/iconoae.png" alt="Logo" class="logo-icon">
+      <span>NIKAT NEXUS</span>
+    </div>
+  </a>
+  <h2>A.E. ARCHIVE</h2>
+  <a href="#infraestructura">INFRAESTRUCTURA</a>
+  <a href="#unidades">UNIDADES</a>
+  <a href="registros.html">REGISTROS / INFORMES</a> <div style="margin-top: 40px; border-top: 1px solid #1f4f75; padding-top: 20px;">
+    <a href="mailto:nikatuniverse@gmail.com" style="color: #00b4ff; font-size: 0.75rem;">CONTACTO: ADMINISTRACIÓN</a>
+    <button id="menu-toggle" style="display: none; background: #00b4ff;">MENÚ</button>
+</nav>
+
+<main>
+  <h1>NIKAT : INVASION</h1>
+
+  <section id="infraestructura">
+    <h2 class="section-title">INFRAESTRUCTURA</h2>
+    <div class="gallery">
+      <div class="item"><img src="imagenes/navenikat.png" alt="Nave Maestra"><h3>NAVE MAESTRA NIKAT</h3></div>
+      <div class="item"><img src="imagenes/EDE.png" alt="EDE"><h3>EDE (ESTACIÓN DE DEFENSA ESPACIAL)</h3></div>
+      <div class="item"><img src="imagenes/Transmisor interuniversar.png" alt="Transmisor"><h3>TRANSMISOR INTERUNIVERSAL</h3></div>
+    </div>
+  </section>
+
+  <section id="unidades">
+    <h2 class="section-title">UNIDADES</h2>
+    <div class="gallery">
+      <div class="item"><img src="imagenes/nox.png" alt="Nox"><h3>EQUIPO NOX</h3></div>
+      <div class="item"><img src="imagenes/umbra.png" alt="Umbra"><h3>EQUIPO UMBRA</h3></div>
+      <div class="item"><img src="imagenes/vesper.png" alt="Vesper"><h3>EQUIPO VESPER</h3></div>
+      <div class="item"><img src="imagenes/secundarios.png" alt="Secundarios"><h3>PERSONAJES SECUNDARIOS</h3></div>
+      <div class="item"><img src="imagenes/nikat.png" alt="Nikat"><h3>SOLDADOS NIKAT</h3></div>
+      <div class="item"><img src="imagenes/generales.png" alt="Generales"><h3>GENERALES NIKAT</h3></div>
+    </div>
+  </section>
+
+</main>
+
+<aside id="libro">
+  <div style="border: 1px solid #00b4ff; padding: 15px; border-radius: 8px; background: rgba(0, 30, 50, 0.5);">
+    <h2 style="margin-top: 0; color: #00b4ff; text-align: center;">OBRA OFICIAL</h2>
+    <img src="imagenes/portada.png" alt="Portada" style="width:100%; border-radius:4px; margin-bottom: 10px;">
+    <p style="font-size: 0.85rem; text-align: center; color: #a8dfff;">
+      La guerra con los Nikat ha comenzado. Adquiere el volumen completo.
+    </p>
+    <a href="https://www.amazon.com/-/es/Jonatan-Arley-Hernández-Chavarro/dp/B0GPNXK7NS" class="buy-button" target="_blank">COMPRAR EN AMAZON</a>
+  </div>
+</aside>
+
+<script>
+    document.getElementById('menu-toggle').addEventListener('click', function() {
+        document.querySelector('nav').classList.toggle('activo');
+    });
+</script>
+
+</body>
+</html>

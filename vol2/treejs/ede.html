@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="../imagenes/iconoae.png">
+    <title>Consola de monitoreo - EDE Orbital</title>
+    <style>
+        body { 
+            margin: 0; 
+            background-color: #000; 
+            font-family: 'Courier New', Courier, monospace;
+            overflow: hidden; 
+        }
+
+        /* HUD Principal - Estilo Interfaz Táctica EDE */
+        #ui-overlay {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            color: #D67C3A;
+            pointer-events: none;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-shadow: 0 0 5px #D67C3A;
+        }
+
+        /* Leyenda de Colores */
+        #legend {
+            position: absolute;
+            bottom: 30px;
+            left: 20px;
+            background: rgba(20, 10, 5, 0.9); 
+            padding: 15px;
+            border: 1px solid #DC6C1B;
+            color: #DC6C1B;
+            font-size: 11px;
+            pointer-events: none;
+            box-shadow: 0 0 15px rgba(220, 108, 27, 0.15);
+            z-index: 10;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 6px;
+        }
+
+        .color-box {
+            width: 12px;
+            height: 12px;
+            margin-right: 10px;
+            border: 1px solid #ffcc80;
+        }
+
+        h1 { margin: 0; font-size: 22px; }
+        p { margin: 5px 0; font-size: 13px; }
+
+        canvas { 
+            display: block; 
+            outline: none; 
+        }
+
+        /* Panel de Información Dinámico */
+        #info-panel {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 550px;
+            background: rgba(15, 5, 2, 0.95); 
+            border: 1px solid #CE5C11;
+            color: #DC8C55;
+            padding: 15px;
+            display: none;
+            box-shadow: 0 0 15px rgba(206, 92, 17, 0.2);
+            z-index: 10;
+        }
+
+        #info-titulo {
+            font-size: 1.1em;
+            border-bottom: 1px dashed #CE5C11;
+            margin-bottom: 10px;
+            padding-bottom: 5px;
+            color: #fff; 
+        }
+
+        #info-desc {
+            font-size: 0.9em;
+            line-height: 1.4;
+            text-align: justify;
+        }
+
+        * {
+            -webkit-tap-highlight-color: transparent;
+            user-select: none;
+        }
+
+        /* Botonera Inferior en Grid de 3 Columnas */
+        #bottom-nav {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+            padding: 10px;
+            background: rgba(20, 10, 5, 0.85);
+            border: 1px solid #CE5C11;
+            z-index: 20;
+            width: 650px;
+            box-shadow: 0 0 20px rgba(206, 92, 17, 0.1);
+        }
+
+        .btn-group {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        #bottom-nav button {
+            background: rgba(15, 5, 2, 0.8);
+            border: 1px solid #DC6C1B;
+            color: #DC6C1B;
+            padding: 8px 10px;
+            font-family: 'Courier New', monospace;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 10px;
+            text-align: left;
+            text-transform: uppercase;
+        }
+
+        #bottom-nav button:hover {
+            background: #DC6C1B;
+            color: #000;
+            box-shadow: 0 0 10px #DC6C1B;
+        }
+
+        /* Panel de Gráfica Inferior Derecha */
+        #stats-panel {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            width: 320px;
+            background: rgba(10, 5, 2, 0.9);
+            border: 1px solid #CE5C11;
+            padding: 15px;
+            color: #DC8C55;
+            z-index: 10;
+            box-shadow: 0 0 20px rgba(206, 92, 17, 0.15);
+        }
+
+        #stats-header {
+            font-weight: bold;
+            font-size: 11px;
+            margin-bottom: 10px;
+            border-bottom: 1px solid #CE5C11;
+            padding-bottom: 5px;
+            color: #fff;
+        }
+
+        #stats-desc {
+            font-size: 11px;
+            line-height: 1.3;
+            color: #DC8C55;
+            height: 65px;
+            overflow-y: auto;
+        }
+
+        #bottom-nav, #stats-panel, #info-panel {
+            pointer-events: auto;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="ui-overlay">
+        <h1>Estación de Enlace Orbital (EDE-40)</h1>
+        <p>Estado: Monitoreo Activo (Año 2354)</p>
+        <p id="loading-status">Sincronizando telemetría...</p>
+    </div>
+
+    <div id="legend">
+        <div style="margin-bottom: 10px; font-weight: bold; border-bottom: 1px solid #DC6C1B; padding-bottom: 3px;">MONITOREO SECCIONES EDE</div>
+        <div class="legend-item"><div class="color-box" style="background: #D69666;"></div> Centro de Mando (Módulo Superior)</div>
+        <div class="legend-item"><div class="color-box" style="background: #D67C3A;"></div> Ala B (Puerto de Atraque Pesado)</div>
+        <div class="legend-item"><div class="color-box" style="background: #DC8C55;"></div> Ala C (Telecomunicaciones / Bahía Médica)</div>
+        <div class="legend-item"><div class="color-box" style="background: #D67C3A;"></div> Ala D (Laboratorios I+D)</div>
+        <div class="legend-item"><div class="color-box" style="background: #CE5C11;"></div> Ala E (Manufactura Militar / Fundición)</div>
+        <div class="legend-item"><div class="color-box" style="background: #DC6C1B;"></div> El Anillo (Gravedad / Habitabilidad)</div>
+        <div class="legend-item"><div class="color-box" style="background: #C94119;"></div> Canal de Energía Interno</div>
+        <div class="legend-item"><div class="color-box" style="background: #B74D18;"></div> Brazos de Conexión (Radios)</div>
+        <div class="legend-item"><div class="color-box" style="background: #762111;"></div> Base Estructural (Eje Central)</div>
+        <div class="legend-item"><div class="color-box" style="background: #D69666;"></div> Conector del Ascensor Espacial</div>
+    </div>
+
+    <div id="bottom-nav">
+        <div class="btn-group">
+            <button onclick="actualizarGrafica('ala_b')">ALA B: PUERTO ATRAQUE</button>
+            <button onclick="actualizarGrafica('ala_c')">ALA C: TELECOM / MÉDICA</button>
+            <button onclick="actualizarGrafica('ala_d')">ALA D: LABORATORIOS I+D</button>
+            <button onclick="actualizarGrafica('ala_e')">ALA E: MANUF. MILITAR</button>
+        </div>
+        
+        <div class="btn-group">
+            <button onclick="actualizarGrafica('eje_central')">EJE CENTRAL STRUCT</button>
+            <button onclick="actualizarGrafica('antena_sl')">ANTENA SUPERLUMÍNICA</button>
+            <button onclick="actualizarGrafica('acople_ascensor')">ACOPLE DEL ASCENSOR</button>
+            <button onclick="actualizarGrafica('anillo_perimetral')">ANILLO: GRAV & ROTACIÓN</button>
+        </div>
+        
+        <div class="btn-group">
+            <button onclick="actualizarGrafica('red_energia')">RED ENERGÍA & PANELES</button>
+            <button onclick="actualizarGrafica('sistema_aire')">SISTEMA DE AIRE & CO2</button>
+            <button onclick="actualizarGrafica('purificacion_agua')">SISTEMA AGUA / HIDRO</button>
+            <button onclick="actualizarGrafica('centro_mando')">CENTRO MANDO CENTRAL</button>
+        </div>
+    </div>
+
+    <div id="stats-panel">
+        <div id="stats-header">DIAGNÓSTICO TERMINAL EDE</div>
+        <div style="height: 140px; margin-bottom: 10px;">
+            <canvas id="degradationChart"></canvas>
+        </div>
+        <div id="stats-desc">Seleccione un subsistema orbital para análisis...</div>
+    </div>
+
+    <div id="info-panel">
+        <h2 id="info-titulo">SECCIÓN</h2>
+        <p id="info-desc">Seleccione un componente del esquema 3D para aislar telemetría...</p>
+    </div>
+
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+                "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+            }
+        }
+    </script>
+
+    <script type="module">
+        import * as THREE from 'three';
+        import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+        import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+
+        const seccionesEDE = {
+            "centromando": {
+                titulo: "Módulo Superior: Complejo de Control Central y Comando Militar Integrado",
+                descripcion: "Eje neurálgico y máxima autoridad operativa de la EDE. Esta sección unifica el control de sistemas orbitales con el comando táctico militar de alta prioridad. Desde su puente blindado se administra en tiempo real la logística crítica de la estación, el racionamiento de recursos internos y el filtrado de transmisiones de espectro ensanchado. Funciona como el nodo principal de sincronización inter-estacional, coordinando vectores de despliegue y transferencia de datos con otras estaciones de enlace, destacamentos operativos en superficie y las redes de infraestructura en las colonias exteriores. Su posición en el extremo superior optimiza el alcance de las matrices de antenas de fase y los emisores cuánticos, garantizando el enlace táctico en escenarios de interferencia severa o degradación de señal."
+            },
+            "alaB": {
+                titulo: "Módulo Periférico: Ala B - Complejo de Acoplamiento y Puerto de Atraque Espacial de Alta Carga",
+                descripcion: "Estación de transferencia matérica y nodo logístico perimetral de la EDE, diseñado bajo especificaciones de ingeniería pesada para absorber el impacto cinético de vectores entrantes masivos. Esta sección cuenta con un muelle de atraque modular equipado con matrices de amortiguación hidráulica y sistemas de anclaje magnético por inducción adaptable, lo que le otorga una versatilidad operativa total. Su infraestructura está calibrada para procesar desde transbordadores ligeros de personal y sondas de reconocimiento automatizadas, hasta cargueros pesados y fragatas de minería de espacio profundo orientadas a la recolección de recursos en cinturones de asteroides.\n\nEl complejo integra tres esclusas de presurización atmosférica independiente, grúas pórtico de anclaje telescópico y líneas de descarga umbilical de alta presión para la transferencia directa de combustibles, gases licuados y mineral en bruto desglosado. Todo el flujo de entrada es processed en las cámaras de descompresión interna del módulo antes de ser canalizado mecánicamente a través de los brazos de conexión hacia los sistemas de refinamiento o almacenamiento del anillo perimetral. Funciona de manera ininterrumpida como la principal garganta industrial de la estación, asegurando la integridad estructural de la interfaz EDE-Espacio durante operaciones de estiba a gran escala."
+            },
+            "alaC": {
+                titulo: "Módulo Periférico: Ala C - Complejo Integrado de Telecomunicaciones y Bahía Médica Avanzada",
+                descripcion: "Sector septentrional de propósito múltiple y alta criticidad operativa dentro de la EDE. Esta sección aloja las estaciones de monitorización, modulación y administración directa de la antena superlumínica de la estación, funcionando como la bóveda principal de datos donde se procesa, encripta y almacena el registro histórico de toda la información de espectro ensanchado y paquetes cuánticos enviados y recibidos a través de la red de enlaces inter-estacionales.\n\nEn paralelo, el módulo alberga una infraestructura médica automatizada de grado superior, diseñada para la intervención quirúrgica avanzada y el soporte de trauma crítico bajo entornos de aislamiento orbital. Además de los laboratorios de diagnóstico y procedimientos estándares, la bahía está equipada con matrices de cápsulas de criogenia y estasis molecular regenerativa. Estos sistemas permiten suspender las funciones vitales de pacientes con politraumatismos o infecciones severas, ralentizando la degradación celular de forma indefinida en escenarios donde la estabilización requiera intervenciones complejas o la llegada de suministros biomédicos específicos desde la superficie o flotas de apoyo. Está considerada el área de mayor sofisticación tecnológica en biotecnología y telecomunicaciones de la instalación."
+            },
+            "alaD": {
+                titulo: "Módulo Periférico: Ala D - Complejo de Investigación Científica y Desarrollo Tecnológico Avanzado",
+                descripcion: "Sector oriental de máxima seguridad y aislamiento ambiental dentro de la EDE, destinado exclusivamente a los laboratorios de I+D de la Alianza. Esta sección centraliza a los equipos de investigadores e ingenieros encargados del desarrollo, prueba y validación de tecnologías de próxima generación. El complejo está subdividido en áreas de contención especializadas que abarcan desde la ingeniería balística y armamento militar avanzado, hasta la optimización de polímeros de alta resistencia para blindajes de armaduras tácticas.\n\nAsimismo, el ala integra laboratorios de bioingeniería alimentaria —dedicados a la síntesis de nutrientes hidropónicos y estabilización de raciones de larga duración— junto con talleres de dinámicas de fluidos y propulsión para el perfeccionamiento de vectores de viaje espacial y motores de salto. Cuenta con blindaje electromagnético reforzado para evitar la fuga de datos o interferencias críticas con los sistemas de comunicación de la estación, funcionando como el motor de innovación y supervivencia tecnológica de la Alianza Espacial."
+            },
+            "alaE": {
+                titulo: "Módulo Periférico: Ala E - Complejo de Manufactura Militar y Fundición de Aditivos Avanzados",
+                descripcion: "Sector meridional de alta densidad industrial destinado a la producción en masa, ensamblaje y despliegue de activos balísticos y logísticos de la Alianza Espacial. Esta sección funciona como el brazo ejecutor directo del Ala D; una vez que las nuevas tecnologías, aleaciones o patentes de armamento son estudiadas, testeadas y posteriormente aprobadas por el Alto Mando en el Centro de Control, los esquemas técnicos se transfieren a este módulo para su materialización física.\n\nEl complejo está equipado con matrices de impresión aditiva tridimensional divididas por criticidad de material: una línea base de impresoras de polímeros y compuestos estándar para la manufactura rápida de herramientas, repuestos simples y consumibles cotidianos; y una infraestructura segregada de fundición molecular y sinterizado láser de metal por vacío. Estas últimas son impresoras 3D industriales de grado militar capaces de procesar aleaciones complejas y compuestos densos para la forja de blindajes tácticos, armamento pesado y munición especializada. Funciona como la principal fundición y arsenal automatizado de la EDE, garantizando la autosuficiencia armamentística de la estación y sus destacamentos aliados."
+            },
+            "anillo": {
+                titulo: "Estructura Orbital: Anillo Toroidal de Gravedad Artificial y Habitabilidad Centralizada",
+                descripcion: "Megaestructura circular masiva y principal cuerpo de transferencia axial de la EDE. Su función primaria es la generación de un vector de gravedad artificial constante mediante un protocolo de rotación centrífuga estabilizada alrededor del eje central de la estación, mitigando la degradación ósea y muscular del personal durante despliegues prolongados. En su superficie exterior, el anillo integra matrices perimetrales de paneles solares fotovoltaicos de alta eficiencia y colectores térmicos, los cuales absorben la radiación estelar directa para abastecer y mantener la red de energía eléctrica y los bancos de condensadores de la instalación.\n\nEl espacio interior del toroide está optimizado como el sector residencial principal de la EDE, albergando los módulos habitacionales, áreas de rancho y zonas de esparcimiento para toda la dotación. Este entorno urbano orbital está rígidamente zonificado según criterios de proximidad operativa y seguridad táctica: los cuadrantes adyacentes a las Alas B y E están reservados para el personal de infantería, seguridad y operarios de la fundición (sector militar), mientras que los sectores cercanos a las Alas C y D alojan al cuerpo científico, médico y de telecomunicaciones (sector civil), garantizando un despliegue eficiente y una logística de tránsito ordenada en caso de contingencia."
+            },
+            "base": {
+                titulo: "Eje Central: Columna Mecánica Estructural y Núcleo del Enlace Superlumínica",
+                descripcion: "Columna vertebral cilíndrica y núcleo físico de soporte de la EDE, diseñada para soportar las inmensas fuerzas de torsión, flexión e inercia rotacional de una megaestructura que alcanza los 20 kilómetros de diámetro en su conjunto perimetral. Este gigantesco centro mecánico actúa como la muesca de anclaje de los brazos de conexión, unificando los sistemas de distribución energética, transporte neumático y tránsito de personal de toda la estación.\n\nEn su extremo superior, el eje alberga la Antena Superlumínica: la obra cumbre de la ingeniería de la Alianza y el único dispositivo tecnológico humano capaz de vulnerar las barreras de la relatividad para permitir una transmisión de datos y paquetes cuánticos prácticamente instantánea entre la Tierra y las colonias exteriores, evitando el desfase de años luz de los sistemas de radio convencionales. Asimismo, la sección inferior del eje aloja los sistemas de acople, amortiguación magnética y estabilización gravitatoria para el cable de tensión del Ascensor Espacial conectado directamente con la superficie terrestre. Funciona como el nexo definitivo entre el subsuelo del planeta y el espacio profundo, consolidando la soberanía logística de la Alianza Espacial."
+            },
+            "ConectorAscensor": {
+                titulo: "Interfaz Inferior: Complejo de Acoplamiento y Desacople de Emergencia del Ascensor Espacial",
+                descripcion: "Punto crítico de interfaz mecánica y transferencia matérica ubicado en la sección inferior del eje central. Este nodo gestiona el anclaje continuo y permanente con el cable de tensión del Ascensor Espacial, permitiendo el tránsito vertical ininterrumpido de suministros, materias primas y personal directamente desde la superficie de la Tierra hacia la estación de forma masiva y económica.\n\nEn escenarios de contingencia táctica o amenaza inminente, el complejo cuenta con un protocolo de eyección pirotécnica y liberación neumática de emergencia, permitiendo el desacople físico inmediato del cable para activar los sistemas de defense móvil de la EDE. Dado que las Estaciones de Enlace carecen de sistemas de propulsión hiperbólica o motores de salto para navegar en el espacio profundo, su infraestructura está limitada estrictamente a la permanencia orbital. Al desprenderse del ascensor, la EDE utiliza sus propulsores RCS de corrección para estabilizarse en una órbita geosincrónica perfecta, manteniéndose fija y estática sobre su posición geográfica asignada en la Tierra. Esto garantiza que, incluso en aislamiento total, la estación no derive al espacio exterior y conserve la cobertura táctica sobre su sector."
+            }
+        };
+
+        const scene = new THREE.Scene();
+        scene.background = new THREE.Color(0x000000);
+
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 5000);
+        camera.position.set(10, 5, 5);
+
+        const renderer = new THREE.WebGLRenderer({ antialias: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setPixelRatio(window.devicePixelRatio);
+        document.body.appendChild(renderer.domElement);
+
+        const controls = new OrbitControls(camera, renderer.domElement);
+        controls.enableDamping = true;
+
+        const loader = new GLTFLoader();
+        const loadingStatus = document.getElementById('loading-status');
+
+        loader.load('EDE.glb', (gltf) => {
+            const model = gltf.scene;
+            const box = new THREE.Box3().setFromObject(model);
+            const center = box.getCenter(new THREE.Vector3());
+            model.position.sub(center);
+
+            model.traverse((node) => {
+                if (node.isMesh) {
+                    node.material = new THREE.MeshBasicMaterial({
+                        color: node.material.color,
+                        transparent: true,
+                        opacity: 0.85,
+                        side: THREE.DoubleSide
+                    });
+                }
+            });
+
+            scene.add(model);
+            loadingStatus.innerText = "SISTEMA TELEMÉTRICO EDE: ONLINE";
+        }, 
+        (xhr) => {
+            loadingStatus.innerText = `PROCESANDO PROTOCOLO EDE: ${Math.round(xhr.loaded/xhr.total*100)}%`;
+        });
+
+        const raycaster = new THREE.Raycaster();
+        const mouse = new THREE.Vector2();
+
+        window.addEventListener('click', (event) => {
+            // Evitar que los clics en los paneles de la UI disparen el Raycaster 3D
+            if (event.target.tagName === 'BUTTON' || event.target.closest('#stats-panel') || event.target.closest('#legend')) return;
+
+            mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+            mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+
+            raycaster.setFromCamera(mouse, camera);
+            const intersects = raycaster.intersectObjects(scene.children, true);
+
+            if (intersects.length > 0) {
+                let objetoDetectado = intersects[0].object;
+                let info = null;
+
+                objetoDetectado.traverseAncestors((ancestor) => {
+                    if (!info && seccionesEDE[ancestor.name]) info = seccionesEDE[ancestor.name];
+                });
+
+                if (!info && seccionesEDE[objetoDetectado.name]) info = seccionesEDE[objetoDetectado.name];
+
+                if (info) {
+                    document.getElementById('info-panel').style.display = 'block';
+                    document.getElementById('info-titulo').innerText = info.titulo;
+                    document.getElementById('info-desc').innerText = info.descripcion;
+                }
+            } else {
+                document.getElementById('info-panel').style.display = 'none';
+            }
+        });
+
+        function animate() {
+            requestAnimationFrame(animate);
+            controls.update();
+            renderer.render(scene, camera);
+        }
+
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+
+        animate();
+
+        // --- BASE DE DATOS DE TELEMETRÍA PRE-DESPLIEGUE ---
+        const datosSubsistemas = {
+            ala_b: {
+                titulo: "ALERTA CRÍTICA: ALA B (PUERTO DE ATRAQUE)",
+                desc: "ESTADO: DESCONECTADO. Pérdida total de alimentación en los sistemas de anclaje magnético. Compuertas de presurización bloqueadas mecánicamente por falta de energía de respaldo.",
+                labels: ['09:00', '10:00', '11:00', '12:00'],
+                valores: [0, 0, 0, 0],
+                color: '#762111'
+            },
+            ala_c: {
+                titulo: "ALERTA DE SEGURIDAD: ALA C (MÉDICA / COMUNICACIONES)",
+                desc: "ESTADO: FALLO EN TÚNEL DE CONEXIÓN. Pérdida de presurización e integridad en el pasadizo estructural de acceso. Sensores térmicos reportan fluctuaciones anómalas en el sector.",
+                labels: ['09:00', '10:00', '11:00', '12:00'],
+                valores: [40, 25, 15, 10],
+                color: '#C94119'
+            },
+            ala_d: {
+                titulo: "ALERTA DE ENLACE: ALA D (LABORATORIOS I+D)",
+                desc: "ESTADO: SIN CONEXIÓN. Bucle de retroalimentación en el bus de datos central. Los terminales locales no responden al ping cuántico del Centro de Mando. Blindaje electromagnético estancado.",
+                labels: ['09:00', '10:00', '11:00', '12:00'],
+                valores: [0, 0, 0, 0],
+                color: '#762111'
+            },
+            ala_e: {
+                titulo: "ALERTA CRÍTICA: ALA E (MANUFACTURA MILITAR)",
+                desc: "ESTADO: DESCONECTADO. Las matrices de fundición de aditivos y las impresoras 3D industriales han sufrido un apagado forzoso. Almacenes de munición sellados por protocolo de aislamiento.",
+                labels: ['09:00', '10:00', '11:00', '12:00'],
+                valores: [0, 0, 0, 0],
+                color: '#762111'
+            },
+            eje_central: {
+                titulo: "TELEMETRÍA: EJE CENTRAL ESTRUCTURAL",
+                desc: "ESTADO: CRÍTICO / PASIVO. Integridad estructural al 65%. Soportando fuerzas de torsión residuales por la falta de calibración en la rotación del anillo perimetral.",
+                labels: ['09:00', '10:00', '11:00', '12:00'],
+                valores: [68, 66, 65, 65],
+                color: '#B74D18'
+            },
+            antena_sl: {
+                titulo: "DIAGNÓSTICO: RECEPTOR DE ANTENA SUPERLUMÍNICA",
+                desc: "ESTADO: DESCONECTADO. El núcleo de entrelazamiento cuántico está frío. No se registran transmisiones entrantes ni salientes con la Tierra ni con las colonias exteriores.",
+                labels: ['09:00', '10:00', '11:00', '12:00'],
+                valores: [0, 0, 0, 0],
+                color: '#762111'
+            },
+            acople_ascensor: {
+                titulo: "MONITOREO: INTERFAZ DEL ASCENSOR ESPACIAL",
+                desc: "ESTADO: ANCLAJE PASIVO. El cable de tensión mantiene acople físico mecánico estricto, pero los sistemas de transferencia de carga y energía vertical están inactivos.",
+                labels: ['09:00', '10:00', '11:00', '12:00'],
+                valores: [50, 50, 48, 48],
+                color: '#D69666'
+            },
+            anillo_perimetral: {
+                titulo: "DIAGNÓSTICO: GRAVEDAD ARTIFICIAL Y ROTACIÓN",
+                desc: "ESTADO: DEGRADACIÓN DINÁMICA. Desaceleración progresiva en el giro del toroide. Gravedad artificial disminuida a 0.3G en los sectores habitacionales civiles y militares.",
+                labels: ['09:00', '10:00', '11:00', '12:00'],
+                valores: [55, 42, 35, 30],
+                color: '#DC6C1B'
+            },
+            red_energia: {
+                titulo: "SISTEMA VITAL: RED ELÉCTRICA Y CAPTACIÓN SOLAR",
+                desc: "ESTADO: RESERVA CRÍTICA. Colectores térmicos exteriores operando al 12% por acumulación de residuos micrometeoríticos. Energía dirigida exclusivamente a sistemas de soporte vital mínimos.",
+                labels: ['09:00', '10:00', '11:00', '12:00'],
+                valores: [18, 15, 13, 12],
+                color: '#CE5C11'
+            },
+            sistema_aire: {
+                titulo: "SISTEMA VITAL: CONTROL ATMOSFÉRICO Y CO2",
+                desc: "ESTADO: RENDIMIENTO COMPROMETIDO. Filtros de partículas saturados. Los niveles de dióxido de carbono comienzan a acumularse en los sectores residenciales del Anillo.",
+                labels: ['09:00', '10:00', '11:00', '12:00'],
+                valores: [45, 40, 38, 35],
+                color: '#CE5C11'
+            },
+            purificacion_agua: {
+                titulo: "SISTEMA VITAL: PROCESAMIENTO HIDRÓLOGO",
+                desc: "ESTADO: RESERVA ESTÁTICA. Bombas de recirculación principal apagadas. El inventario de agua potable se encuentra sellado en los tanques centrales de la base sin riesgo de contaminación.",
+                labels: ['09:00', '10:00', '11:00', '12:00'],
+                valores: [60, 60, 60, 60],
+                color: '#D69666'
+            },
+            centro_mando: {
+                titulo: "MONITOREO: COMPLEJO DE MANDO CENTRAL",
+                desc: "ESTADO: ENERGÍA DE EMERGENCIA. Consolas operando en modo texto básico. Matrices de antenas de corto alcance inactivas. Esperando reajuste de la red perimetral.",
+                labels: ['09:00', '10:00', '11:00', '12:00'],
+                valores: [30, 30, 30, 30],
+                color: '#D69666'
+            }
+        };
+
+        let degradationChart;
+
+        function inicializarGrafica() {
+            const ctx = document.getElementById('degradationChart').getContext('2d');
+            degradationChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ['-', '-', '-', '-'],
+                    datasets: [{
+                        label: 'Eficiencia %',
+                        data: [0, 0, 0, 0],
+                        borderColor: '#DC6C1B',
+                        backgroundColor: 'rgba(220, 108, 27, 0.05)',
+                        borderWidth: 1.5,
+                        fill: true,
+                        tension: 0.1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: { beginAtZero: true, max: 100, grid: { color: '#251005' }, ticks: { color: '#DC8C55', font: { size: 9 } } },
+                        x: { grid: { display: false }, ticks: { color: '#DC8C55', font: { size: 9 } } },
+                    },
+                    plugins: { legend: { display: false } }
+                }
+            });
+        }
+
+        window.actualizarGrafica = function(id) {
+            const data = datosSubsistemas[id];
+            
+            if (data && degradationChart) {
+                document.getElementById('stats-header').innerText = data.titulo;
+                document.getElementById('stats-desc').innerText = data.desc;
+                
+                degradationChart.data.labels = data.labels;
+                degradationChart.data.datasets[0].data = data.valores;
+                degradationChart.data.datasets[0].borderColor = data.color;
+                degradationChart.data.datasets[0].backgroundColor = data.color + '15'; 
+                degradationChart.update();
+            }
+        };
+
+        // EJECUCIÓN INICIAL: Levantar gráfica y cargar subsistema por defecto
+        inicializarGrafica();
+        setTimeout(() => { actualizarGrafica('centro_mando'); }, 500);
+    </script>
+</body>
+</html>

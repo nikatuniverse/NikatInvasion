@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="description" content="Explora los registros desclasificados de la invasión Nikat. Descubre la historia, tecnología y el destino de la resistencia en este archivo oficial del universo de ciencia ficción.">
+<meta name="keywords" content="Nikat, ciencia ficción, libro, invasión alienígena, archivos desclasificados, Jonatan Arley Hernández Chavarro, historia distópica">
+<meta name="author" content="Jonatan Arley Hernández Chavarro">
+
+<meta property="og:title" content="NIKAT INVASIÓN | ARCHIVO CLASIFICADO">
+<meta property="og:description" content="Acceso a los registros restringidos sobre la guerra contra los Nikat.">
+<meta property="og:image" content="https://tu-sitio.github.io/imagenes/portada.png">
+<meta property="og:url" content="https://tu-sitio.github.io/">
+<meta property="og:type" content="website">
+<meta name="google-site-verification" content="gdf8CoGBZx2gj_RoFmp-wvZrbNHVpr9vJW5yXOELPu8" />
+<link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@300;400;600;700&family=Courier+Prime&display=swap" rel="stylesheet">
+<link rel="icon" type="image/png" href="imagenes/iconoae.png">
+<title>REGISTROS | NIKAT INVASIÓN</title>
+
+<style>
+    /* ESTRUCTURA BASE - PALETA NARANJA / ÁMBAR */
+    html { scroll-behavior: smooth; }
+    body { 
+        margin: 0; 
+        font-family: 'Exo 2', sans-serif; 
+        background: linear-gradient(135deg, #0f0a05, #24140a); 
+        color: #ffe0cc; 
+        display: flex; 
+        min-height: 100vh;
+    }
+
+    /* EFECTO DE ESCANEO */
+    body::before { 
+        content: ""; 
+        position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+        background: linear-gradient(rgba(18, 10, 5, 0) 50%, rgba(0, 0, 0, 0.2) 50%); 
+        background-size: 100% 4px; 
+        pointer-events: none; z-index: 100; opacity: 0.15; 
+    }
+
+    /* MENÚ IZQUIERDO */
+    nav { width: 250px; background: #1a1109; padding: 30px; height: 100vh; position: fixed; border-right: 1px solid #75411f; z-index: 50; }
+    nav h2 { color: #ff8c00; font-size: 1.2rem; letter-spacing: 2px; border-bottom: 1px solid #75411f; padding-bottom: 10px; }
+    nav a { display: block; color: #ffaa66; text-decoration: none; margin-bottom: 15px; font-weight: 600; font-size: 0.85rem; text-transform: uppercase; transition: .3s; }
+    nav a:hover { color: #ffffff; padding-left: 10px; text-shadow: 0 0 8px #ff8c00; }
+
+    /* CONTENIDO CENTRAL */
+    main { margin-left: 310px; margin-right: 280px; padding: 40px; flex: 1; }
+    h1 { 
+        text-align: center; letter-spacing: 5px; font-weight: 300; margin-bottom: 50px; 
+        border-bottom: 2px solid #ff8c00; padding-bottom: 20px; color: #ff8c00;
+        text-shadow: 0 0 10px rgba(255, 140, 0, 0.5);
+    }
+    
+    /* TARJETAS */
+    .gallery-informes { display: grid; gap: 20px; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
+    .card-informe { 
+        background: #1a1109; border: 1px solid #ff8c00; padding: 25px; border-radius: 8px; 
+        cursor: pointer; transition: 0.3s; position: relative; overflow: hidden;
+    }
+    .card-informe:hover { background: #2d1c0b; border-color: #ffe0cc; transform: translateY(-3px); }
+    .card-informe h3 { margin-top: 0; color: #ff8c00; font-family: 'Courier Prime', monospace; }
+
+    /* PANEL DERECHO */
+    aside { width: 250px; background: #1a1109; padding: 30px; height: 100vh; position: fixed; right: 0; border-left: 1px solid #75411f; z-index: 50;}
+    .buy-button { 
+        display: block; text-align: center; padding: 12px; background: #ff8c00; color: #0f0a05; 
+        text-decoration: none; font-weight: bold; border-radius: 4px; margin-top: 20px; transition: 0.3s;
+    }
+    .buy-button:hover { background: #ffaa66; box-shadow: 0 0 15px #ff8c00; }
+
+    /* MODAL */
+    .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 1000; }
+    .modal-contenido { 
+        background: #1a1109; margin: 5% auto; padding: 40px; width: 60%; border: 2px solid #ff8c00; 
+        border-radius: 8px; color: white; position: relative; max-height: 80vh; overflow-y: auto; 
+    }
+    .cerrar { position: sticky; top: -20px; float: right; cursor: pointer; color: #ff8c00; font-size: 2rem; z-index: 10; }
+
+    /* MINIJUEGOS */
+    #slider { appearance: none; width: 100%; height: 10px; background: #0f0a05; border: 1px solid #ff8c00; outline: none; }
+    #slider::-webkit-slider-thumb { appearance: none; width: 20px; height: 20px; background: #ff8c00; cursor: pointer; border: 2px solid #fff; }
+    
+    #escaneo-area { width: 100%; height: 300px; background: #000; position: relative; cursor: crosshair; overflow: hidden; border: 1px solid #75411f; }
+    #linterna { 
+        position: absolute; width: 120px; height: 120px; border-radius: 50%; 
+        background: radial-gradient(circle, rgba(255, 140, 0, 0.4) 0%, rgba(0,0,0,0) 75%); 
+        pointer-events: none; transform: translate(-50%, -50%); 
+    }
+    .num-oculto { color: #ff8c00; opacity: 0; font-weight: bold; font-size: 2rem; transition: 0.3s; pointer-events: auto; }
+    .num-oculto.revelado { opacity: 1 !important; transform: scale(1.1); text-shadow: 0 0 10px #ff8c00; }
+
+    /* BOTÓN MÓVIL (Hamburgesa opcional) */
+    #menu-toggle { display: none; position: fixed; top: 10px; left: 10px; z-index: 200; background: #ff8c00; padding: 10px; border-radius: 5px; cursor: pointer; }
+
+    @media(max-width: 1100px) {
+        body { flex-direction: column; }
+        nav, aside { width: 100%; height: auto !important; position: relative !important; border: none; padding: 20px; box-sizing: border-box; }
+        nav { border-bottom: 1px solid #75411f; }
+        main { margin: 0; padding: 20px; }
+        aside { border-top: 1px solid #75411f; }
+        .modal-contenido { width: 90% !important; }
+    }
+</style>
+</head>
+
+<body>
+
+<div id="menu-toggle">MENU</div>
+
+<nav id="nav-menu">
+  <h2>N.I. ARCHIVE</h2>
+  <a href="archivo_vol2.html">INICIO</a>
+  <a href="registros.html">REGISTROS</a>
+</nav>
+
+<main>
+  <h1>REGISTROS DESCLASIFICADOS</h1>
+  <div id="lista-registros" class="gallery-informes"></div>
+</main>
+
+<div id="modal-informe" class="modal">
+  <div id="modal-caja" class="modal-contenido">
+    <span class="cerrar" onclick="cerrarModal()">&times;</span>
+    <div id="modal-nivel" style="font-size: 0.7rem; letter-spacing: 2px; margin-bottom: 10px; font-weight: bold;"></div>
+    <h2 id="modal-titulo" style="font-family: 'Courier Prime', monospace;"></h2>
+    <p id="modal-texto" style="font-family: 'Courier Prime', monospace; white-space: pre-line; line-height: 1.6;"></p>
+    <hr style="border: 0; border-top: 1px solid #75411f; margin: 20px 0;">
+    <small id="modal-firma" style="color: #ff8c00; font-weight: bold;"></small>
+  </div>
+</div>
+
+<div id="pantalla-seguridad" class="modal" style="z-index: 2000;">
+  <div class="modal-contenido" style="text-align: center; border-color: #ff4500;">
+    <span class="cerrar" onclick="cerrarSeguridad()">&times;</span>
+
+    <div id="terminal-carga" style="display:none; text-align:center; padding: 20px;">
+        <div id="texto-consola" style="font-family: 'Courier Prime', monospace; color: #ff8c00; font-size: 0.9rem; margin-bottom: 10px;">INICIANDO...</div>
+        <div style="width: 100%; height: 5px; background: #0f0a05; border: 1px solid #ff8c00;">
+            <div id="barra-progreso" style="width: 0%; height: 100%; background: #ff8c00; transition: width 0.4s;"></div>
+        </div>
+    </div>
+
+    <div id="contenido-juego">
+        <h2 id="titulo-seguridad" style="color: #ff4500;">AUTENTICACIÓN REQUERIDA</h2>
+        <div id="msg-error" style="color: #ff4500; font-size: 0.8rem; height: 20px; margin-bottom: 10px; font-family: 'Courier Prime', monospace;"></div>
+        <div id="area-minijuego" style="margin: 30px 0;"></div>
+        <button id="btn-validar" onclick="verificarAcceso()" class="buy-button" style="width: 200px; margin: 0 auto;">VALIDAR ACCESO</button>
+    </div>
+  </div>
+</div>
+
+<aside id="libro">
+  <div style="border: 1px solid #ff8c00; padding: 15px; border-radius: 8px; background: rgba(45, 28, 11, 0.6);">
+    <h2 style="margin-top: 0; color: #ff8c00; text-align: center; font-size: 1rem;">OBRA OFICIAL</h2>
+    <img src="imagenes/portada.png" alt="Portada" style="width:100%; border-radius:4px; margin-bottom: 10px; border: 1px solid #75411f;">
+    <p style="font-size: 0.85rem; text-align: center; color: #ffaa66;">
+      La guerra con los Nikat ha comenzado. Adquiere el volumen completo.
+    </p>
+    <a href="https://www.amazon.com/-/es/Jonatan-Arley-Hernández-Chavarro/dp/B0GPNXK7NS" class="buy-button" target="_blank">COMPRAR EN AMAZON</a>
+  </div>
+</aside>
+
+<script>
+// --- CONFIGURACIÓN ---
+let registroPendiente = null;
+let frecuenciaObjetivo = 50;
+let numerosEncontrados = [];
+let codigoObjetivo = [];
+let combinacionSecreta = [];
+let faseJuego = 'RECOLECCION'; 
+
+function getColorPorNivel(nivel) {
+  if (nivel === 'TOP SECRET') return '#ff4500';
+  if (nivel === 'CONFIDENCIAL') return '#ffaa00';
+  return '#ff8c00';
+}
+
+function getIconoPorNivel(nivel) {
+  const color = getColorPorNivel(nivel);
+  return `<svg width="24" height="24" viewBox="0 0 24 24" fill="${color}"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/></svg>`;
+}
+
+// --- LÓGICA DE INTERFAZ ---
+function mostrarError(txt) {
+    const err = document.getElementById('msg-error');
+    err.innerText = txt;
+    setTimeout(() => err.innerText = "", 3000);
+}
+
+function procesarAcceso() {
+    document.getElementById('contenido-juego').style.display = 'none';
+    document.getElementById('terminal-carga').style.display = 'block';
+    
+    let barra = document.getElementById('barra-progreso');
+    let texto = document.getElementById('texto-consola');
+    let pasos = ["Bypass de Firewall...", "Desencriptando registros...", "Sincronizando señal...", "ACCESO CONCEDIDO"];
+    let i = 0;
+
+    let interval = setInterval(() => {
+        i++;
+        barra.style.width = (i * 25) + "%";
+        if (pasos[i-1]) texto.innerText = pasos[i-1];
+        if (i >= 4) {
+            clearInterval(interval);
+            setTimeout(() => {
+                abrirModal(registroPendiente);
+                cerrarSeguridad();
+            }, 600);
+        }
+    }, 600);
+}
+
+function cerrarSeguridad() {
+    document.getElementById('pantalla-seguridad').style.display = 'none';
+    document.getElementById('terminal-carga').style.display = 'none';
+    document.getElementById('contenido-juego').style.display = 'block';
+}
+
+function abrirModal(item) {
+  const modal = document.getElementById("modal-informe");
+  const caja = document.getElementById("modal-caja");
+  const color = getColorPorNivel(item.nivel);
+  
+  document.getElementById("modal-titulo").innerText = item.titulo;
+  document.getElementById("modal-texto").innerText = item.descripcion;
+  document.getElementById("modal-firma").innerText = "AUTORIZADO POR: " + item.firma;
+  document.getElementById("modal-nivel").innerHTML = `${getIconoPorNivel(item.nivel)} <span style="margin-left: 8px; vertical-align: super; color:${color}">NIVEL: ${item.nivel}</span>`;
+  caja.style.borderColor = color;
+  modal.style.display = "block";
+}
+
+function cerrarModal() { document.getElementById("modal-informe").style.display = "none"; }
+
+function intentarAbrir(item) {
+  if (item.nivel === 'PÚBLICO') {
+    abrirModal(item);
+  } else {
+    registroPendiente = item;
+    document.getElementById("pantalla-seguridad").style.display = "block";
+    if (item.nivel === 'CONFIDENCIAL') cargarSlider();
+    else if (item.nivel === 'TOP SECRET') iniciarEscaneo();
+  }
+}
+
+// --- MINIJUEGOS ---
+function cargarSlider() {
+  frecuenciaObjetivo = Math.floor(Math.random() * 81) + 10;
+  document.getElementById("area-minijuego").innerHTML = `
+    <p style="font-size: 0.7rem; color: #ffaa66; letter-spacing: 2px;">SINTONIZAR FRECUENCIA:</p>
+    <h2 style="color: #ff8c00; margin: 10px 0;">${frecuenciaObjetivo} MHz</h2>
+    <input type="range" id="slider" min="0" max="100" value="0">
+  `;
+}
+
+function iniciarEscaneo() {
+  faseJuego = 'RECOLECCION';
+  numerosEncontrados = [];
+  codigoObjetivo = Array.from({length: 4}, () => Math.floor(Math.random() * 10));
+  document.getElementById("area-minijuego").innerHTML = `
+    <div id="contenedor-juego">
+      <p id="instruccion" style="font-size:0.8rem;">FASE 1: Localice la secuencia de seguridad.</p>
+      <div id="escaneo-area" onmousemove="moverLinterna(event)">
+        <div id="linterna"></div>
+        ${codigoObjetivo.map((num, i) => `
+          <div class="num-oculto" id="n${i}" style="position:absolute; top:${Math.random()*150 + 20}px; left:${Math.random()*80 + 5}%;" onmouseover="revelarNumero(${i}, ${num})">${num}</div>
+        `).join('')}
+      </div>
+    </div>
+  `;
+}
+
+function moverLinterna(e) {
+  const linterna = document.getElementById("linterna");
+  const rect = document.getElementById("escaneo-area").getBoundingClientRect();
+  linterna.style.left = (e.clientX - rect.left) + "px";
+  linterna.style.top = (e.clientY - rect.top) + "px";
+}
+
+function revelarNumero(id, num) {
+  const el = document.getElementById('n'+id);
+  if (!el.classList.contains('revelado')) {
+    el.classList.add('revelado');
+    numerosEncontrados.push(num);
+    if (numerosEncontrados.length === 4) {
+      setTimeout(() => {
+        combinacionSecreta = [...numerosEncontrados].sort(() => Math.random() - 0.5);
+        faseJuego = 'DESCIFRADO';
+        document.getElementById("contenedor-juego").innerHTML = `
+          <p>SECUENCIA DETECTADA: [ ${numerosEncontrados.join(' - ')} ]</p>
+          <p style="font-size:0.8rem; color:#ffaa00;">FASE 2: Ingrese combinación de 4 dígitos:</p>
+          <input type="text" id="input-combinacion" maxlength="4" style="background:#0f0a05; color:#ff8c00; border:1px solid #ff8c00; padding:10px; font-size:1.5rem; text-align:center; width:150px; font-family:'Courier Prime';">
+          <div id="bitacora" style="margin-top:15px; font-size:0.7rem; color:#ff4500; font-family:monospace;"></div>
+        `;
+      }, 600);
+    }
+  }
+}
+
+function verificarAcceso() {
+  if (registroPendiente.nivel === 'CONFIDENCIAL') {
+    const val = document.getElementById('slider').value;
+    if (Math.abs(val - frecuenciaObjetivo) <= 2) procesarAcceso();
+    else mostrarError("ERROR: SEÑAL FUERA DE RANGO");
+  } else if (registroPendiente.nivel === 'TOP SECRET') {
+    if (faseJuego !== 'DESCIFRADO') { mostrarError("ERROR: RECOLECCIÓN INCOMPLETA"); return; }
+    
+    const intento = document.getElementById("input-combinacion").value;
+    if (intento.length < 4) { mostrarError("ERROR: SECUENCIA INCOMPLETA"); return; }
+    
+    const secretaStr = combinacionSecreta.join('');
+    
+    if (intento === secretaStr) {
+        procesarAcceso();
+    } else {
+        // LÓGICA DE VARIACIÓN: MAYOR O MENOR
+        let pistas = "";
+        for (let i = 0; i < 4; i++) {
+            let digitoIntento = parseInt(intento[i]);
+            let digitoSecreto = combinacionSecreta[i];
+            
+            if (digitoIntento < digitoSecreto) pistas += "▲ "; // El secreto es mayor
+            else if (digitoIntento > digitoSecreto) pistas += "▼ "; // El secreto es menor
+            else pistas += "✔ "; // Es correcto
+        }
+        
+        document.getElementById("bitacora").innerHTML += `
+            <div style="margin-bottom:5px; border-left: 2px solid #ff4500; padding-left: 5px;">
+                INTENTO ${intento} > <span style="color:#ff8c00">${pistas}</span>
+            </div>`;
+        mostrarError("ERROR: CÓDIGO INVÁLIDO - REVISAR DIFERENCIAL");
+    }
+  }
+}
+
+// --- CARGA DE DATOS ---
+fetch('registros.json').then(r => r.json()).then(data => {
+  const contenedor = document.getElementById('lista-registros');
+  data.forEach(item => {
+    const div = document.createElement('div');
+    div.className = 'card-informe';
+    div.innerHTML = `
+        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
+            ${getIconoPorNivel(item.nivel)}
+            <h3 style="margin: 0; font-size:1rem;">${item.titulo}</h3>
+        </div>
+        <p style="font-size:0.8rem; color:#ccc;">${item.descripcion.substring(0, 70)}...</p>
+        <small style="color:${getColorPorNivel(item.nivel)}">NIVEL: ${item.nivel}</small>
+    `;
+    div.onclick = () => intentarAbrir(item);
+    contenedor.appendChild(div);
+  });
+}).catch(e => console.error("Error cargando JSON:", e));
+
+// Toggle Menú para móviles
+document.getElementById('menu-toggle').onclick = () => {
+    const nav = document.getElementById('nav-menu');
+    nav.style.display = nav.style.display === 'block' ? 'none' : 'block';
+};
+</script>
+</body>
+</html>
