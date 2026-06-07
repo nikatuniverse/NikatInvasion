@@ -171,7 +171,7 @@
                 <div class="title" style="color:var(--naranja)">Vol II: Resistencia</div>
             </a>
 
-            <div class="book-anchor y-2354 v3">
+            <div class="book-anchor y-2354 v3" onclick="document.getElementById('error-modal').style.display='flex'" style="cursor: pointer;">
                 <div class="cover" style="border-color: var(--verde);"><img src="comun/3.png" alt="Vol 3"></div>
                 <div class="v3-overlay">ACCESO RESTRINGIDO</div>
                 <div class="title" style="color:var(--verde)">Vol III: Contraataque</div>
@@ -195,5 +195,14 @@
             view.scrollLeft = vol1.offsetLeft - (window.innerWidth / 2) + 60;
         };
     </script>
+
+    <div id="error-modal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.85); z-index:100; justify-content:center; align-items:center;">
+    <div style="border: 1px solid var(--verde); padding: 20px; text-align: center; max-width: 400px; background: #050a0f;">
+        <h2 style="color: var(--verde); font-family: 'Orbitron'; font-size: 1.2rem;">ERROR 403: ACCESO RESTRINGIDO</h2>
+        <p style="font-size: 0.9rem; color: #ccc;">El registro temporal solicitado [VOL III: CONTRAATAQUE] se encuentra actualmente bajo proceso de desencriptación parcial.</p>
+        <p style="font-size: 0.7rem; color: #555;">ESTADO: EN PROCESO DE RECONSTRUCCIÓN DE DATOS.</p>
+        <button onclick="document.getElementById('error-modal').style.display='none'" style="margin-top:20px; background:transparent; border:1px solid var(--verde); color:white; padding:5px 15px; cursor:pointer;">CERRAR</button>
+    </div>
+</div>
 </body>
 </html>
