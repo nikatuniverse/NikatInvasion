@@ -164,6 +164,30 @@
       line-height: 1.4;
       color: #ccc;
     }
+
+    /* ========================================================= */
+    /* AJUSTES PARA MÓVILES Y NAVEGADORES DE APPS (INSTAGRAM)     */
+    /* ========================================================= */
+    @media (max-width: 768px) {
+      #info-panel {
+        width: 92vw;
+        right: 4vw;
+        top: 10px;
+        max-height: 55dvh; /* Usa altura dinámica para evitar que colisione con el menú inferior */
+      }
+
+      #controls-panel {
+        bottom: 10px;
+        padding: 8px 10px;
+        max-height: 30dvh;
+        overflow-y: auto; /* Permite deslizar si los botones se amontonan */
+      }
+
+      .planet-btn {
+        padding: 5px 10px;
+        font-size: 0.7rem;
+      }
+    }
   </style>
 </head>
 <body>
