@@ -2,6 +2,7 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="Explora los registros desclasificados de la invasión Nikat. Descubre la historia, tecnología y el destino de la resistencia en este archivo oficial del universo de ciencia ficción.">
 <meta name="keywords" content="Nikat, ciencia ficción, libro, invasión alienígena, archivos desclasificados, Jonatan Arley Hernández Chavarro, historia distópica">
 <meta name="author" content="Jonatan Arley Hernández Chavarro">
@@ -12,93 +13,180 @@
 <meta property="og:url" content="https://tu-sitio.github.io/">
 <meta property="og:type" content="website">
 <meta name="google-site-verification" content="gdf8CoGBZx2gj_RoFmp-wvZrbNHVpr9vJW5yXOELPu8" />
-<link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@300;400;600;700&family=Courier+Prime&display=swap" rel="stylesheet">
+
+<link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@300;400;600&family=Orbitron:wght@400;700&family=Courier+Prime&display=swap" rel="stylesheet">
 <link rel="icon" type="image/png" href="imagenes/iconoae.png">
 <title>REGISTROS | NIKAT INVASIÓN</title>
 
 <style>
-    /* ESTRUCTURA BASE - PALETA NARANJA / ÁMBAR */
+    :root {
+        --naranja: #ff8800;
+        --naranja-glow: rgba(255, 136, 0, 0.3);
+        --bg-dark: #0a0602;
+        --panel-bg: rgba(20, 13, 7, 0.85);
+        --text: #ffe0cc;
+    }
+
+    /* ESTRUCTURA BASE */
     html { scroll-behavior: smooth; }
     body { 
         margin: 0; 
         font-family: 'Exo 2', sans-serif; 
-        background: linear-gradient(135deg, #0f0a05, #24140a); 
-        color: #ffe0cc; 
+        background: linear-gradient(135deg, var(--bg-dark), #1a1109); 
+        color: var(--text); 
         display: flex; 
         min-height: 100vh;
+        overflow-x: hidden;
     }
 
     /* EFECTO DE ESCANEO */
     body::before { 
         content: ""; 
         position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
-        background: linear-gradient(rgba(18, 10, 5, 0) 50%, rgba(0, 0, 0, 0.2) 50%); 
-        background-size: 100% 4px; 
+        background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(255, 136, 0, 0.05) 50%); 
+        background-size: 100% 8px; 
         pointer-events: none; z-index: 100; opacity: 0.15; 
     }
 
     /* MENÚ IZQUIERDO */
-    nav { width: 250px; background: #1a1109; padding: 30px; height: 100vh; position: fixed; border-right: 1px solid #75411f; z-index: 50; }
-    nav h2 { color: #ff8c00; font-size: 1.2rem; letter-spacing: 2px; border-bottom: 1px solid #75411f; padding-bottom: 10px; }
-    nav a { display: block; color: #ffaa66; text-decoration: none; margin-bottom: 15px; font-weight: 600; font-size: 0.85rem; text-transform: uppercase; transition: .3s; }
-    nav a:hover { color: #ffffff; padding-left: 10px; text-shadow: 0 0 8px #ff8c00; }
+    nav { 
+        width: 250px; 
+        background: var(--panel-bg); 
+        backdrop-filter: blur(10px);
+        padding: 30px; 
+        height: 100vh; 
+        position: fixed; 
+        border-right: 1px solid rgba(255, 136, 0, 0.3); 
+        box-sizing: border-box;
+        z-index: 50; 
+    }
+    nav h2 { 
+        color: var(--naranja); 
+        font-size: 0.9rem; 
+        font-family: 'Orbitron', sans-serif;
+        letter-spacing: 2px; 
+        border-bottom: 1px solid var(--naranja-glow); 
+        padding-bottom: 10px; 
+        margin-top: 20px;
+    }
+    nav a { 
+        display: block; 
+        color: #ccaa88; 
+        text-decoration: none; 
+        margin-bottom: 15px; 
+        font-weight: 600; 
+        font-size: 0.75rem; 
+        font-family: 'Exo 2', sans-serif;
+        letter-spacing: 1px;
+        text-transform: uppercase; 
+        transition: .3s; 
+    }
+    nav a:hover { 
+        color: var(--naranja); 
+        padding-left: 5px; 
+        text-shadow: 0 0 8px var(--naranja-glow); 
+    }
 
     /* CONTENIDO CENTRAL */
-    main { margin-left: 310px; margin-right: 280px; padding: 40px; flex: 1; }
+    main { 
+        margin-left: 280px; 
+        margin-right: 280px; 
+        padding: 40px; 
+        flex: 1; 
+    }
     h1 { 
-        text-align: center; letter-spacing: 5px; font-weight: 300; margin-bottom: 50px; 
-        border-bottom: 2px solid #ff8c00; padding-bottom: 20px; color: #ff8c00;
-        text-shadow: 0 0 10px rgba(255, 140, 0, 0.5);
+        text-align: center; 
+        font-family: 'Orbitron', sans-serif;
+        letter-spacing: 5px; 
+        font-weight: 700; 
+        font-size: 1.8rem;
+        color: var(--naranja);
+        margin-bottom: 50px; 
+        border-bottom: 1px solid rgba(255, 136, 0, 0.4); 
+        padding-bottom: 20px; 
+        text-shadow: 0 0 15px var(--naranja-glow);
     }
     
     /* TARJETAS */
     .gallery-informes { display: grid; gap: 20px; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
     .card-informe { 
-        background: #1a1109; border: 1px solid #ff8c00; padding: 25px; border-radius: 8px; 
+        background: rgba(20, 13, 7, 0.85); 
+        backdrop-filter: blur(8px);
+        border: 1px solid rgba(255, 136, 0, 0.3); 
+        padding: 25px; border-radius: 8px; 
         cursor: pointer; transition: 0.3s; position: relative; overflow: hidden;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
     }
-    .card-informe:hover { background: #2d1c0b; border-color: #ffe0cc; transform: translateY(-3px); }
-    .card-informe h3 { margin-top: 0; color: #ff8c00; font-family: 'Courier Prime', monospace; }
+    .card-informe:hover { 
+        background: rgba(30, 20, 10, 0.95); 
+        border-color: var(--naranja); 
+        transform: translateY(-3px); 
+        box-shadow: 0 0 20px var(--naranja-glow);
+    }
+    .card-informe h3 { margin-top: 0; color: var(--naranja); font-family: 'Orbitron', sans-serif; font-size: 0.9rem; letter-spacing: 1px; }
 
     /* PANEL DERECHO */
-    aside { width: 250px; background: #1a1109; padding: 30px; height: 100vh; position: fixed; right: 0; border-left: 1px solid #75411f; z-index: 50;}
-    .buy-button { 
-        display: block; text-align: center; padding: 12px; background: #ff8c00; color: #0f0a05; 
-        text-decoration: none; font-weight: bold; border-radius: 4px; margin-top: 20px; transition: 0.3s;
+    aside { 
+        width: 250px; 
+        background: var(--panel-bg); 
+        backdrop-filter: blur(10px);
+        padding: 30px; 
+        height: 100vh; 
+        position: fixed; 
+        right: 0; 
+        border-left: 1px solid rgba(255, 136, 0, 0.3); 
+        box-sizing: border-box;
+        z-index: 50;
     }
-    .buy-button:hover { background: #ffaa66; box-shadow: 0 0 15px #ff8c00; }
+    .buy-button { 
+        display: block; text-align: center; padding: 12px; 
+        background: rgba(255, 136, 0, 0.15); 
+        border: 1px solid var(--naranja);
+        color: var(--naranja); text-decoration: none; 
+        font-family: 'Orbitron', sans-serif;
+        font-size: 0.75rem;
+        letter-spacing: 1px;
+        font-weight: bold; border-radius: 4px; margin-top: 20px; 
+        transition: all 0.2s ease;
+    }
+    .buy-button:hover { background: var(--naranja); color: #000; box-shadow: 0 0 12px var(--naranja-glow); }
 
     /* MODAL */
     .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 1000; }
     .modal-contenido { 
-        background: #1a1109; margin: 5% auto; padding: 40px; width: 60%; border: 2px solid #ff8c00; 
+        background: rgba(20, 13, 7, 0.95); 
+        backdrop-filter: blur(12px);
+        margin: 5% auto; padding: 40px; width: 60%; border: 2px solid var(--naranja); 
         border-radius: 8px; color: white; position: relative; max-height: 80vh; overflow-y: auto; 
+        box-shadow: 0 0 30px var(--naranja-glow);
     }
-    .cerrar { position: sticky; top: -20px; float: right; cursor: pointer; color: #ff8c00; font-size: 2rem; z-index: 10; }
+    .cerrar { position: sticky; top: -20px; float: right; cursor: pointer; color: var(--naranja); font-size: 2rem; z-index: 10; }
 
     /* MINIJUEGOS */
-    #slider { appearance: none; width: 100%; height: 10px; background: #0f0a05; border: 1px solid #ff8c00; outline: none; }
-    #slider::-webkit-slider-thumb { appearance: none; width: 20px; height: 20px; background: #ff8c00; cursor: pointer; border: 2px solid #fff; }
+    #slider { appearance: none; width: 100%; height: 10px; background: #0f0a05; border: 1px solid var(--naranja); outline: none; border-radius: 2px; }
+    #slider::-webkit-slider-thumb { appearance: none; width: 20px; height: 20px; background: var(--naranja); cursor: pointer; border: 2px solid #fff; border-radius: 50%; box-shadow: 0 0 8px var(--naranja); }
     
-    #escaneo-area { width: 100%; height: 300px; background: #000; position: relative; cursor: crosshair; overflow: hidden; border: 1px solid #75411f; }
+    #escaneo-area { width: 100%; height: 300px; background: #000; position: relative; cursor: crosshair; overflow: hidden; border: 1px solid rgba(255, 136, 0, 0.4); border-radius: 4px; }
     #linterna { 
         position: absolute; width: 120px; height: 120px; border-radius: 50%; 
-        background: radial-gradient(circle, rgba(255, 140, 0, 0.4) 0%, rgba(0,0,0,0) 75%); 
+        background: radial-gradient(circle, rgba(255, 136, 0, 0.4) 0%, rgba(0,0,0,0) 75%); 
         pointer-events: none; transform: translate(-50%, -50%); 
     }
-    .num-oculto { color: #ff8c00; opacity: 0; font-weight: bold; font-size: 2rem; transition: 0.3s; pointer-events: auto; }
-    .num-oculto.revelado { opacity: 1 !important; transform: scale(1.1); text-shadow: 0 0 10px #ff8c00; }
+    .num-oculto { color: var(--naranja); opacity: 0; font-weight: bold; font-size: 2rem; transition: 0.3s; pointer-events: auto; font-family: 'Orbitron', sans-serif; }
+    .num-oculto.revelado { opacity: 1 !important; transform: scale(1.1); text-shadow: 0 0 10px var(--naranja); }
 
-    /* BOTÓN MÓVIL (Hamburgesa opcional) */
-    #menu-toggle { display: none; position: fixed; top: 10px; left: 10px; z-index: 200; background: #ff8c00; padding: 10px; border-radius: 5px; cursor: pointer; }
+    /* BOTÓN MÓVIL */
+    #menu-toggle { display: none; position: fixed; top: 10px; left: 10px; z-index: 200; background: var(--naranja); color: #000; padding: 10px; border-radius: 4px; cursor: pointer; font-family: 'Orbitron', sans-serif; font-size: 0.75rem; font-weight: bold; }
 
     @media(max-width: 1100px) {
         body { flex-direction: column; }
         nav, aside { width: 100%; height: auto !important; position: relative !important; border: none; padding: 20px; box-sizing: border-box; }
-        nav { border-bottom: 1px solid #75411f; }
-        main { margin: 0; padding: 20px; }
-        aside { border-top: 1px solid #75411f; }
+        nav { order: 1; border-bottom: 1px solid rgba(255, 136, 0, 0.3); }
+        main { order: 2; margin: 0; padding: 20px; }
+        aside { order: 3; border-top: 1px solid rgba(255, 136, 0, 0.3); }
         .modal-contenido { width: 90% !important; }
+        #menu-toggle { display: block; }
+        #nav-menu { display: none; }
     }
 </style>
 </head>
@@ -121,11 +209,11 @@
 <div id="modal-informe" class="modal">
   <div id="modal-caja" class="modal-contenido">
     <span class="cerrar" onclick="cerrarModal()">&times;</span>
-    <div id="modal-nivel" style="font-size: 0.7rem; letter-spacing: 2px; margin-bottom: 10px; font-weight: bold;"></div>
-    <h2 id="modal-titulo" style="font-family: 'Courier Prime', monospace;"></h2>
-    <p id="modal-texto" style="font-family: 'Courier Prime', monospace; white-space: pre-line; line-height: 1.6;"></p>
-    <hr style="border: 0; border-top: 1px solid #75411f; margin: 20px 0;">
-    <small id="modal-firma" style="color: #ff8c00; font-weight: bold;"></small>
+    <div id="modal-nivel" style="font-size: 0.7rem; letter-spacing: 2px; margin-bottom: 10px; font-weight: bold; font-family: 'Orbitron', sans-serif;"></div>
+    <h2 id="modal-titulo" style="font-family: 'Orbitron', sans-serif; font-size: 1.1rem; letter-spacing: 1px;"></h2>
+    <p id="modal-texto" style="font-family: 'Courier Prime', monospace; white-space: pre-line; line-height: 1.6; font-size: 0.85rem;"></p>
+    <hr style="border: 0; border-top: 1px solid rgba(255, 136, 0, 0.3); margin: 20px 0;">
+    <small id="modal-firma" style="color: var(--naranja); font-weight: bold; font-family: 'Courier Prime', monospace;"></small>
   </div>
 </div>
 
@@ -134,14 +222,14 @@
     <span class="cerrar" onclick="cerrarSeguridad()">&times;</span>
 
     <div id="terminal-carga" style="display:none; text-align:center; padding: 20px;">
-        <div id="texto-consola" style="font-family: 'Courier Prime', monospace; color: #ff8c00; font-size: 0.9rem; margin-bottom: 10px;">INICIANDO...</div>
-        <div style="width: 100%; height: 5px; background: #0f0a05; border: 1px solid #ff8c00;">
-            <div id="barra-progreso" style="width: 0%; height: 100%; background: #ff8c00; transition: width 0.4s;"></div>
+        <div id="texto-consola" style="font-family: 'Courier Prime', monospace; color: var(--naranja); font-size: 0.9rem; margin-bottom: 10px;">INICIANDO...</div>
+        <div style="width: 100%; height: 5px; background: #0f0a05; border: 1px solid var(--naranja); border-radius: 2px;">
+            <div id="barra-progreso" style="width: 0%; height: 100%; background: var(--naranja); transition: width 0.4s;"></div>
         </div>
     </div>
 
     <div id="contenido-juego">
-        <h2 id="titulo-seguridad" style="color: #ff4500;">AUTENTICACIÓN REQUERIDA</h2>
+        <h2 id="titulo-seguridad" style="color: #ff4500; font-family: 'Orbitron', sans-serif; font-size: 1rem; letter-spacing: 2px;">AUTENTICACIÓN REQUERIDA</h2>
         <div id="msg-error" style="color: #ff4500; font-size: 0.8rem; height: 20px; margin-bottom: 10px; font-family: 'Courier Prime', monospace;"></div>
         <div id="area-minijuego" style="margin: 30px 0;"></div>
         <button id="btn-validar" onclick="verificarAcceso()" class="buy-button" style="width: 200px; margin: 0 auto;">VALIDAR ACCESO</button>
@@ -150,13 +238,13 @@
 </div>
 
 <aside id="libro">
-  <div style="border: 1px solid #ff8c00; padding: 15px; border-radius: 8px; background: rgba(45, 28, 11, 0.6);">
-    <h2 style="margin-top: 0; color: #ff8c00; text-align: center; font-size: 1rem;">OBRA OFICIAL</h2>
-    <img src="imagenes/portada.png" alt="Portada" style="width:100%; border-radius:4px; margin-bottom: 10px; border: 1px solid #75411f;">
-    <p style="font-size: 0.85rem; text-align: center; color: #ffaa66;">
+  <div style="border: 1px solid rgba(255, 136, 0, 0.4); padding: 15px; border-radius: 8px; background: rgba(20, 13, 7, 0.85); backdrop-filter: blur(8px);">
+    <h2 style="margin-top: 0; color: var(--naranja); text-align: center; font-size: 0.85rem; font-family: 'Orbitron', sans-serif; letter-spacing: 2px;">OBRA OFICIAL</h2>
+    <img src="imagenes/portada.png" alt="Portada" style="width:100%; border-radius:4px; margin-bottom: 10px; border: 1px solid rgba(255, 136, 0, 0.3);">
+    <p style="font-size: 0.8rem; text-align: center; color: #ccaa88; line-height: 1.4;">
       La guerra con los Nikat ha comenzado. Adquiere el volumen completo.
     </p>
-    <a href="https://www.amazon.com/-/es/Jonatan-Arley-Hernández-Chavarro/dp/B0GPNXK7NS" class="buy-button" target="_blank">COMPRAR EN AMAZON</a>
+    <a href="https://www.amazon.com/-/es/J-Hernández/dp/B0H4S4S2S2" class="buy-button" target="_blank">COMPRAR EN AMAZON</a>
   </div>
 </aside>
 
@@ -172,7 +260,7 @@ let faseJuego = 'RECOLECCION';
 function getColorPorNivel(nivel) {
   if (nivel === 'TOP SECRET') return '#ff4500';
   if (nivel === 'CONFIDENCIAL') return '#ffaa00';
-  return '#ff8c00';
+  return '#ff8800';
 }
 
 function getIconoPorNivel(nivel) {
@@ -246,8 +334,8 @@ function intentarAbrir(item) {
 function cargarSlider() {
   frecuenciaObjetivo = Math.floor(Math.random() * 81) + 10;
   document.getElementById("area-minijuego").innerHTML = `
-    <p style="font-size: 0.7rem; color: #ffaa66; letter-spacing: 2px;">SINTONIZAR FRECUENCIA:</p>
-    <h2 style="color: #ff8c00; margin: 10px 0;">${frecuenciaObjetivo} MHz</h2>
+    <p style="font-size: 0.75rem; color: #ccaa88; letter-spacing: 2px; font-family: 'Orbitron', sans-serif;">SINTONIZAR FRECUENCIA:</p>
+    <h2 style="color: var(--naranja); margin: 10px 0; font-family: 'Orbitron', sans-serif;">${frecuenciaObjetivo} MHz</h2>
     <input type="range" id="slider" min="0" max="100" value="0">
   `;
 }
@@ -258,7 +346,7 @@ function iniciarEscaneo() {
   codigoObjetivo = Array.from({length: 4}, () => Math.floor(Math.random() * 10));
   document.getElementById("area-minijuego").innerHTML = `
     <div id="contenedor-juego">
-      <p id="instruccion" style="font-size:0.8rem;">FASE 1: Localice la secuencia de seguridad.</p>
+      <p id="instruccion" style="font-size:0.75rem; color: #ccaa88; font-family: 'Orbitron', sans-serif;">FASE 1: Localice la secuencia de seguridad.</p>
       <div id="escaneo-area" onmousemove="moverLinterna(event)">
         <div id="linterna"></div>
         ${codigoObjetivo.map((num, i) => `
@@ -286,9 +374,9 @@ function revelarNumero(id, num) {
         combinacionSecreta = [...numerosEncontrados].sort(() => Math.random() - 0.5);
         faseJuego = 'DESCIFRADO';
         document.getElementById("contenedor-juego").innerHTML = `
-          <p>SECUENCIA DETECTADA: [ ${numerosEncontrados.join(' - ')} ]</p>
-          <p style="font-size:0.8rem; color:#ffaa00;">FASE 2: Ingrese combinación de 4 dígitos:</p>
-          <input type="text" id="input-combinacion" maxlength="4" style="background:#0f0a05; color:#ff8c00; border:1px solid #ff8c00; padding:10px; font-size:1.5rem; text-align:center; width:150px; font-family:'Courier Prime';">
+          <p style="font-family: 'Orbitron', sans-serif; font-size: 0.8rem;">SECUENCIA DETECTADA: [ ${numerosEncontrados.join(' - ')} ]</p>
+          <p style="font-size:0.75rem; color:#ffaa00; font-family: 'Orbitron', sans-serif;">FASE 2: Ingrese combinación de 4 dígitos:</p>
+          <input type="text" id="input-combinacion" maxlength="4" style="background:#0f0a05; color:var(--naranja); border:1px solid var(--naranja); padding:10px; font-size:1.5rem; text-align:center; width:150px; font-family:'Orbitron', sans-serif; border-radius:4px;">
           <div id="bitacora" style="margin-top:15px; font-size:0.7rem; color:#ff4500; font-family:monospace;"></div>
         `;
       }, 600);
@@ -312,20 +400,19 @@ function verificarAcceso() {
     if (intento === secretaStr) {
         procesarAcceso();
     } else {
-        // LÓGICA DE VARIACIÓN: MAYOR O MENOR
         let pistas = "";
         for (let i = 0; i < 4; i++) {
             let digitoIntento = parseInt(intento[i]);
             let digitoSecreto = combinacionSecreta[i];
             
-            if (digitoIntento < digitoSecreto) pistas += "▲ "; // El secreto es mayor
-            else if (digitoIntento > digitoSecreto) pistas += "▼ "; // El secreto es menor
-            else pistas += "✔ "; // Es correcto
+            if (digitoIntento < digitoSecreto) pistas += "▲ ";
+            else if (digitoIntento > digitoSecreto) pistas += "▼ ";
+            else pistas += "✔ ";
         }
         
         document.getElementById("bitacora").innerHTML += `
             <div style="margin-bottom:5px; border-left: 2px solid #ff4500; padding-left: 5px;">
-                INTENTO ${intento} > <span style="color:#ff8c00">${pistas}</span>
+                INTENTO ${intento} > <span style="color:var(--naranja)">${pistas}</span>
             </div>`;
         mostrarError("ERROR: CÓDIGO INVÁLIDO - REVISAR DIFERENCIAL");
     }
@@ -341,10 +428,10 @@ fetch('registros.json').then(r => r.json()).then(data => {
     div.innerHTML = `
         <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
             ${getIconoPorNivel(item.nivel)}
-            <h3 style="margin: 0; font-size:1rem;">${item.titulo}</h3>
+            <h3 style="margin: 0;">${item.titulo}</h3>
         </div>
-        <p style="font-size:0.8rem; color:#ccc;">${item.descripcion.substring(0, 70)}...</p>
-        <small style="color:${getColorPorNivel(item.nivel)}">NIVEL: ${item.nivel}</small>
+        <p style="font-size:0.8rem; color:#b3a294; line-height: 1.4;">${item.descripcion.substring(0, 70)}...</p>
+        <small style="color:${getColorPorNivel(item.nivel)}; font-family: 'Orbitron', sans-serif; font-size: 0.7rem; letter-spacing: 1px;">NIVEL: ${item.nivel}</small>
     `;
     div.onclick = () => intentarAbrir(item);
     contenedor.appendChild(div);

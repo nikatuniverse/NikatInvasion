@@ -2,7 +2,6 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta charset="UTF-8">
 <meta name="description" content="Explora los registros desclasificados de la invasión Nikat. Descubre la historia, tecnología y el destino de la resistencia en este archivo oficial del universo de ciencia ficción.">
 <meta name="keywords" content="Nikat, ciencia ficción, libro, invasión alienígena, archivos desclasificados, Jonatan Arley Hernández Chavarro, historia distópica">
 <meta name="author" content="Jonatan Arley Hernández Chavarro">
@@ -13,84 +12,232 @@
 <meta property="og:url" content="https://tu-sitio.github.io/">
 <meta property="og:type" content="website">
 <meta name="google-site-verification" content="gdf8CoGBZx2gj_RoFmp-wvZrbNHVpr9vJW5yXOELPu8" />
-<link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@300;400;600;700&family=Courier+Prime&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@300;400;600&family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
 <link rel="icon" type="image/png" href="imagenes/iconoae.png">
 <title>NIKAT INVASIÓN | ARCHIVO CLASIFICADO</title>
 
 <style>
-/* ESTRUCTURA BASE */
-html { scroll-behavior: smooth; }
-body { margin: 0; font-family: 'Exo 2', sans-serif; background: linear-gradient(135deg, #050a0f, #0b1c2d); color: #e0f4ff; display: flex; }
+  :root {
+    --azul: #00b4ff;
+    --naranja: #ff8800;
+    --bg: #050a0f;
+  }
 
-/* EFECTO DE ESCANEO */
-body::before { content: ""; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%); background-size: 100% 4px; pointer-events: none; z-index: 100; opacity: 0.1; }
+  /* ESTRUCTURA BASE */
+  html { scroll-behavior: smooth; }
+  body { 
+    margin: 0; 
+    font-family: 'Exo 2', sans-serif; 
+    background-color: var(--bg); 
+    color: #e0f4ff; 
+    display: flex; 
+    overflow-x: hidden;
+  }
 
-/* MENÚ IZQUIERDO */
-nav { width: 250px; background: #091a2a; padding: 30px; height: 100vh; position: fixed; border-right: 1px solid #1f4f75; }
-nav h2 { color: #00b4ff; font-size: 1.2rem; }
-nav a { display: block; color: #a8dfff; text-decoration: none; margin-bottom: 15px; font-weight: 600; font-size: 0.85rem; text-transform: uppercase; transition: .3s; }
-nav a:hover { color: #ffffff; padding-left: 10px; }
+  /* EFECTO DE ESCANEO TÁCTICO */
+  body::before { 
+    content: ""; 
+    position: fixed; 
+    top: 0; 
+    left: 0; 
+    width: 100%; 
+    height: 100%; 
+    background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%); 
+    background-size: 100% 4px; 
+    pointer-events: none; 
+    z-index: 100; 
+    opacity: 0.1; 
+  }
 
-/* CONTENIDO CENTRAL */
-main { margin-left: 310px; margin-right: 280px; padding: 40px; flex: 1; }
-h1 { text-align: center; letter-spacing: 5px; font-weight: 300; margin-bottom: 50px; border-bottom: 2px solid #00b4ff; padding-bottom: 20px; }
-.section-title { text-align: center; letter-spacing: 4px; color: #00b4ff; margin-top: 80px; padding-bottom: 10px; }
+  /* MENÚ IZQUIERDO ESTILO NEXUS */
+  nav { 
+    width: 250px; 
+    background: rgba(5, 10, 15, 0.85); 
+    backdrop-filter: blur(10px);
+    padding: 30px; 
+    height: 100vh; 
+    position: fixed; 
+    border-right: 1px solid rgba(0, 180, 255, 0.4);
+    box-sizing: border-box;
+    z-index: 10;
+  }
+  
+  nav h2 { 
+    color: var(--azul); 
+    font-size: 0.9rem; 
+    font-family: 'Orbitron', sans-serif;
+    letter-spacing: 2px;
+    margin-top: 20px;
+  }
+  
+  nav a { 
+    display: block; 
+    color: #a8dfff; 
+    text-decoration: none; 
+    margin-bottom: 15px; 
+    font-weight: 600; 
+    font-size: 0.75rem; 
+    font-family: 'Exo 2', sans-serif;
+    letter-spacing: 1px;
+    text-transform: uppercase; 
+    transition: .3s; 
+  }
+  
+  nav a:hover { 
+    color: #ffffff; 
+    padding-left: 5px; 
+    text-shadow: 0 0 8px rgba(0, 180, 255, 0.6);
+  }
 
-/* TARJETAS DE ARCHIVO */
-.gallery { display: grid; gap: 40px; justify-items: center; }
-.item { width: 100%; max-width: 800px; background: rgba(14, 36, 56, 0.4); padding: 20px; border: 1px solid #2f6e9e; border-radius: 8px; text-align: center; transition: 0.3s; }
-.item:hover { border-color: #00b4ff; box-shadow: 0 0 15px rgba(0, 180, 255, 0.2); }
-.item img { width: 100%; border: 1px solid #00b4ff; border-radius: 4px; }
-.item h3 { margin-top: 15px; letter-spacing: 2px; font-family: 'Courier Prime', monospace; }
+  /* CONTENIDO CENTRAL */
+  main { 
+    margin-left: 280px; 
+    margin-right: 280px; 
+    padding: 40px; 
+    flex: 1; 
+  }
+  
+  h1 { 
+    text-align: center; 
+    font-family: 'Orbitron', sans-serif;
+    letter-spacing: 5px; 
+    font-weight: 700; 
+    font-size: 1.8rem;
+    color: var(--azul);
+    margin-bottom: 50px; 
+    border-bottom: 1px solid rgba(0, 180, 255, 0.4); 
+    padding-bottom: 20px; 
+    text-shadow: 0 0 10px rgba(0, 180, 255, 0.3);
+  }
+  
+  .section-title { 
+    text-align: center; 
+    font-family: 'Orbitron', sans-serif;
+    letter-spacing: 3px; 
+    color: var(--azul); 
+    margin-top: 60px; 
+    margin-bottom: 30px;
+    font-size: 1.1rem;
+    border-bottom: 1px dashed rgba(0, 180, 255, 0.2);
+    padding-bottom: 10px; 
+  }
 
-/* PANEL DERECHO */
-aside { width: 250px; background: #091a2a; padding: 30px; height: 100vh; position: fixed; right: 0; border-left: 1px solid #1f4f75; }
-.buy-button { display: block; text-align: center; padding: 12px; background: #00b4ff; color: #050a0f; text-decoration: none; font-weight: bold; border-radius: 4px; margin-top: 20px; }
+  /* TARJETAS DE ARCHIVO */
+  .gallery { 
+    display: grid; 
+    gap: 40px; 
+    justify-items: center; 
+  }
+  
+  .item { 
+    width: 100%; 
+    max-width: 800px; 
+    background: rgba(5, 10, 15, 0.85); 
+    backdrop-filter: blur(8px);
+    padding: 20px; 
+    border: 1px solid rgba(0, 180, 255, 0.4); 
+    border-radius: 8px; 
+    text-align: center; 
+    transition: 0.3s; 
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+  }
+  
+  .item:hover { 
+    border-color: var(--azul); 
+    box-shadow: 0 0 20px rgba(0, 180, 255, 0.3); 
+  }
+  
+  .item img { 
+    width: 100%; 
+    border: 1px solid rgba(0, 180, 255, 0.3); 
+    border-radius: 4px; 
+  }
+  
+  .item h3 { 
+    margin-top: 15px; 
+    letter-spacing: 2px; 
+    font-family: 'Orbitron', sans-serif; 
+    font-size: 0.9rem;
+    color: #ffffff;
+  }
 
-@media(max-width: 1100px) {
-    body { flex-direction: column; }
-    
-    /* Liberamos nav y aside del flujo fijo */
-    nav, aside { 
-        width: 100%; 
-        height: auto !important; 
-        position: relative !important; 
-        border: none;
-        padding: 20px;
-        box-sizing: border-box;
-    }
-    
-    /* El menú nav debe estar arriba, el main en medio, aside al final */
-    nav { order: 1; border-bottom: 1px solid #1f4f75; }
-    main { order: 2; margin: 0; padding: 20px; }
-    aside { order: 3; border-top: 1px solid #1f4f75; }
-    
-    /* Ocultamos el botón de menú si no quieres usar la lógica de JS todavía */
-    #menu-toggle { display: none !important; }
-}
+  /* PANEL DERECHO ESTILO NEXUS */
+  aside { 
+    width: 250px; 
+    background: rgba(5, 10, 15, 0.85); 
+    backdrop-filter: blur(10px);
+    padding: 30px; 
+    height: 100vh; 
+    position: fixed; 
+    right: 0; 
+    border-left: 1px solid rgba(0, 180, 255, 0.4);
+    box-sizing: border-box;
+    z-index: 10;
+  }
+  
+  .buy-button { 
+    display: block; 
+    text-align: center; 
+    padding: 12px; 
+    background: rgba(0, 180, 255, 0.15); 
+    border: 1px solid var(--azul);
+    color: var(--azul); 
+    text-decoration: none; 
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.75rem;
+    letter-spacing: 1px;
+    font-weight: bold; 
+    border-radius: 4px; 
+    margin-top: 20px; 
+    transition: all 0.2s ease;
+  }
 
-/* Estilos para el logo y link */
-.logo-link {
+  .buy-button:hover {
+    background: var(--azul);
+    color: #000;
+    box-shadow: 0 0 12px rgba(0, 180, 255, 0.6);
+  }
+
+  /* Estilos para el logo y link */
+  .logo-link {
     text-decoration: none;
     color: inherit;
     margin-bottom: 30px;
     display: block;
-}
+  }
 
-.logo-container {
+  .logo-container {
     display: flex;
     align-items: center;
     gap: 10px;
     font-weight: 700;
-    font-size: 1.2rem;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.85rem;
+    letter-spacing: 1px;
     color: #ffffff;
-}
+  }
 
-.logo-icon {
-    width: 35px; /* Ajusta el tamaño según necesites */
-    height: 35px;
-}
+  .logo-icon {
+    width: 32px;
+    height: 32px;
+  }
 
+  /* RESPONSIVE */
+  @media(max-width: 1100px) {
+    body { flex-direction: column; }
+    nav, aside { 
+      width: 100%; 
+      height: auto !important; 
+      position: relative !important; 
+      border: none;
+      padding: 20px;
+      box-sizing: border-box;
+    }
+    nav { order: 1; border-bottom: 1px solid rgba(0, 180, 255, 0.4); }
+    main { order: 2; margin: 0; padding: 20px; }
+    aside { order: 3; border-top: 1px solid rgba(0, 180, 255, 0.4); }
+    #menu-toggle { display: none !important; }
+  }
 </style>
 </head>
 
@@ -106,9 +253,11 @@ aside { width: 250px; background: #091a2a; padding: 30px; height: 100vh; positio
   <h2>A.E. ARCHIVE</h2>
   <a href="#infraestructura">INFRAESTRUCTURA</a>
   <a href="#unidades">UNIDADES</a>
-  <a href="registros.html">REGISTROS / INFORMES</a> <div style="margin-top: 40px; border-top: 1px solid #1f4f75; padding-top: 20px;">
-    <a href="mailto:nikatuniverse@gmail.com" style="color: #00b4ff; font-size: 0.75rem;">CONTACTO: ADMINISTRACIÓN</a>
-    <button id="menu-toggle" style="display: none; background: #00b4ff;">MENÚ</button>
+  <a href="registros.html">REGISTROS / INFORMES</a> 
+  <div style="margin-top: 40px; border-top: 1px solid rgba(0, 180, 255, 0.2); padding-top: 20px;">
+    <a href="mailto:nikatuniverse@gmail.com" style="color: var(--azul); font-size: 0.7rem;">CONTACTO: ADMIN</a>
+    <button id="menu-toggle" style="display: none; background: var(--azul);">MENÚ</button>
+  </div>
 </nav>
 
 <main>
@@ -138,10 +287,10 @@ aside { width: 250px; background: #091a2a; padding: 30px; height: 100vh; positio
 </main>
 
 <aside id="libro">
-  <div style="border: 1px solid #00b4ff; padding: 15px; border-radius: 8px; background: rgba(0, 30, 50, 0.5);">
-    <h2 style="margin-top: 0; color: #00b4ff; text-align: center;">OBRA OFICIAL</h2>
-    <img src="imagenes/portada.png" alt="Portada" style="width:100%; border-radius:4px; margin-bottom: 10px;">
-    <p style="font-size: 0.85rem; text-align: center; color: #a8dfff;">
+  <div style="border: 1px solid rgba(0, 180, 255, 0.4); padding: 15px; border-radius: 8px; background: rgba(5, 10, 15, 0.85); backdrop-filter: blur(8px);">
+    <h2 style="margin-top: 0; color: var(--azul); text-align: center; font-family: 'Orbitron', sans-serif; font-size: 0.85rem; letter-spacing: 2px;">OBRA OFICIAL</h2>
+    <img src="imagenes/portada.png" alt="Portada" style="width:100%; border-radius:4px; margin-bottom: 10px; border: 1px solid rgba(0, 180, 255, 0.3);">
+    <p style="font-size: 0.8rem; text-align: center; color: #a8dfff; line-height: 1.4;">
       La guerra con los Nikat ha comenzado. Adquiere el volumen completo.
     </p>
     <a href="https://www.amazon.com/-/es/Jonatan-Arley-Hernández-Chavarro/dp/B0GPNXK7NS" class="buy-button" target="_blank">COMPRAR EN AMAZON</a>

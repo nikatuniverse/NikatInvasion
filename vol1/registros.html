@@ -12,53 +12,195 @@
 <meta property="og:url" content="https://tu-sitio.github.io/">
 <meta property="og:type" content="website">
 <meta name="google-site-verification" content="gdf8CoGBZx2gj_RoFmp-wvZrbNHVpr9vJW5yXOELPu8" />
-<link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@300;400;600;700&family=Courier+Prime&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@300;400;600&family=Orbitron:wght@400;700&family=Courier+Prime&display=swap" rel="stylesheet">
 <link rel="icon" type="image/png" href="imagenes/iconoae.png">
 <title>REGISTROS | NIKAT INVASIÓN</title>
 
 <style>
+    :root {
+      --azul: #00b4ff;
+      --naranja: #ff8800;
+      --bg: #050a0f;
+    }
+
     /* ESTRUCTURA BASE */
     html { scroll-behavior: smooth; }
-    body { margin: 0; font-family: 'Exo 2', sans-serif; background: linear-gradient(135deg, #050a0f, #0b1c2d); color: #e0f4ff; display: flex; }
+    body { 
+      margin: 0; 
+      font-family: 'Exo 2', sans-serif; 
+      background-color: var(--bg); 
+      color: #e0f4ff; 
+      display: flex; 
+      overflow-x: hidden;
+    }
 
-    /* EFECTO DE ESCANEO */
-    body::before { content: ""; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%); background-size: 100% 4px; pointer-events: none; z-index: 100; opacity: 0.1; }
+    /* EFECTO DE ESCANEO TÁCTICO */
+    body::before { 
+      content: ""; 
+      position: fixed; 
+      top: 0; 
+      left: 0; 
+      width: 100%; 
+      height: 100%; 
+      background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%); 
+      background-size: 100% 4px; 
+      pointer-events: none; 
+      z-index: 100; 
+      opacity: 0.1; 
+    }
 
-    /* MENÚ IZQUIERDO */
-    nav { width: 250px; background: #091a2a; padding: 30px; height: 100vh; position: fixed; border-right: 1px solid #1f4f75; }
-    nav h2 { color: #00b4ff; font-size: 1.2rem; }
-    nav a { display: block; color: #a8dfff; text-decoration: none; margin-bottom: 15px; font-weight: 600; font-size: 0.85rem; text-transform: uppercase; transition: .3s; }
-    nav a:hover { color: #ffffff; padding-left: 10px; }
+    /* MENÚ IZQUIERDO ESTILO NEXUS */
+    nav { 
+      width: 250px; 
+      background: rgba(5, 10, 15, 0.85); 
+      backdrop-filter: blur(10px);
+      padding: 30px; 
+      height: 100vh; 
+      position: fixed; 
+      border-right: 1px solid rgba(0, 180, 255, 0.4);
+      box-sizing: border-box;
+      z-index: 10;
+    }
+    
+    nav h2 { 
+      color: var(--azul); 
+      font-size: 0.9rem; 
+      font-family: 'Orbitron', sans-serif;
+      letter-spacing: 2px;
+      margin-top: 20px;
+    }
+    
+    nav a { 
+      display: block; 
+      color: #a8dfff; 
+      text-decoration: none; 
+      margin-bottom: 15px; 
+      font-weight: 600; 
+      font-size: 0.75rem; 
+      font-family: 'Exo 2', sans-serif;
+      letter-spacing: 1px;
+      text-transform: uppercase; 
+      transition: .3s; 
+    }
+    
+    nav a:hover { 
+      color: #ffffff; 
+      padding-left: 5px; 
+      text-shadow: 0 0 8px rgba(0, 180, 255, 0.6);
+    }
 
     /* CONTENIDO CENTRAL */
-    main { margin-left: 310px; margin-right: 280px; padding: 40px; flex: 1; }
-    h1 { text-align: center; letter-spacing: 5px; font-weight: 300; margin-bottom: 50px; border-bottom: 2px solid #00b4ff; padding-bottom: 20px; }
+    main { 
+      margin-left: 280px; 
+      margin-right: 280px; 
+      padding: 40px; 
+      flex: 1; 
+    }
+    
+    h1 { 
+      text-align: center; 
+      font-family: 'Orbitron', sans-serif;
+      letter-spacing: 5px; 
+      font-weight: 700; 
+      font-size: 1.8rem;
+      color: var(--azul);
+      margin-bottom: 50px; 
+      border-bottom: 1px solid rgba(0, 180, 255, 0.4); 
+      padding-bottom: 20px; 
+      text-shadow: 0 0 10px rgba(0, 180, 255, 0.3);
+    }
     
     /* TARJETAS Y LISTA DE REGISTROS */
-    .gallery-informes { display: grid; gap: 20px; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
-    .card-informe { background: #091a2a; border: 1px solid #00b4ff; padding: 25px; border-radius: 8px; cursor: pointer; transition: 0.3s; }
-    .card-informe:hover { background: #12283d; border-color: #ffffff; }
-    .card-informe h3 { margin-top: 0; color: #00b4ff; font-family: 'Courier Prime', monospace; }
+    .gallery-informes { 
+      display: grid; 
+      gap: 20px; 
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
+    }
+    
+    .card-informe { 
+      background: rgba(5, 10, 15, 0.85); 
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(0, 180, 255, 0.4); 
+      padding: 25px; 
+      border-radius: 8px; 
+      cursor: pointer; 
+      transition: 0.3s; 
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+    }
+    
+    .card-informe:hover { 
+      background: rgba(14, 36, 56, 0.6); 
+      border-color: var(--azul); 
+      box-shadow: 0 0 20px rgba(0, 180, 255, 0.3);
+    }
+    
+    .card-informe h3 { 
+      margin-top: 0; 
+      color: var(--azul); 
+      font-family: 'Courier Prime', monospace; 
+    }
 
-    /* PANEL DERECHO */
-    aside { width: 250px; background: #091a2a; padding: 30px; height: 100vh; position: fixed; right: 0; border-left: 1px solid #1f4f75; }
-    .buy-button { display: block; text-align: center; padding: 12px; background: #00b4ff; color: #050a0f; text-decoration: none; font-weight: bold; border-radius: 4px; margin-top: 20px; }
+    /* PANEL DERECHO ESTILO NEXUS */
+    aside { 
+      width: 250px; 
+      background: rgba(5, 10, 15, 0.85); 
+      backdrop-filter: blur(10px);
+      padding: 30px; 
+      height: 100vh; 
+      position: fixed; 
+      right: 0; 
+      border-left: 1px solid rgba(0, 180, 255, 0.4);
+      box-sizing: border-box;
+      z-index: 10;
+    }
+    
+    .buy-button { 
+      display: block; 
+      text-align: center; 
+      padding: 12px; 
+      background: rgba(0, 180, 255, 0.15); 
+      border: 1px solid var(--azul);
+      color: var(--azul); 
+      text-decoration: none; 
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.75rem;
+      letter-spacing: 1px;
+      font-weight: bold; 
+      border-radius: 4px; 
+      margin-top: 20px; 
+      transition: all 0.2s ease;
+    }
+
+    .buy-button:hover {
+      background: var(--azul);
+      color: #000;
+      box-shadow: 0 0 12px rgba(0, 180, 255, 0.6);
+    }
 
     /* MODAL */
-    .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 1000; }
+    .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 1000; backdrop-filter: blur(5px); }
     .modal-contenido { 
-        background: #091a2a; margin: 5% auto; padding: 40px; width: 60%; border: 2px solid #00b4ff; border-radius: 8px; color: white; position: relative;
-        max-height: 80vh; overflow-y: auto; 
+        background: rgba(5, 10, 15, 0.95); 
+        margin: 5% auto; 
+        padding: 40px; 
+        width: 60%; 
+        border: 2px solid var(--azul); 
+        border-radius: 8px; 
+        color: white; 
+        position: relative;
+        max-height: 80vh; 
+        overflow-y: auto; 
+        box-shadow: 0 0 30px rgba(0, 180, 255, 0.4);
     }
-    .cerrar { position: sticky; top: -20px; float: right; cursor: pointer; color: #00b4ff; font-size: 2rem; z-index: 10; }
+    .cerrar { position: sticky; top: -20px; float: right; cursor: pointer; color: var(--azul); font-size: 2rem; z-index: 10; }
     .modal-contenido::-webkit-scrollbar { width: 8px; }
-    .modal-contenido::-webkit-scrollbar-track { background: #050a0f; border-left: 1px solid #1f4f75; }
-    .modal-contenido::-webkit-scrollbar-thumb { background: #00b4ff; border-radius: 4px; }
+    .modal-contenido::-webkit-scrollbar-track { background: var(--bg); border-left: 1px solid rgba(0, 180, 255, 0.3); }
+    .modal-contenido::-webkit-scrollbar-thumb { background: var(--azul); border-radius: 4px; }
 
     /* MINIJUEGOS */
-    #slider { appearance: none; width: 100%; height: 10px; background: #091a2a; border: 1px solid #00b4ff; }
-    #slider::-webkit-slider-thumb { appearance: none; width: 20px; height: 20px; background: #00b4ff; cursor: pointer; border: 2px solid #fff; }
-    #escaneo-area { width: 100%; height: 300px; background: #000; position: relative; cursor: crosshair; overflow: hidden; border: 1px solid #1f4f75; }
+    #slider { appearance: none; width: 100%; height: 10px; background: rgba(5, 10, 15, 0.85); border: 1px solid var(--azul); border-radius: 4px; }
+    #slider::-webkit-slider-thumb { appearance: none; width: 20px; height: 20px; background: var(--azul); cursor: pointer; border: 2px solid #fff; border-radius: 50%; box-shadow: 0 0 10px var(--azul); }
+    #escaneo-area { width: 100%; height: 300px; background: #000; position: relative; cursor: crosshair; overflow: hidden; border: 1px solid rgba(0, 180, 255, 0.4); border-radius: 4px; }
     #linterna { position: absolute; width: 100px; height: 100px; border-radius: 50%; background: radial-gradient(circle, rgba(0, 180, 255, 0.3) 0%, rgba(0,0,0,0) 70%); pointer-events: none; transform: translate(-50%, -50%); }
     .num-oculto { transition: opacity 0.8s ease, transform 0.8s ease; transform: scale(0.8); }
     .num-oculto.revelado { opacity: 1 !important; transform: scale(1); }
@@ -67,9 +209,9 @@
     @media(max-width: 1100px) {
         body { flex-direction: column; }
         nav, aside { width: 100%; height: auto !important; position: relative !important; border: none; padding: 20px; box-sizing: border-box; }
-        nav { order: 1; border-bottom: 1px solid #1f4f75; }
+        nav { order: 1; border-bottom: 1px solid rgba(0, 180, 255, 0.4); }
         main { order: 2; margin: 0; padding: 20px; }
-        aside { order: 3; border-top: 1px solid #1f4f75; }
+        aside { order: 3; border-top: 1px solid rgba(0, 180, 255, 0.4); }
         #menu-toggle { display: none !important; }
         .modal-contenido { width: 90% !important; }
     }
@@ -91,11 +233,11 @@
 
 <div id="modal-informe" class="modal">
   <div id="modal-caja" class="modal-contenido"> <span class="cerrar" onclick="cerrarModal()">&times;</span>
-    <div id="modal-nivel" style="font-size: 0.7rem; letter-spacing: 2px; margin-bottom: 10px; font-weight: bold;"></div>
-    <h2 id="modal-titulo"></h2>
+    <div id="modal-nivel" style="font-size: 0.7rem; letter-spacing: 2px; margin-bottom: 10px; font-weight: bold; font-family: 'Orbitron', sans-serif;"></div>
+    <h2 id="modal-titulo" style="font-family: 'Orbitron', sans-serif;"></h2>
     <p id="modal-texto" style="font-family: 'Courier Prime', monospace; white-space: pre-line;"></p>
-    <hr style="border: 0; border-top: 1px solid #1f4f75; margin: 20px 0;">
-    <small id="modal-firma" style="color: #00b4ff;"></small>
+    <hr style="border: 0; border-top: 1px solid rgba(0, 180, 255, 0.3); margin: 20px 0;">
+    <small id="modal-firma" style="color: var(--azul); font-family: 'Courier Prime', monospace;"></small>
   </div>
 </div>
 
@@ -105,24 +247,24 @@
 
     <div id="terminal-carga" style="display:none; text-align:center; padding: 20px;">
         <div id="texto-consola" style="font-family: 'Courier Prime', monospace; color: #00ff00; font-size: 0.9rem; margin-bottom: 10px;">INICIANDO...</div>
-        <div style="width: 100%; height: 5px; background: #050a0f; border: 1px solid #00ff00;">
+        <div style="width: 100%; height: 5px; background: rgba(5, 10, 15, 0.85); border: 1px solid #00ff00;">
             <div id="barra-progreso" style="width: 0%; height: 100%; background: #00ff00; transition: width 0.4s;"></div>
         </div>
     </div>
 
     <div id="contenido-juego">
-        <h2 id="titulo-seguridad">AUTENTICACIÓN REQUERIDA</h2>
+        <h2 id="titulo-seguridad" style="font-family: 'Orbitron', sans-serif; font-size: 1.1rem; letter-spacing: 2px;">AUTENTICACIÓN REQUERIDA</h2>
         <div id="area-minijuego" style="margin: 30px 0;"></div>
-        <button id="btn-validar" onclick="verificarAcceso()" class="buy-button">VALIDAR ACCESO</button>
+        <button id="btn-validar" onclick="verificarAcceso()" class="buy-button" style="width: 100%; cursor: pointer;">VALIDAR ACCESO</button>
     </div>
   </div>
 </div>
 
 <aside id="libro">
-  <div style="border: 1px solid #00b4ff; padding: 15px; border-radius: 8px; background: rgba(0, 30, 50, 0.5);">
-    <h2 style="margin-top: 0; color: #00b4ff; text-align: center;">OBRA OFICIAL</h2>
-    <img src="imagenes/portada.png" alt="Portada" style="width:100%; border-radius:4px; margin-bottom: 10px;">
-    <p style="font-size: 0.85rem; text-align: center; color: #a8dfff;">
+  <div style="border: 1px solid rgba(0, 180, 255, 0.4); padding: 15px; border-radius: 8px; background: rgba(5, 10, 15, 0.85); backdrop-filter: blur(8px);">
+    <h2 style="margin-top: 0; color: var(--azul); text-align: center; font-family: 'Orbitron', sans-serif; font-size: 0.85rem; letter-spacing: 2px;">OBRA OFICIAL</h2>
+    <img src="imagenes/portada.png" alt="Portada" style="width:100%; border-radius:4px; margin-bottom: 10px; border: 1px solid rgba(0, 180, 255, 0.3);">
+    <p style="font-size: 0.8rem; text-align: center; color: #a8dfff; line-height: 1.4;">
       La guerra con los Nikat ha comenzado. Adquiere el volumen completo.
     </p>
     <a href="https://www.amazon.com/-/es/Jonatan-Arley-Hernández-Chavarro/dp/B0GPNXK7NS" class="buy-button" target="_blank">COMPRAR EN AMAZON</a>
@@ -130,8 +272,6 @@
 </aside>
 
 <script>
-
-  
 // --- CONFIGURACIÓN Y VARIABLES ---
 let registroPendiente = null;
 let frecuenciaObjetivo = 50;
@@ -224,8 +364,8 @@ function cargarSlider() {
   frecuenciaObjetivo = Math.floor(Math.random() * 81) + 10;
   document.getElementById("area-minijuego").innerHTML = `
     <div style="margin-bottom: 25px;">
-      <p style="font-size: 0.7rem; color: #aaa; margin: 0; letter-spacing: 2px;">FRECUENCIA DE TRANSMISIÓN:</p>
-      <h2 style="color: #00b4ff; margin: 5px 0;">${frecuenciaObjetivo} MHz</h2>
+      <p style="font-size: 0.7rem; color: #aaa; margin: 0; letter-spacing: 2px; font-family: 'Orbitron', sans-serif;">FRECUENCIA DE TRANSMISIÓN:</p>
+      <h2 style="color: var(--azul); margin: 5px 0; font-family: 'Orbitron', sans-serif;">${frecuenciaObjetivo} MHz</h2>
     </div>
     <input type="range" id="slider" min="0" max="100" value="0" style="width:100%" oninput="reproducirClick()">
     <div style="display: flex; justify-content: space-between; font-size: 0.6rem; color: #555; padding: 5px 2px 0;">
@@ -240,11 +380,11 @@ function iniciarEscaneo() {
   codigoObjetivo = Array.from({length: 4}, () => Math.floor(Math.random() * 10));
   document.getElementById("area-minijuego").innerHTML = `
     <div id="contenedor-juego">
-      <p id="instruccion">FASE 1: Escanee el área para revelar la secuencia base.</p>
-      <div id="escaneo-area" onmousemove="moverLinterna(event)" style="position:relative; width:100%; height:200px; background:#000; border:1px solid #1f4f75; overflow:hidden; cursor:crosshair;">
+      <p id="instruccion" style="font-family: 'Exo 2', sans-serif; font-size: 0.85rem; color: #a8dfff;">FASE 1: Escanee el área para revelar la secuencia base.</p>
+      <div id="escaneo-area" onmousemove="moverLinterna(event)">
         <div id="linterna"></div>
         ${codigoObjetivo.map((num, i) => `
-          <div class="num-oculto" id="n${i}" style="position:absolute; top:${Math.random()*150}px; left:${Math.random()*80}%; opacity:0; color:#00b4ff; font-weight:bold; font-size:2rem; transition:0.3s;" onmouseover="revelarNumero(${i}, ${num})">${num}</div>
+          <div class="num-oculto" id="n${i}" style="position:absolute; top:${Math.random()*150}px; left:${Math.random()*80}%; opacity:0; color:var(--azul); font-weight:bold; font-size:2rem; transition:0.3s; font-family: 'Orbitron', sans-serif;" onmouseover="revelarNumero(${i}, ${num})">${num}</div>
         `).join('')}
       </div>
     </div>
@@ -264,17 +404,17 @@ function revelarNumero(id, num) {
   if (!el.classList.contains('revelado')) {
     el.classList.add('revelado');
     numerosEncontrados.push(num);
-    el.style.textShadow = "0 0 10px #00b4ff";
+    el.style.textShadow = "0 0 10px var(--azul)";
     if (numerosEncontrados.length === 4) {
       setTimeout(() => {
         combinacionSecreta = [...numerosEncontrados].sort(() => Math.random() - 0.5);
         faseJuego = 'DESCIFRADO';
         document.getElementById("contenedor-juego").innerHTML = `
           <div style="animation: fadeIn 1s;">
-            <p>SECUENCIA REVELADA: ${numerosEncontrados.join(' ')}</p>
-            <p>FASE 2: Ingrese combinación (4 dígitos):</p>
-            <input type="text" id="input-combinacion" maxlength="4" style="background:#050a0f; color:#00b4ff; border:1px solid #00b4ff; padding:10px; font-size:1.5rem; text-align:center;">
-            <div id="bitacora" style="margin-top:15px; font-size:0.8rem; color:#ffaa00;"></div>
+            <p style="font-family: 'Exo 2', sans-serif;">SECUENCIA REVELADA: ${numerosEncontrados.join(' ')}</p>
+            <p style="font-family: 'Exo 2', sans-serif;">FASE 2: Ingrese combinación (4 dígitos):</p>
+            <input type="text" id="input-combinacion" maxlength="4" style="background:rgba(5, 10, 15, 0.85); color:var(--azul); border:1px solid var(--azul); padding:10px; font-size:1.5rem; text-align:center; border-radius:4px; font-family: 'Courier Prime', monospace;">
+            <div id="bitacora" style="margin-top:15px; font-size:0.8rem; color:#ffaa00; font-family: 'Courier Prime', monospace;"></div>
           </div>
         `;
       }, 800);
@@ -309,15 +449,15 @@ fetch('registros.json').then(r => r.json()).then(data => {
   data.forEach(item => {
     const div = document.createElement('div');
     div.className = 'card-informe';
-    div.innerHTML = `<div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">${getIconoPorNivel(item.nivel)}<h3 style="margin: 0; font-family: 'Courier Prime', monospace;">${item.titulo}</h3></div><p>${item.descripcion.substring(0, 80)}...</p><small>Nivel: ${item.nivel}</small>`;
+    div.innerHTML = `<div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">${getIconoPorNivel(item.nivel)}<h3 style="margin: 0; font-family: 'Courier Prime', monospace;">${item.titulo}</h3></div><p style="color: #ccc; font-size: 0.9rem;">${item.descripcion.substring(0, 80)}...</p><small style="color: var(--azul); font-family: 'Orbitron', sans-serif; font-size: 0.7rem;">NIVEL: ${item.nivel}</small>`;
     div.onclick = () => intentarAbrir(item);
     contenedor.appendChild(div);
   });
 });
 
 document.getElementById('menu-toggle').addEventListener('click', function() {
-        document.querySelector('nav').classList.toggle('activo');
-    });
+    document.querySelector('nav').classList.toggle('activo');
+});
 </script>
 
 <audio id="audio-click" src="sonidos/click.mp3" preload="auto"></audio>

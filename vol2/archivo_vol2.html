@@ -8,7 +8,7 @@
     <meta name="description" content="Registros de la resistencia global. Estrategias, nuevos enemigos y nodos de control en Guayaquil, Anchorage y Antofagasta.">
     <meta name="author" content="Jonatan Arley Hernández Chavarro">
 
-    <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@300;400;600;700&family=Courier+Prime&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@300;400;600&family=Orbitron:wght@400;700&family=Courier+Prime&display=swap" rel="stylesheet">
     <link rel="icon" type="image/png" href="imagenes/iconoae.png">
     
     <style>
@@ -16,7 +16,7 @@
             --naranja: #ff8800;
             --naranja-glow: rgba(255, 136, 0, 0.3);
             --bg-dark: #0a0602;
-            --panel-bg: #140d07;
+            --panel-bg: rgba(20, 13, 7, 0.85);
             --text: #ffe0cc;
         }
 
@@ -28,6 +28,7 @@
             background: linear-gradient(135deg, var(--bg-dark), #1a1109); 
             color: var(--text); 
             display: flex; 
+            overflow-x: hidden;
         }
 
         /* EFECTO DE ESCANEO DE GUERRA (Más agresivo) */
@@ -39,110 +40,182 @@
 
         /* MENÚ IZQUIERDO */
         nav { 
-            width: 250px; background: var(--panel-bg); padding: 30px; 
-            height: 100vh; position: fixed; border-right: 1px solid #3d2610; 
+            width: 250px; 
+            background: var(--panel-bg); 
+            backdrop-filter: blur(10px);
+            padding: 30px; 
+            height: 100vh; 
+            position: fixed; 
+            border-right: 1px solid rgba(255, 136, 0, 0.3); 
+            box-sizing: border-box;
+            z-index: 10;
         }
-        nav h2 { color: var(--naranja); font-size: 1.1rem; letter-spacing: 2px; border-bottom: 1px solid var(--naranja-glow); padding-bottom: 10px; }
+        nav h2 { 
+            color: var(--naranja); 
+            font-size: 0.9rem; 
+            font-family: 'Orbitron', sans-serif;
+            letter-spacing: 2px; 
+            border-bottom: 1px solid var(--naranja-glow); 
+            padding-bottom: 10px; 
+            margin-top: 20px;
+        }
         nav a { 
-            display: block; color: #ccaa88; text-decoration: none; 
-            margin-bottom: 15px; font-weight: 600; font-size: 0.85rem; 
-            text-transform: uppercase; transition: .3s; 
+            display: block; 
+            color: #ccaa88; 
+            text-decoration: none; 
+            margin-bottom: 15px; 
+            font-weight: 600; 
+            font-size: 0.75rem; 
+            font-family: 'Exo 2', sans-serif;
+            letter-spacing: 1px;
+            text-transform: uppercase; 
+            transition: .3s; 
         }
-        nav a:hover { color: var(--naranja); padding-left: 10px; text-shadow: 0 0 8px var(--naranja-glow); }
+        nav a:hover { 
+            color: var(--naranja); 
+            padding-left: 5px; 
+            text-shadow: 0 0 8px var(--naranja-glow); 
+        }
 
         /* CONTENIDO CENTRAL */
-        main { margin-left: 310px; margin-right: 310px; padding: 40px; flex: 1; }
+        main { 
+            margin-left: 280px; 
+            margin-right: 280px; 
+            padding: 40px; 
+            flex: 1; 
+        }
         h1 { 
-            text-align: center; letter-spacing: 8px; font-weight: 700; color: var(--naranja);
-            margin-bottom: 50px; border-bottom: 2px solid var(--naranja); padding-bottom: 20px; 
+            text-align: center; 
+            font-family: 'Orbitron', sans-serif;
+            letter-spacing: 5px; 
+            font-weight: 700; 
+            font-size: 1.8rem;
+            color: var(--naranja);
+            margin-bottom: 50px; 
+            border-bottom: 1px solid rgba(255, 136, 0, 0.4); 
+            padding-bottom: 20px; 
             text-shadow: 0 0 15px var(--naranja-glow);
         }
         .section-title { 
-            text-align: left; letter-spacing: 4px; color: var(--naranja); 
-            margin-top: 80px; padding-bottom: 10px; border-left: 4px solid var(--naranja); padding-left: 15px;
+            text-align: left; 
+            font-family: 'Orbitron', sans-serif;
+            letter-spacing: 3px; 
+            color: var(--naranja); 
+            margin-top: 60px; 
+            margin-bottom: 30px;
+            font-size: 1.1rem;
+            border-left: 4px solid var(--naranja); 
+            padding-left: 15px;
+            border-bottom: 1px dashed var(--naranja-glow);
+            padding-bottom: 10px;
         }
 
         /* TARJETAS DE ARCHIVO */
         .gallery { display: grid; gap: 40px; justify-items: center; }
         .item { 
-            width: 100%; max-width: 800px; background: rgba(30, 20, 10, 0.4); 
-            padding: 20px; border: 1px solid #5c3a1a; border-radius: 4px; 
-            text-align: center; transition: 0.3s; position: relative;
+            width: 100%; max-width: 800px; 
+            background: rgba(20, 13, 7, 0.85); 
+            backdrop-filter: blur(8px);
+            padding: 20px; 
+            border: 1px solid rgba(255, 136, 0, 0.3); 
+            border-radius: 8px; 
+            text-align: center; 
+            transition: 0.3s; 
+            position: relative;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
         }
         .item:hover { border-color: var(--naranja); box-shadow: 0 0 20px var(--naranja-glow); }
         
         /* Efecto desgaste para enemigos comunes */
         .worn-unit img { filter: grayscale(0.3) contrast(1.2) sepia(0.2); }
         
-        .item img { width: 100%; border: 1px solid var(--naranja-glow); border-radius: 2px; }
-        .item h3 { margin-top: 15px; letter-spacing: 2px; font-family: 'Courier Prime', monospace; color: var(--naranja); }
-        .item p { font-size: 0.9rem; color: #b3a294; margin-top: 10px; line-height: 1.4; }
+        .item img { width: 100%; border: 1px solid var(--naranja-glow); border-radius: 4px; }
+        .item h3 { margin-top: 15px; letter-spacing: 2px; font-family: 'Orbitron', sans-serif; font-size: 0.9rem; color: var(--naranja); }
+        .item p { font-size: 0.85rem; color: #b3a294; margin-top: 10px; line-height: 1.4; }
 
         /* BOTONES DE REDIRECCIÓN EN LAS TARJETAS 3D */
         .btn-3d {
             display: inline-block; margin-top: 15px; padding: 8px 20px;
-            border: 1px solid var(--naranja); background: transparent;
-            color: var(--naranja); font-family: 'Courier Prime', monospace;
-            font-size: 0.8rem; font-weight: bold; text-decoration: none;
-            text-transform: uppercase; border-radius: 2px; transition: 0.3s;
+            border: 1px solid var(--naranja); background: rgba(255, 136, 0, 0.15);
+            color: var(--naranja); font-family: 'Orbitron', sans-serif;
+            font-size: 0.75rem; font-weight: bold; text-decoration: none;
+            letter-spacing: 1px;
+            text-transform: uppercase; border-radius: 4px; transition: 0.3s;
         }
         .btn-3d:hover {
-            background: var(--naranja); color: #000; box-shadow: 0 0 10px var(--naranja-glow);
+            background: var(--naranja); color: #000; box-shadow: 0 0 12px var(--naranja-glow);
         }
 
         /* PANEL DERECHO */
         aside { 
-            width: 250px; background: var(--panel-bg); padding: 30px; 
-            height: 100vh; position: fixed; right: 0; border-left: 1px solid #3d2610; 
+            width: 250px; 
+            background: var(--panel-bg); 
+            backdrop-filter: blur(10px);
+            padding: 30px; 
+            height: 100vh; 
+            position: fixed; 
+            right: 0; 
+            border-left: 1px solid rgba(255, 136, 0, 0.3); 
+            box-sizing: border-box;
+            z-index: 10;
         }
         .buy-button { 
             display: block; text-align: center; padding: 12px; 
-            background: var(--naranja); color: #000; text-decoration: none; 
-            font-weight: bold; border-radius: 2px; margin-top: 20px; 
-            transition: 0.3s;
+            background: rgba(255, 136, 0, 0.15); 
+            border: 1px solid var(--naranja);
+            color: var(--naranja); text-decoration: none; 
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.75rem;
+            letter-spacing: 1px;
+            font-weight: bold; border-radius: 4px; margin-top: 20px; 
+            transition: all 0.2s ease;
         }
-        .buy-button:hover { background: #ffaa44; box-shadow: 0 0 15px var(--naranja); }
+        .buy-button:hover { background: var(--naranja); color: #000; box-shadow: 0 0 12px var(--naranja-glow); }
 
         .tech-log-link {
             display: block; margin-top: 30px; padding: 10px;
             border: 1px dashed var(--naranja); color: var(--naranja);
-            text-align: center; font-size: 0.8rem; text-decoration: none;
+            text-align: center; font-size: 0.75rem; text-decoration: none;
             font-family: 'Courier Prime', monospace;
         }
 
         @media(max-width: 1100px) {
             body { flex-direction: column; }
-            nav, aside { width: 100%; height: auto !important; position: relative !important; border: none; }
-            main { margin: 0; padding: 20px; }
+            nav, aside { width: 100%; height: auto !important; position: relative !important; border: none; padding: 20px; box-sizing: border-box; }
+            nav { order: 1; border-bottom: 1px solid rgba(255, 136, 0, 0.3); }
+            main { order: 2; margin: 0; padding: 20px; }
+            aside { order: 3; border-top: 1px solid rgba(255, 136, 0, 0.3); }
         }
 
         /* Estilos para el nuevo encabezado del nav */
-.logo-link {
-    text-decoration: none;
-    color: inherit;
-    margin-bottom: 20px;
-    display: block;
-}
+        .logo-link {
+            text-decoration: none;
+            color: inherit;
+            margin-bottom: 30px;
+            display: block;
+        }
 
-.logo-container {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-weight: 700;
-    font-size: 1.2rem;
-    color: var(--naranja); /* Hereda el color naranja de tu archivo */
-    transition: 0.3s;
-}
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 700;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+            color: var(--naranja);
+            transition: 0.3s;
+        }
 
-.logo-container:hover {
-    color: #fff;
-    text-shadow: 0 0 8px var(--naranja-glow);
-}
+        .logo-container:hover {
+            color: #fff;
+            text-shadow: 0 0 8px var(--naranja-glow);
+        }
 
-.logo-icon {
-    width: 35px;
-    height: 35px;
-}
+        .logo-icon {
+            width: 32px;
+            height: 32px;
+        }
     </style>
 </head>
 
@@ -150,28 +223,28 @@
 
 <nav>
     <a href="../index.html" class="logo-link">
-    <div class="logo-container">
-      <img src="../comun/iconoae2.png" alt="Logo" class="logo-icon">
-      <span>NIKAT NEXUS</span>
-    </div>
+        <div class="logo-container">
+            <img src="../comun/iconoae2.png" alt="Logo" class="logo-icon">
+            <span>NIKAT NEXUS</span>
+        </div>
     </a>
 
     <h2>RESISTANCE HUB</h2>
-    <a href="#operativos">OPERATIVOS (PERSONAJES)</a>
+    <a href="#operativos">OPERATIVOS</a>
     <a href="#amenazas">NIKAT</a>
     <a href="#nodos">NODOS ESTRATÉGICOS</a>
     
-    <h2 style="margin-top: 30px;">TERMINALES DE MONITOREO</h2>
-    <a href="treejs/ede.html" target="_blank" style="color: #00ffcc; text-shadow: 0 0 5px rgba(0,255,204,0.2);">[CONSOLA MONITOREO EDE 40]</a>
-    <a href="treejs/bunker.html" target="_blank" style="color: #00ffcc; text-shadow: 0 0 5px rgba(0,255,204,0.2);">[CONSOLA MONITOREO BUNKER DIOMEDE]</a>
+    <h2 style="margin-top: 30px;">MONITOREO</h2>
+    <a href="treejs/ede.html" target="_blank" style="color: #00ffcc; text-shadow: 0 0 5px rgba(0,255,204,0.2);">[EDE 40]</a>
+    <a href="treejs/bunker.html" target="_blank" style="color: #00ffcc; text-shadow: 0 0 5px rgba(0,255,204,0.2);">[BUNKER DIOMEDE]</a>
 
-    <div style="margin-top: 40px; border-top: 1px solid #3d2610; padding-top: 20px;">
-        <a href="registros.html" style="color: var(--naranja);">[ ACCEDER A LOGS TÉCNICOS ]</a>
+    <div style="margin-top: 40px; border-top: 1px solid rgba(255, 136, 0, 0.2); padding-top: 20px;">
+        <a href="registros.html" style="color: var(--naranja); font-size: 0.7rem;">[ LOGS TÉCNICOS ]</a>
     </div>
 </nav>
 
 <main>
-    <h1>NIKAT: RESISTENCIA</h1>
+    <h1>NIKAT : RESISTENCIA</h1>
 
     <section id="operativos">
         <h2 class="section-title">PERSONAL ACTIVO / SOBREVIVIENTES</h2>
@@ -262,10 +335,10 @@
 </main>
 
 <aside id="libro">
-    <div style="border: 1px solid var(--naranja); padding: 15px; border-radius: 4px; background: rgba(20, 10, 0, 0.6);">
-        <h2 style="margin-top: 0; color: var(--naranja); text-align: center; font-size: 1rem;">ESTADO: DISPONIBLE</h2>
-        <img src="imagenes/portada.png" alt="Portada Vol 2" style="width:100%; border-radius:2px; margin-bottom: 10px; border: 1px solid var(--naranja-glow);">
-        <p style="font-size: 0.8rem; text-align: center; color: #ccaa88;">
+    <div style="border: 1px solid rgba(255, 136, 0, 0.4); padding: 15px; border-radius: 8px; background: rgba(20, 13, 7, 0.85); backdrop-filter: blur(8px);">
+        <h2 style="margin-top: 0; color: var(--naranja); text-align: center; font-family: 'Orbitron', sans-serif; font-size: 0.85rem; letter-spacing: 2px;">ESTADO: DISPONIBLE</h2>
+        <img src="imagenes/portada.png" alt="Portada Vol 2" style="width:100%; border-radius:4px; margin-bottom: 10px; border: 1px solid rgba(255, 136, 0, 0.3);">
+        <p style="font-size: 0.8rem; text-align: center; color: #ccaa88; line-height: 1.4;">
             Resistir es el inicio.
         </p>
         <a href="https://www.amazon.com/-/es/J-Hern%C3%A1ndez/dp/B0H4S4S2S2/ref=tmm_pap_swatch_0" class="buy-button" target="_blank">COMPRAR EN AMAZON</a>

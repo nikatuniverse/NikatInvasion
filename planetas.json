@@ -1,0 +1,146 @@
+{
+  "Sol": {
+  "ubicacion": "0.0 UA (Centro del Sistema)",
+  "distanciaTierra": "0.0 UA",
+  "tiempoViaje": "0 segundos",
+  "economia": "Monopolio absoluto de Helion Dynamics. Controla la red primaria de energía de todo el sistema solar mediante enormes enjambres de colectores de plasma y esferas de Dyson fraccionales. Es la arteria económica más lucrativa y celosamente vigilada del cosmos.",
+  "habitantes": "Operarios de alta especialización bajo contrato estricto de Helion Dynamics. Tras siglos de expansión espacial, su genética y metabolismo han desarrollado una mayor resistencia natural a la radiación cósmica y una tasa de remodelación ósea más eficiente que mitiga la descalcificación. No obstante, operan bajo un régimen implacable de 2 meses de trabajo continuo en estaciones blindadas —siempre equipados con visores de obturación magnética avanzada para evitar daños oculares— y 15 días de descanso obligatorio en los centros orbitales de rotación para preservar su valiosa mano de obra.",
+  "imagen": "images/sol.jpg"
+},
+  "Mercurio": {
+  "ubicacion": "0.39 UA (Sistema Interior)",
+  "distanciaTierra": "0.61 UA",
+  "tiempoViaje": "3.3 minutos (Militar) / 13.2 minutos (Civil)",
+  "economia": "Explotación ultra-rentable y 100% automatizada del gigantesco núcleo metálico expuesto del planeta. Es la fuente indiscutible de metales refractarios puros (tungsteno, osmio, iridio) y tierras raras indispensables para blindar los motores de desliespacio y las estaciones solares, operada mediante flotas de drones mineros resistentes al calor extremo.",
+  "habitantes": "Sin población permanente. La superficie y los cráteres polares carecen por completo de asentamientos humanos debido a las letales temperaturas y radiación solar directa. Toda la operación es gestionada por centros de control remotos ubicados en estaciones orbitales o en el sistema interior, utilizando enjambres de maquinaria autónoma supervisados ocasionalmente por técnicos itinerantes.",
+  "imagen": "images/mercurio.jpg"
+},
+  "Venus": {
+  "ubicacion": "0.72 UA (Sistema Interior)",
+  "distanciaTierra": "0.28 UA",
+  "tiempoViaje": "1.5 minutos (Militar) / 6.0 minutos (Civil)",
+  "economia": "Extracción química masiva mediante flotas de ciudades aerostáticas ancladas a la atmósfera alta. Posee una red de masivos 'conductores abisales' que descienden kilómetros a través de las nubes corrosivas hasta la superficie para bombear ácido sulfúrico, dióxido de carbono supercrítico y minerales raros a las refinerías flotantes, alimentando la industria de compuestos sintéticos del sistema interior.",
+  "habitantes": "Población netamente rotativa de trabajadores industriales y técnicos de plataforma, sin asentamientos civiles permanentes. Bajo el estándar corporativo del espacio profundo, operan bajo un régimen estricto de 2 meses de servicio continuo en las nubes de Venus y 15 días de descanso obligatorio fuera del planeta. Físicamente presentan una ligera pérdida de tono muscular por la flotación constante de las estructuras aerostáticas y una notable agudeza visual adaptada al perpetuo crepúsculo tormentoso de las capas altas.",
+  "imagen": "images/venus.jpg"
+},
+  "Tierra": {
+  "ubicacion": "1.00 UA (Sector Central)",
+  "distanciaTierra": "0.00 UA",
+  "tiempoViaje": "0 horas",
+  "economia": "Colosal centro financiero, político y cultural que alberga a 15,000 millones de habitantes. El 80% de la actividad económica se concentra en la administración pública e interestelar, la burocracia corporativa y el mantenimiento de sistemas. Con la industria pesada y la manufactura casi 100% automatizadas mediante IA y drones, la intervención manual directa es mínima. Bajo el 'Acuerdo Global' y su sistema de compensación por riesgo y rango, los salarios terrestres son drásticamente más bajos que en el espacio, ya que la seguridad y comodidad de la cuna humana penalizan el valor monetario de la labor.",
+  "habitantes": "La población estándar de la humanidad, conservando la anatomía a 1g completo. No obstante, al llevar una existencia pacífica y libre de peligros físicos extremos, una parte considerable sufre de afecciones asociadas al sedentarismo crónico, sobrepeso y patologías de salud mental derivadas de la masificación urbana y la falta de propósito. Son culturalmente dependientes de los flujos de recursos que llegan desde el sistema exterior.",
+  "imagen": "images/tierra.jpg"
+},
+  "Luna": {
+  "ubicacion": "0.0025 UA (Orbital Terrestre)",
+  "distanciaTierra": "0.0025 UA",
+  "tiempoViaje": "6.8 segundos (Militar) / 28 segundos (Civil)",
+  "economia": "Centro estratégico militar de defensa global, instalaciones avanzadas de computación cuántica, laboratorios de investigación científica en vacío y complejos de turismo orbital y de superficie enfocados en la observación panorámica de la Tierra.",
+  "habitantes": "Población permanente y civil consolidada, además de personal militar y científico. Gracias a los avanzados sistemas de gravedad artificial que igualan la de la Tierra, los habitantes no sufren problemas de descalcificación ni alteraciones físicas, viviendo con total normalidad. Es un destino muy popular para residencias secundarias de la élite terrícola y para tours comerciales guiados por la superficie lunar bajo estrictas medidas de seguridad.",
+  "imagen": "images/luna.jpg"
+},
+  "Marte": {
+  "ubicacion": "1.52 UA (Órbitas Internas)",
+  "distanciaTierra": "0.52 UA",
+  "tiempoViaje": "23.2 minutos (Militar) / 1.5 horas (Civil)",
+  "economia": "Siderurgia pesada, manufactura de armamento, fundición de metales y agricultura hidropónica a escala industrial. Su mayor activo estratégico es la explotación de vastos sistemas de ríos y lagos subterráneos profundos, convirtiéndose en el principal proveedor de agua purificada, oxígeno y combustible de hidrógeno líquido (oxhidrógeno) para las flotas que se dirigen al sistema exterior.",
+  "habitantes": "Población permanente, orgullosa y consolidada. Gracias a los sistemas avanzados de gravedad artificial y cúpulas con soporte vital de alta fidelidad que simulan los estándares terrestres, los habitantes no presentan diferencias físicas extremas respecto a los terrícolas. Poseen una cultura fuertemente industrial y técnica, con una identidad muy marcada de autosuficiencia frente al dominio financiero de la Tierra.",
+  "imagen": "images/marte.jpg"
+},
+  "Dravos": {
+  "ubicacion": "2.77 UA (Cinturón de Asteroides)",
+  "distanciaTierra": "1.77 UA",
+  "tiempoViaje": "1.3 horas (Militar) / 5.2 horas (Civil)",
+  "economia": "Extracción masiva de metales pesados y elementos del grupo del platino. Al estar enclavado directamente en el cinturón de asteroides, funciona como un nodo logístico para procesar hierro, níquel, oro y silicio en bruto, además de capturar mineral virgen que impacta constantemente su atmósfera.",
+  "habitantes": "Población subterránea permanente y altamente especializada. Descendientes de los colonos que llegaron en el año 500 de la Era Espacial (tras su descubrimiento inicial en el año 100 EE). Debido a la vida bajo la superficie y la penumbra perpetua, son de piel pálida y translúcida (donde las venas se notan con mayor facilidad) y sufren de marcada fotofobia, con ojos adaptados a espectros de luz tenue. Sus pulmones han evolucionado para filtrar el omnipresente y fino polvo rojizo que azota su superficie a altas velocidades, y presentan una osamenta milimétricamente más esbelta y alargada. El personal temporal no nativo se rige estrictamente por el estándar corporativo de 2 meses de trabajo por 15 días de descanso fuera del mundo.",
+  "imagen": "images/dravos.jpg"
+},
+  "Júpiter": {
+  "ubicacion": "5.20 UA (Sistema Joviano)",
+  "distanciaTierra": "4.20 UA",
+  "tiempoViaje": "3.1 horas (Militar) / 12 días (Civil)",
+  "economia": "Sin actividad económica directa en el planeta. Júpiter es un colosal gigante gaseoso cuya gravedad extrema y letales cinturones de radiación impiden cualquier tipo de minería o asentamiento en su atmósfera. Funciona exclusivamente como el punto de referencia masivo, nodo de navegación y ancla gravitacional para el tráfico que se dirige a sus lunas habitadas.",
+  "habitantes": "Sin población permanente ni asentamientos. La superficie y la atmósfera del planeta son totalmente inhabitables y letales; cualquier presencia humana se limita de forma muy esporádica a sondas automáticas o patrullas de reconocimiento en órbita alta protegidas por fuertes escudos de radiación.",
+  "imagen": "images/jupiter.jpg"
+},
+  "Europa": {
+  "ubicacion": "5.20 UA (Sistema Joviano)",
+  "distanciaTierra": "4.20 UA",
+  "tiempoViaje": "3.1 horas (Militar) / 12 días (Crucero Civil)",
+  "economia": "Complejo industrial y científico de extracción subglacial. Produce y exporta agua ultra-pura, hidrógeno líquido y oxígeno de alta pureza obtenidos mediante la electrólisis masiva del hielo, además de refinar sales y compuestos sulfurosos extraídos de su vasto océano interior para abastecer a la industria química del sistema exterior.",
+  "habitantes": "Sin población permanente. La superficie congelada, carente de atmósfera y expuesta a la letal radiación de Júpiter, hace que la vida civil sea inviable. Todas las instalaciones son bases operativas subterráneas donde laboran ingenieros, perforadores y científicos bajo estrictos contratos rotativos de 2 meses de servicio por 15 días de descanso obligatorio fuera del satélite.",
+  "imagen": "images/europa.jpg"
+},
+  "Ganimedes": {
+  "ubicacion": "5.20 UA (Sistema Joviano)",
+  "distanciaTierra": "4.20 UA",
+  "tiempoViaje": "3.1 horas (Militar) / 12 días (Crucero Civil)",
+  "economia": "Puerto logístico central de Júpiter, aduana comercial del sistema medio, astilleros de cruceros y grandes mercados interorbitales. Es el nodo de intercambio financiero y de bienes más importante más allá de la órbita de Marte.",
+  "habitantes": "La población más cosmopolita del sistema exterior. Al ser el centro neurálgico con grandes ciudades blindadas y protegidas por su propio campo magnético natural, alberga tanto a comerciantes permanentes como a personal administrativo y viajeros. No muestran una deriva evolutiva radical gracias a sus avanzados sistemas de gravedad artificial, manteniendo un estilo de vida urbano y altamente conectado a la red de información.",
+  "imagen": "images/ganimedes.jpg"
+},
+"Calisto": {
+  "ubicacion": "5.20 UA (Sistema Joviano)",
+  "distanciaTierra": "4.20 UA",
+  "tiempoViaje": "15-20 minutos (Militar) / 45-60 minutos (Civil)",
+  "economia": "El gigantesco vertedero y planta de reciclaje industrial del sistema joviano. Ante la escasez de recursos, se especializa en el desguace masivo de naves obsoletas, recuperación de polímeros, purificación de chatarra espacial y reprocesamiento químico de materiales de desecho para abastecer la demanda industrial de Ganimedes y el sistema exterior.",
+  "habitantes": "Sin población permanente ni residentes fijos. Al carecer de atmósfera, el trabajo de desguace y recolección de chatarra es altamente peligroso, realizado a la intemperie y en completo vacío mediante trajes espaciales presurizados y maquinaria pesada expuesta a la radiación. Los operarios (un contingente diario que viaja en transporte corporativo desde Ganimedes) descansan y se reabastecen en una red de búnkeres industriales subterráneos y domos sellados que resisten la radiación joviana.",
+  "imagen": "images/calisto.jpg"
+},
+  "Saturno": {
+  "ubicacion": "9.58 UA (Sistema Exterior)",
+  "distanciaTierra": "8.58 UA",
+  "tiempoViaje": "6.3 horas (Militar) / 25.2 días (Civil)",
+  "economia": "Centro turístico de superlujo para la élite de la Tierra y el sistema interior. No existen explotaciones mineras comerciales en los anillos —considerados demasiado volátiles, peligrosos y poco rentables por el riesgo de colisión orbital—, por lo que su economía gira en torno a la hotelería espacial de alta gama y las rutas panorámicas estelares.",
+  "habitantes": "Sin población permanente ni residentes nativos. La presencia humana se limita al personal hotelero, tripulaciones de cruceros y guías de turismo, quienes operan bajo estrictos contratos de rotación. Gracias a los avanzados sistemas de gravedad artificial a bordo de las estaciones y cruceros, el personal y los visitantes mantienen condiciones físicas idénticas a las de la Tierra. Las grandes flotas turísticas utilizan a Ganimedes como su puerto logístico y de abastecimiento obligado antes de iniciar el largo viaje de retorno hacia el sistema interior.",
+  "imagen": "images/saturno.jpg"
+},
+  "Urano": {
+  "ubicacion": "19.22 UA (Gigante de Hielo)",
+  "distanciaTierra": "18.22 UA",
+  "tiempoViaje": "13.4 horas (Militar) / 53.6 días (Civil)",
+  "economia": "Sin actividad económica directa en el planeta. Al tratarse de un gigantesco gigante de hielo con condiciones extremadamente hostiles, altas presiones y costos logísticos prohibitivos para cualquier extracción minera rentable, no existen instalaciones comerciales ni operaciones estables.",
+  "habitantes": "Sin población permanente ni residentes fijos. Al igual que Júpiter, el planeta es completamente inhabitable; la presencia humana se restringe de manera muy puntual a sondas automáticas de paso o puestos de control orbitales y científicos de tránsito rápido, operados bajo estrictos protocolos de seguridad espacial.",
+  "imagen": "images/urano.jpg"
+},
+  "Neptuno": {
+  "ubicacion": "30.05 UA (Gigante de Hielo)",
+  "distanciaTierra": "29.05 UA",
+  "tiempoViaje": "21.5 horas (Militar) / 86 días (Civil)",
+  "economia": "Sin actividad comercial ni minera debido a los prohibitivos costos logísticos y la extrema lejanía. Funciona exclusivamente como un puesto avanzado de control de tráfico y radares de defensa para vigilar los límites del sistema solar.",
+  "habitantes": "Sin población civil ni residentes permanentes. La única presencia humana se compone de dotaciones militares y personal de comunicaciones bajo estrictos contratos de rotación de larga duración, alojados en fortalezas orbitales y búnkeres blindados.",
+  "imagen": "images/neptuno.jpg"
+},
+  "Plutón": {
+  "ubicacion": "39.48 UA (Cinturón de Kuiper)",
+  "distanciaTierra": "38.48 UA",
+  "tiempoViaje": "28.5 horas (Militar) / 114 días (Civil)",
+  "economia": "El gran nodo comercial y aduana de transferencia del sistema exterior. Dada la inmensa distancia con los confines del sistema, se construyó una red de estaciones espaciales de descarga distribuidas a lo largo de toda la órbita de Plutón (moviéndose a su misma velocidad) para servir como puertos seguros. Aquí, los cargueros pesados procedentes de más allá de Kuiper descargan los materiales antes de que flotas más económicas los lleven al interior, optimizando rutas y costos.",
+  "habitantes": "Personal mínimo y altamente especializado (técnicos de mantenimiento, inspectores y controladores de carga) repartido en las estaciones orbitales de la red y bases excavadas en su superficie helada. Las operaciones están fuertemente automatizadas y son monitoreadas en tiempo real desde la Tierra para la gestión comercial. Gracias a la gravedad artificial estándar, el personal no sufre alteraciones físicas, aunque operan bajo estrictos regímenes de rotación debido al aislamiento.",
+  "imagen": "images/pluton.jpg"
+},
+  "Taryn 3": {
+  "ubicacion": "453.8 UA (Cinturón de Kuiper Exterior)",
+  "distanciaTierra": "452.8 UA",
+  "tiempoViaje": "2 semanas (Militar) / 2 meses (Transporte Civil)",
+  "economia": "Extracción y refinación a gran escala de tyranium (derivado del elemento Uhb 126), un material hiperdenso e indestructible ante colisiones espaciales que permite construir naves capaces de viajar a gran velocidad sin necesidad de campos de energía protectores. Descubierto en el año 258 EE y colonizado en el 674 EE, atrajo a múltiples corporaciones debido a la rentabilidad inagotable del recurso, operando junto a una economía local de contrabando y manufactura independiente.",
+  "habitantes": "Población permanente de 30 millones de habitantes, formada por descendientes de trabajadores contratados que decidieron quedarse y formar familias (con predominio de rasgos genéticos latinos y pieles pálidas o morenas leves debido a la penumbra). Biológicamente, presentan un conteo elevado de glóbulos rojos como adaptación a la menor concentración de oxígeno atmosférico, lo que les otorga un pico de capacidad física temporal al ingresar a entornos más oxigenados; además, tienen pupilas dilatadas por la baja luz natural. Poseen una ciudad cosmopolita abovedada llamada Columbia, mientras que los mineros y operarios soportan turnos a la intemperie sincronizados con el ciclo de compresión del tyranium y la liberación de gas plateado a través de torres de hafnio (ciclos de 16 horas de operación y extracción diurna, seguidos de 9 horas de reposo nocturno).",
+  "imagen": "images/taryn3.jpg"
+},
+  "Rakum": {
+  "ubicacion": "680.2 UA (Disco Disperso Lejano)",
+  "distanciaTierra": "679.2 UA",
+  "tiempoViaje": "3 semanas (Militar) / 3 meses (Transporte Civil)",
+  "economia": "Puerto franco totalmente informal y desregulado centrado en el mercado negro interplanetario, venta de mercancías robadas por piratas espaciales, trata de esclavos, modificación ilegal de motores de desliespacio y astilleros clandestinos. Se sustenta también de la extracción minera residual del gigantesco asteroide.",
+  "habitantes": "Chatarreros, contrabandistas, renegados y sindicatos criminales. Tras perder el control las corporaciones y la Tierra debido a su extrema lejanía, el asteroide se convirtió en un territorio sin ley gobernado de facto por facciones rebeldes y piratas. Biológicamente están marcados por cicatrices de radiación de fondo estelar, quemaduras de soldadura láser y el uso extensivo de modificaciones biomecánicas y prótesis baratas y caseras ante la absoluta ausencia de suministros médicos oficiales.",
+  "imagen": "images/rakum.jpg"
+},
+  "Volstek": {
+  "ubicacion": "2911.8 UA (Nube de Oort Interna)",
+  "distanciaTierra": "2910.8 UA",
+  "tiempoViaje": "3 meses (Militar) / 1 año (Nave de Carga Pesada)",
+  "economia": "Extracción y refinación altamente especializada de miridium 7 (cristales generados en el subsuelo profundo mediante la interacción de géiseres de hafnio a presión extrema). Un solo gramo de miridium refinado abastece de electricidad a una ciudad entera durante diez años, convirtiéndolo en uno de los recursos energéticos más codiciados y peligrosos del universo debido a su inestabilidad.",
+  "habitantes": "Población exclusiva de 5,000 habitantes netamente dueños del planeta. Son descendientes de una terapia genética inicial diseñada para soportar la altísima gravedad natural del planeta enano —la cual la tecnología actual no puede reducir a escala planetaria, volviendo letal e invalidante la visita de forasteros sin trajes de compensación por más de una semana—. Únicamente las personas de raza negra respondieron y se adaptaron plenamente a dicha terapia genética. Físicamente son gigantes de entre 2 y 2.5 metros de altura, con una masa muscular y densidad ósea descomunales y una fuerza natural sobrehumana. Viven protegidos en un único gran domo, resistiendo un entorno exterior de hielo y polvo cenizo permanente con temperaturas que oscilan entre -10°C y -40°C, calentados exclusivamente por la actividad de los géiseres de hafnio.",
+  "imagen": "images/volstek.jpg"
+}
+}
