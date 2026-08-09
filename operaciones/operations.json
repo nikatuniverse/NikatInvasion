@@ -1,0 +1,178 @@
+[
+  {
+    "id": "op-ny-01",
+    "nombre": "OPERATION HUDSON BREACH",
+    "estado": "ACTIVE COMBAT // PHASE 2",
+    "ubicacion": "LOWER MANHATTAN & HUDSON RIVER (NY, USA)",
+    "objetivo": "Step-by-step containment and dismantling of the initial Nikat beachhead established along the Manhattan waterfront.",
+    "mapa": {
+      "tipo": "urbano",
+      "colorFondo": "#060b18",
+      "estructuras": [
+        { "pos": [-35, 14, -30], "scale": [12, 28, 12] },
+        { "pos": [-15, 20, -35], "scale": [14, 40, 14] },
+        { "pos": [15, 12, -30], "scale": [15, 24, 15] },
+        { "pos": [35, 18, -35], "scale": [12, 36, 12] },
+        { "pos": [-30, 8, 0], "scale": [16, 16, 16] },
+        { "pos": [30, 10, 0], "scale": [14, 20, 14] },
+        { "pos": [0, 6, 25], "scale": [20, 12, 20] }
+      ],
+      "unidades": [
+        { "key": "delta", "label": "📌 DELTA SQUAD", "type": "friendly", "pos": [-20, 0, 30], "movil": true },
+        { "key": "support", "label": "🛡️ MOBILE ARTILLERY", "type": "friendly", "pos": [20, 0, 25], "movil": false },
+        { "key": "recon", "label": "🦅 RECON SCOUTS", "type": "friendly", "pos": [-5, 0, 20], "movil": true }
+      ],
+      "enemigos": [
+        { "key": "nikat_drones", "label": "🔴 ALIEN ASSAULT DRONES", "pos": [5, 0, -10], "movil": true }
+      ],
+      "target": [
+        { "key": "nikat_node", "label": "👽 NIKAT HYDRO-EXTRACTOR NODE", "pos": [0, 0, -25], "movil": false }
+      ]
+    },
+    "unidadesInfo": [
+      { 
+        "titulo": "DELTA SQUAD (HEAVY INFANTRY)", 
+        "status": "ADVANCING", 
+        "desc": "Step 1: Pushing northward through West Side Highway corridor. Equipped with anti-chitin armor plating and EMP rifles." 
+      },
+      { 
+        "titulo": "MOBILE ARTILLERY BATTERY", 
+        "status": "SUPPRESSION", 
+        "desc": "Step 2: Providing continuous heavy barrage cover from Battery Park, clearing low-flying scout swarms." 
+      },
+      { 
+        "titulo": "RECON SCOUTS", 
+        "status": "SCOUTING", 
+        "desc": "Advanced positioning for threat vector analysis and corridor tracking." 
+      }
+    ],
+    "enemigosInfo": [
+      { 
+        "titulo": "NIKAT ASSAULT DRONES", 
+        "status": "SWARMING", 
+        "desc": "Secondary Threat: Insectoid bio-units acting as perimeter guards with high mobility." 
+      }
+    ],
+    "targetInfo": [
+      {
+        "titulo": "NIKAT HYDRO-EXTRACTOR NODE",
+        "status": "VULNERABLE / ACTIVE",
+        "desc": "Primary Objective: Organic-metallic spire anchored into Pier 42, siphoning millions of gallons of seawater.",
+        "isTarget": true
+      }
+    ]
+  },
+  {
+    "id": "op-pt-02",
+    "nombre": "OPERAÇÃO QUEDA DE LISBOA",
+    "estado": "RECUPERAÇÃO CRÍTICA // CONTINGÊNCIA",
+    "ubicacion": "LITORAL DE LISBOA & SILO EXPERIMENTAL (PORTUGAL)",
+    "objetivo": "Infiltrar a base costeira ocupada, recuperar o armamento de energia experimental e executar uma retirada tática para estabelecer uma linha defensiva na Espanha, apoiados por uma frente de distração.",
+    "mapa": {
+      "tipo": "costero",
+      "colorFondo": "#04101e",
+      "estructuras": [
+        { "pos": [-30, 4, -25], "scale": [15, 6, 12] },
+        { "pos": [30, 8, -20], "scale": [14, 16, 14] },
+        { "pos": [0, 10, -35], "scale": [22, 18, 18] },
+        { "pos": [-25, 2, 15], "scale": [12, 4, 10] },
+        { "pos": [25, 3, 10], "scale": [14, 5, 12] }
+      ],
+      "unidades": [
+        { "key": "retrieval_team", "label": "⚡ EQUIPE DE RECUPERAÇÃO", "type": "friendly", "pos": [-15, 0, 25], "movil": true },
+        { "key": "distraction_team", "label": "🛡️ FRENTE DE DISTRAÇÃO", "type": "friendly", "pos": [20, 0, 20], "movil": true },
+        { "key": "reserves_pt", "label": "🛡️ RESERVAS DE COALIZÃO", "type": "friendly", "pos": [5, 0, 28], "movil": false }
+      ],
+      "enemigos": [
+        { "key": "alien_patrol", "label": "🔴 PATRULHA DE CHOQUE", "pos": [5, 0, -5], "movil": true }
+      ],
+      "target": [
+        { "key": "experimental_vault", "label": "⚡ SILO DE ENERGIA EXPERIMENTAL", "pos": [0, 0, -25], "movil": false }
+      ]
+    },
+    "unidadesInfo": [
+      { 
+        "titulo": "EQUIPE DE RECUPERAÇÃO", 
+        "status": "INFILTRAÇÃO COSTEIRA", 
+        "desc": "Infiltrando-se pelas falésias e ruínas da base à beira-mar para assegurar o arsenal de energia experimental." 
+      },
+      { 
+        "titulo": "FRENTE DE DISTRAÇÃO", 
+        "status": "COMBATE ATIVO", 
+        "desc": "Executando manobras de fogo cruzado no flanco leste para atrair as forças principais dos Nikat." 
+      },
+      { 
+        "titulo": "RESERVAS DE COALIZÃO", 
+        "status": "DEFESA PERIMETRAL", 
+        "desc": "Unidades de retaguarda mantendo a linha de comunicação e abastecimento pré-retirada." 
+      }
+    ],
+    "enemigosInfo": [
+      { 
+        "titulo": "PATRULHA DE CHOQUE", 
+        "status": "EM ALERTA // REAGINDO", 
+        "desc": "Ameaça Secundária: Unidades encarregadas de patrulhar a linha de costa que respondem à pressão do flanco de distração." 
+      }
+    ],
+    "targetInfo": [
+      {
+        "titulo": "SILO DE ENERGIA EXPERIMENTAL",
+        "status": "OBJETIVO // SECURE",
+        "desc": "Objetivo Principal: Instalação fortificada contendo armamento energético avançado essencial para a resistência na Espanha.",
+        "isTarget": true
+      }
+    ]
+  },
+
+  {
+    "id": "op-mar-03",
+    "nombre": "OPERATION DESERT SCORPION",
+    "estado": "INFILTRACIÓN // DESCONOCIDO",
+    "ubicacion": "DESIERTO DEL SAHARA (MARRUECOS)",
+    "objetivo": "Avanzar 2km hacia el sitio del impacto, asegurar la nave caída, recuperar datos, capturar especímenes (vivos/muertos) y tecnología para ingeniería inversa. Solicitar extracción AOT tras asegurar la zona.",
+    "mapa": {
+      "tipo": "desierto",
+      "colorFondo": "#1a1608",
+      "estructuras": [
+        { "pos": [0, 0, -45], "scale": [18, 4, 12] }
+      ],
+      "unidades": [
+        { "key": "vanguardia", "label": "🧭 VANGUARDIA DE RECUPERACIÓN", "type": "friendly", "pos": [0, 0, 35], "movil": true },
+        { "key": "norte_force", "label": "🛡️ FUERZA DE CONTENCIÓN NORTE", "type": "friendly", "pos": [-25, 0, 0], "movil": false }
+      ],
+      "enemigos": [
+        { "key": "nikat_north", "label": "🔴 FUERZA NIKAT (NORTE)", "pos": [-5, 0, -5], "movil": true }
+      ],
+      "target": [
+        { "key": "crash_site", "label": "🛸 NAVE NIKAT CAÍDA (OBJETIVO)", "pos": [0, 0, -45], "movil": false }
+      ]
+    },
+    "unidadesInfo": [
+      { 
+        "titulo": "VANGUARDIA DE RECUPERACIÓN", 
+        "status": "AVANZANDO", 
+        "desc": "Equipo especializado en infiltración desértica. Avance de 2km hacia el cráter del impacto para asegurar tecnología y especímenes." 
+      },
+      { 
+        "titulo": "FUERZA DE CONTENCIÓN NORTE", 
+        "status": "RETENIENDO", 
+        "desc": "Mantiene a raya la fuerza principal Nikat para permitir que la vanguardia trabaje en el sitio del impacto sin interrupciones." 
+      }
+    ],
+    "enemigosInfo": [
+      { 
+        "titulo": "FUERZA NIKAT (NORTE)", 
+        "status": "HOSTIL", 
+        "desc": "Fuerzas de oposición que intentan romper el cerco hacia el sur para proteger o recuperar su nave." 
+      }
+    ],
+    "targetInfo": [
+      {
+        "titulo": "NAVE NIKAT CAÍDA",
+        "status": "OBJETIVO PRIORITARIO",
+        "desc": "Punto de extracción de datos, armamento, tecnología y especímenes (vivos/muertos) para ingeniería inversa.",
+        "isTarget": true
+      }
+    ]
+  }
+]

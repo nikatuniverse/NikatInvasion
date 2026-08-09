@@ -10,7 +10,7 @@
             --azul: #00b4ff;
             --naranja: #ff8800;
             --verde: #22c55e;
-            --bg: #050a0f;
+            --bg: #030812; /* Un azul espacial muy profundo en lugar de negro plano */
             --year-width: 180px; 
         }
 
@@ -18,6 +18,75 @@
             margin: 0; background-color: var(--bg); color: white;
             font-family: 'Exo 2', sans-serif; height: 100vh;
             display: flex; flex-direction: column; overflow: hidden;
+            position: relative;
+        }
+
+        /* --- FONDO ESPACIAL: GALAXIAS Y ESTRELLAS VISIBLES Y LENTAS --- */
+        .space-bg {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            /* Estrellas con mayor contraste para que se noten bien */
+            background-image: 
+                radial-gradient(rgba(255,255,255,0.8) 1.2px, transparent 0),
+                radial-gradient(rgba(0,180,255,0.7) 1.5px, transparent 0),
+                radial-gradient(rgba(180,60,255,0.5) 2px, transparent 0);
+            background-size: 400px 400px, 300px 300px, 600px 600px;
+            background-position: 0 0, 100px 70px, 200px 150px;
+            opacity: 0.6; /* Subimos la opacidad para que luzca de verdad como el espacio */
+            animation: driftSpace 160s linear infinite;
+        }
+
+        @keyframes driftSpace {
+            from { background-position: 0 0, 100px 70px, 200px 150px; }
+            to { background-position: 1200px 1200px, 1300px 1270px, 1400px 1350px; }
+        }
+
+        /* Nebulosas / Galaxias difusas con más presencia visual */
+        .space-bg::after {
+            content: "";
+            position: absolute;
+            top: 25%; left: 25%;
+            width: 800px; height: 450px;
+            background: radial-gradient(ellipse, rgba(0, 140, 255, 0.12) 0%, rgba(130, 20, 190, 0.08) 40%, transparent 70%);
+            pointer-events: none;
+            animation: nebulaPulse 25s ease-in-out infinite alternate;
+        }
+
+        @keyframes nebulaPulse {
+            0% { transform: scale(1); opacity: 0.6; }
+            100% { transform: scale(1.25); opacity: 1; }
+        }
+
+        /* --- CAPA DE METEORITOS Y COSAS DEL ESPACIO --- */
+        #random-events-layer {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: 2;
+            overflow: hidden;
+        }
+
+        .space-debris {
+            position: absolute;
+            pointer-events: none;
+            opacity: 0.6;
+        }
+
+        .meteor {
+            width: 2px;
+            height: 2px;
+            background: white;
+            box-shadow: 0 0 8px 2px rgba(255, 255, 255, 0.8), -15px 0 20px rgba(0, 180, 255, 0.5);
+            border-radius: 50%;
+        }
+
+        .probe {
+            width: 5px;
+            height: 1.5px;
+            background: var(--azul);
+            box-shadow: 0 0 6px var(--azul);
         }
 
         /* ENCABEZADO NEXUS */
@@ -50,6 +119,7 @@
         .timeline-viewport {
             flex: 1; overflow-x: auto; display: flex; align-items: center;
             padding: 0 100px; scrollbar-width: thin; scrollbar-color: var(--azul) transparent;
+            z-index: 5;
         }
 
         .timeline-viewport::-webkit-scrollbar { height: 4px; }
@@ -70,7 +140,7 @@
         .year-mark {
             flex: 0 0 var(--year-width);
             border-left: 1px solid rgba(0, 180, 255, 0.1);
-            padding-left: 10px; font-family: 'Orbitron'; font-size: 0.7rem; color: #444;
+            padding-left: 10px; font-family: 'Orbitron'; font-size: 0.7rem; color: #555;
             display: flex; align-items: flex-end; padding-bottom: 10px;
         }
 
@@ -91,6 +161,7 @@
             border: 1px solid rgba(255,255,255,0.1);
             box-shadow: 0 15px 35px rgba(0,0,0,0.8);
             overflow: hidden; margin-bottom: 15px; border-radius: 4px;
+            background: #050a0f;
         }
 
         .cover img { width: 100%; height: 100%; object-fit: cover; }
@@ -114,34 +185,119 @@
         footer {
             padding: 25px;
             text-align: center;
-            background: rgba(0, 0, 0, 0.3);
+            background: rgba(0, 0, 0, 0.4);
             border-top: 1px solid rgba(255, 255, 255, 0.05);
             z-index: 10;
         }
 
         .copyright {
             font-size: 0.65rem;
-            color: #555;
+            color: #666;
             letter-spacing: 3px;
             text-transform: uppercase;
+        }
+
+        /* Estilos y efecto Glow para los botones del header */
+        .nav-btn {
+            display: inline-block;
+            margin-top: 20px;
+            margin-left: 10px;
+            margin-right: 10px;
+            padding: 8px 20px;
+            border: 1px solid var(--azul);
+            color: var(--azul);
+            text-decoration: none;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.7rem;
+            letter-spacing: 2px;
+            background: rgba(0, 180, 255, 0.03);
+            transition: all 0.3s ease;
+        }
+
+        .nav-btn:hover {
+            background-color: rgba(0, 180, 255, 0.15);
+            color: #ffffff;
+            border-color: #ffffff;
+            box-shadow: 0 0 15px var(--azul), inset 0 0 10px rgba(0, 180, 255, 0.5);
+            transform: translateY(-2px);
+        }
+
+        /* Contenedor del desplegable */
+        .dropdown-container {
+            position: relative;
+            display: inline-block;
+            margin-top: 15px;
+        }
+
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            top: 100%;
+            background: rgba(3, 8, 18, 0.95);
+            border: 1px solid var(--azul);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.9), 0 0 15px rgba(0, 180, 255, 0.3);
+            z-index: 100;
+            min-width: 280px;
+            text-align: left;
+            padding: 5px 0;
+            backdrop-filter: blur(5px);
+        }
+
+        /* Mostrar al pasar el cursor (puedes cambiarlo a clic con JS si prefieres) */
+        .dropdown-container:hover .dropdown-menu {
+            display: block;
+        }
+
+        .dropdown-item {
+            display: block;
+            padding: 10px 20px;
+            color: #ddd;
+            text-decoration: none;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.65rem;
+            letter-spacing: 2px;
+            transition: all 0.2s ease;
+            border-left: 2px solid transparent;
+        }
+
+        .dropdown-item:hover {
+            background-color: rgba(0, 180, 255, 0.15);
+            color: var(--azul);
+            border-left-color: var(--azul);
+            padding-left: 25px;
         }
     </style>
 </head>
 <body>
 
+    <!-- Capa de fondo espacial (galaxias / nebulosas lentas) -->
+    <div class="space-bg"></div>
+    
+    <!-- Capa para meteoritos y objetos espaciales flotantes -->
+    <div id="random-events-layer"></div>
+
     <header>
         <h1>NIKAT NEXUS</h1>
         <div class="instruction">Deslice lateralmente para explorar los registros temporales</div>
        
-    <!-- Botón de Acceso a Registros -->
-    <a href="registros_ede.html" style="display: inline-block; margin-top: 20px; padding: 8px 20px; border: 1px solid var(--azul); color: var(--azul); text-decoration: none; font-family: 'Orbitron'; font-size: 0.7rem; letter-spacing: 2px; transition: 0.3s;">
-        [ ACCEDER A REGISTROS DESENCRIPTADOS EDE ]
-    </a>
-    <!-- Botón de Acceso a Mapa Estelar -->
-    <a href="mapa_estelar.html" style="display: inline-block; margin-top: 20px; padding: 8px 20px; border: 1px solid var(--azul); color: var(--azul); text-decoration: none; font-family: 'Orbitron'; font-size: 0.7rem; letter-spacing: 2px; transition: 0.3s;">
-        [ ACCEDER A MAPA ESTELAR ]
-    </a>
-
+        <!-- Menú desplegable táctico -->
+        <div class="dropdown-container">
+            <button class="nav-btn dropdown-toggle">
+                [ ACCEDER A ARCHIVOS EDE ▼ ]
+            </button>
+            <div class="dropdown-menu">
+                <a href="registros_ede.html" class="dropdown-item">REGISTROS DESENCRIPTADOS</a>
+                <a href="mapa_estelar.html" class="dropdown-item">MAPA ESTELAR</a>
+                <!-- SECCIONES FUTURAS (Comentadas temporalmente) -->
+                <!-- 
+                <a href="sobrevivientes.html" class="dropdown-item">SOBREVIVIENTES (PERSONAJES)</a>
+                <a href="ubicaciones.html" class="dropdown-item">UBICACIONES</a>
+                <a href="elementos.html" class="dropdown-item">ELEMENTOS</a>
+                -->
+            </div>
+        </div>
     </header>
 
     <div class="timeline-viewport" id="view">
@@ -199,15 +355,60 @@
             const vol1 = document.querySelector('.y-2348');
             view.scrollLeft = vol1.offsetLeft - (window.innerWidth / 2) + 60;
         };
+
+        /* --- GENERADOR ALEATORIO DE METEORITOS Y COSAS DEL ESPACIO --- */
+        function spawnSpaceDebris() {
+            const layer = document.getElementById('random-events-layer');
+            const el = document.createElement('div');
+            
+            // Decidir aleatoriamente si es un meteorito o una pequeña sonda/nave lejana
+            const isMeteor = Math.random() < 0.7;
+            el.className = `space-debris ${isMeteor ? 'meteor' : 'probe'}`;
+
+            // Posición vertical aleatoria
+            const randomTop = Math.floor(Math.random() * window.innerHeight);
+            el.style.top = randomTop + 'px';
+
+            // Dirección de cruce (izquierda a derecha o viceversa, con un ligero ángulo)
+            const goingRight = Math.random() < 0.5;
+            const startX = goingRight ? -100 : window.innerWidth + 100;
+            const endX = goingRight ? window.innerWidth + 100 : -100;
+            const targetY = randomTop + (Math.random() * 200 - 100); // ligera inclinación diagonal
+
+            el.style.left = startX + 'px';
+
+            // Duración aleatoria (entre 12 y 25 segundos para que sea un movimiento calmado y sutil)
+            const duration = Math.random() * 13 + 12;
+            el.style.transition = `transform ${duration}s linear, opacity ${duration}s ease`;
+
+            layer.appendChild(el);
+
+            // Forzar movimiento
+            setTimeout(() => {
+                el.style.transform = `translate(${endX - startX}px, ${targetY - randomTop}px)`;
+            }, 50);
+
+            // Limpiar elemento al terminar
+            setTimeout(() => {
+                el.remove();
+            }, duration * 1000);
+
+            // Programar el siguiente objeto espacial en un tiempo aleatorio (entre 5 y 12 segundos)
+            const nextTime = Math.random() * 7000 + 5000;
+            setTimeout(spawnSpaceDebris, nextTime);
+        }
+
+        // Iniciar el primer objeto espacial a los 2 segundos
+        setTimeout(spawnSpaceDebris, 2000);
     </script>
 
     <div id="error-modal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.85); z-index:100; justify-content:center; align-items:center;">
-    <div style="border: 1px solid var(--verde); padding: 20px; text-align: center; max-width: 400px; background: #050a0f;">
-        <h2 style="color: var(--verde); font-family: 'Orbitron'; font-size: 1.2rem;">ERROR 403: ACCESO RESTRINGIDO</h2>
-        <p style="font-size: 0.9rem; color: #ccc;">El registro temporal solicitado [VOL III: CONTRAATAQUE] se encuentra actualmente bajo proceso de desencriptación parcial.</p>
-        <p style="font-size: 0.7rem; color: #555;">ESTADO: EN PROCESO DE RECONSTRUCCIÓN DE DATOS.</p>
-        <button onclick="document.getElementById('error-modal').style.display='none'" style="margin-top:20px; background:transparent; border:1px solid var(--verde); color:white; padding:5px 15px; cursor:pointer;">CERRAR</button>
+        <div style="border: 1px solid var(--verde); padding: 20px; text-align: center; max-width: 400px; background: #050a0f;">
+            <h2 style="color: var(--verde); font-family: 'Orbitron'; font-size: 1.2rem;">ERROR 403: ACCESO RESTRINGIDO</h2>
+            <p style="font-size: 0.9rem; color: #ccc;">El registro temporal solicitado [VOL III: CONTRAATAQUE] se encuentra actualmente bajo proceso de desencriptación parcial.</p>
+            <p style="font-size: 0.7rem; color: #555;">ESTADO: EN PROCESO DE RECONSTRUCCIÓN DE DATOS.</p>
+            <button onclick="document.getElementById('error-modal').style.display='none'" style="margin-top:20px; background:transparent; border:1px solid var(--verde); color:white; padding:5px 15px; cursor:pointer;">CERRAR</button>
+        </div>
     </div>
-</div>
 </body>
 </html>

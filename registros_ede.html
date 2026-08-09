@@ -1,207 +1,602 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NIKAT NEXUS | LECTOR</title>
-    <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@300;400;600;700&family=Merriweather&family=Courier+Prime&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@300;400;600;700&family=Merriweather&family=Courier+Prime&family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="imagenes/iconoae.png">
     <style>
+:root {
+    --azul: #00b4ff;
+    --naranja: #ff8800;
+    --bg: #030812;
+}
+
 /* ESTRUCTURA BASE */
 html { scroll-behavior: smooth; }
-body { margin: 0; font-family: 'Exo 2', sans-serif; background: linear-gradient(135deg, #050a0f, #0b1c2d); color: #e0f4ff; display: flex; height: 100vh; }
-body::before { content: ""; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%); background-size: 100% 4px; pointer-events: none; z-index: 100; opacity: 0.1; }
+body { 
+    margin: 0; 
+    font-family: 'Exo 2', sans-serif; 
+    background-color: var(--bg); 
+    color: #e0f4ff; 
+    display: flex; 
+    flex-direction: column;
+    min-height: 100vh;
+    overflow-x: hidden;
+    position: relative;
+}
 
-/* VARIABLES PARA COPYRIGHT DINÁMICO */
-:root { --watermark-color: rgba(0, 0, 0, 0.07); }
-body.dark { --watermark-color: rgba(255, 255, 255, 0.03); }
+/* --- FONDO ESPACIAL --- */
+.space-bg {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    pointer-events: none;
+    z-index: 0;
+    background-image: 
+        radial-gradient(rgba(255,255,255,0.8) 1.2px, transparent 0),
+        radial-gradient(rgba(0,180,255,0.7) 1.5px, transparent 0),
+        radial-gradient(rgba(180,60,255,0.5) 2px, transparent 0);
+    background-size: 400px 400px, 300px 300px, 600px 600px;
+    background-position: 0 0, 100px 70px, 200px 150px;
+    opacity: 0.6;
+    animation: driftSpace 160s linear infinite;
+}
 
-/* MENÚS IDÉNTICOS */
-nav, aside { width: 400px; background: #091a2a; padding: 30px; height: 100vh; position: fixed; border-left: 1px solid #1f4f75; border-right: 1px solid #1f4f75; box-sizing: border-box; }
-nav { left: 0; }
-aside { right: 0; }
-.logo-link { text-decoration: none; color: inherit; margin-bottom: 30px; display: block; }
-.logo-container { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 1.2rem; color: #ffffff; }
-.logo-icon { width: 35px; height: 35px; }
+@keyframes driftSpace {
+    from { background-position: 0 0, 100px 70px, 200px 150px; }
+    to { background-position: 1200px 1200px, 1300px 1270px, 1400px 1350px; }
+}
 
-/* ESTRUCTURA DEL LECTOR */
-#lector-container { margin-left: 400px; margin-right: 400px; padding: 40px; flex: 1; display: flex; flex-direction: column; height: 100vh; box-sizing: border-box; }
-#header-fijo { width: 100%; max-width: 700px; margin: 0 auto; padding-bottom: 20px; border-bottom: 2px solid #00b4ff; display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+.space-bg::after {
+    content: "";
+    position: absolute;
+    top: 25%; left: 25%;
+    width: 800px; height: 450px;
+    background: radial-gradient(ellipse, rgba(0, 140, 255, 0.12) 0%, rgba(130, 20, 190, 0.08) 40%, transparent 70%);
+    pointer-events: none;
+    animation: nebulaPulse 25s ease-in-out infinite alternate;
+}
+
+@keyframes nebulaPulse {
+    0% { transform: scale(1); opacity: 0.6; }
+    100% { transform: scale(1.25); opacity: 1; }
+}
+
+/* --- CAPA DE METEORITOS --- */
+#random-events-layer {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    pointer-events: none;
+    z-index: 1;
+    overflow: hidden;
+}
+
+.space-debris {
+    position: absolute;
+    pointer-events: none;
+    opacity: 0.6;
+}
+
+.meteor {
+    width: 2px;
+    height: 2px;
+    background: white;
+    box-shadow: 0 0 8px 2px rgba(255, 255, 255, 0.8), -15px 0 20px rgba(0, 180, 255, 0.5);
+    border-radius: 50%;
+}
+
+.probe {
+    width: 5px;
+    height: 1.5px;
+    background: var(--azul);
+    box-shadow: 0 0 6px var(--azul);
+}
+
+/* EFECTO DE ESCANEO TÁCTICO */
+body::before { 
+    content: ""; 
+    position: fixed; 
+    top: 0; 
+    left: 0; 
+    width: 100%; 
+    height: 100%; 
+    background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%); 
+    background-size: 100% 4px; 
+    pointer-events: none; 
+    z-index: 100; 
+    opacity: 0.1; 
+}
+
+/* HEADER SUPERIOR UNIFICADO */
+header.top-header {
+    width: 100%;
+    background: rgba(3, 8, 18, 0.85);
+    backdrop-filter: blur(10px);
+    padding: 20px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgba(0, 180, 255, 0.3);
+    box-sizing: border-box;
+    position: sticky;
+    top: 0;
+    z-index: 50;
+}
+
+.logo-link { text-decoration: none; color: inherit; }
+.logo-container { display: flex; align-items: center; gap: 12px; font-weight: 700; font-family: 'Orbitron', sans-serif; font-size: 0.9rem; letter-spacing: 2px; color: #ffffff; }
+.logo-icon { width: 32px; height: 32px; }
+
+.nav-menu-container { display: flex; align-items: center; gap: 20px; }
+.nav-btn {
+    display: inline-block;
+    padding: 8px 18px;
+    border: 1px solid var(--azul);
+    color: var(--azul);
+    text-decoration: none;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.65rem;
+    letter-spacing: 2px;
+    background: rgba(0, 180, 255, 0.03);
+    transition: all 0.3s ease;
+    cursor: pointer;
+    border-radius: 4px;
+}
+.nav-btn:hover {
+    background-color: rgba(0, 180, 255, 0.15);
+    color: #ffffff;
+    border-color: #ffffff;
+    box-shadow: 0 0 15px var(--azul), inset 0 0 10px rgba(0, 180, 255, 0.5);
+    transform: translateY(-2px);
+}
+
+/* CONTENEDOR DE DISEÑO PRINCIPAL (3 columnas: NAV - LECTOR - ASIDE) */
+.page-layout {
+    display: flex;
+    flex: 1;
+    position: relative;
+    box-sizing: border-box;
+    z-index: 2;
+}
+
+/* PANEL IZQUIERDO: ARCHIVOS EDE */
+nav {
+    width: 300px;
+    background: rgba(5, 10, 15, 0.85);
+    backdrop-filter: blur(10px);
+    padding: 30px;
+    height: calc(100vh - 73px);
+    position: sticky;
+    top: 73px;
+    border-right: 1px solid rgba(0, 180, 255, 0.4);
+    box-sizing: border-box;
+    z-index: 10;
+    overflow-y: auto;
+}
+
+/* TÍTULO / BOTÓN DESPLEGABLE DE ARCHIVOS EDE */
+.nav-toggle {
+    margin-top: 0;
+    color: var(--azul);
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.85rem;
+    letter-spacing: 2px;
+    text-align: center;
+    margin-bottom: 20px;
+    padding: 10px;
+    background: rgba(0, 180, 255, 0.1);
+    border: 1px solid var(--azul);
+    border-radius: 4px;
+    box-sizing: border-box;
+    user-select: none;
+}
+
+/* BOTONES DE RELATOS */
+.btn { 
+    display: block; 
+    width: 100%; 
+    padding: 10px 15px; 
+    background: rgba(0, 180, 255, 0.1); 
+    color: var(--azul); 
+    text-align: center; 
+    border: 1px solid var(--azul); 
+    cursor: pointer; 
+    border-radius: 4px; 
+    margin-bottom: 12px; 
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.65rem; 
+    text-transform: uppercase; 
+    letter-spacing: 1px; 
+    transition: 0.3s;
+    box-sizing: border-box;
+}
+.btn:hover { 
+    background: var(--azul); 
+    color: #030812; 
+    box-shadow: 0 0 12px rgba(0, 180, 255, 0.6); 
+    transform: translateY(-2px);
+}
+
+/* ESTRUCTURA DEL LECTOR CENTRAL */
+#lector-container { 
+    padding: 40px; 
+    flex: 1; 
+    display: flex; 
+    flex-direction: column; 
+    box-sizing: border-box; 
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+#header-fijo { 
+    width: 100%; 
+    padding-bottom: 15px; 
+    border-bottom: 1px solid rgba(0, 180, 255, 0.4); 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+    margin-bottom: 25px; 
+}
+
+#titulo-cap {
+    font-family: 'Orbitron', sans-serif;
+    letter-spacing: 2px;
+}
+
+.modos { display: flex; gap: 8px; }
+.btn-modo { 
+    cursor: pointer; 
+    border: 1px solid rgba(0, 180, 255, 0.4); 
+    background: rgba(5, 10, 15, 0.85); 
+    color: #e0f4ff;
+    padding: 6px 10px; 
+    border-radius: 4px; 
+    font-size: 0.85rem; 
+    transition: 0.3s; 
+}
+.btn-modo:hover { border-color: var(--azul); background: rgba(0, 180, 255, 0.15); box-shadow: 0 0 8px rgba(0, 180, 255, 0.4); }
 
 #lector { 
-    max-width: 700px; width: 100%; height: 100%; margin: 0 auto; overflow-y: auto; padding: 40px;
-    background: #f4ecd8; color: #5c4b37; font-family: 'Merriweather', serif;
-    line-height: 1.8; border: 1px solid #2f6e9e; box-sizing: border-box;
-    user-select: none; transition: .3s; position: relative;
+    width: 100%; 
+    min-height: 500px;
+    max-height: 70vh; 
+    margin: 0 auto; 
+    overflow-y: auto; 
+    padding: 40px;
+    background: #f4ecd8; 
+    color: #5c4b37; 
+    font-family: 'Merriweather', serif;
+    line-height: 1.8; 
+    border: 1px solid rgba(0, 180, 255, 0.5); 
+    box-sizing: border-box;
+    user-select: none; 
+    position: relative;
+    border-radius: 6px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.7);
     transition: opacity 0.3s ease-in-out; 
     opacity: 1; 
 }
 
 /* MARCA DE AGUA (Copyright) */
 #lector::before {
-    content: "© NIKAT SAGA"; position: absolute; top: 50%; left: 50%;
+    content: "© NIKAT SAGA"; 
+    position: absolute; 
+    top: 50%; left: 50%;
     transform: translate(-50%, -50%) rotate(-45deg);
-    font-size: 5rem; color: var(--watermark-color); pointer-events: none;
-    z-index: 0; white-space: nowrap; font-family: 'Exo 2', sans-serif; letter-spacing: 10px;
+    font-size: 5rem; 
+    color: rgba(0, 0, 0, 0.07); 
+    pointer-events: none;
+    z-index: 0; 
+    white-space: nowrap; 
+    font-family: 'Orbitron', sans-serif; 
+    letter-spacing: 10px;
 }
+
+body.dark #lector { background: rgba(5, 10, 15, 0.9); color: #d1d1d1; border-color: rgba(0, 180, 255, 0.4); backdrop-filter: blur(8px); }
+body.dark #lector::before { color: rgba(255, 255, 255, 0.03); }
+
+body.claro #lector { background: #ffffff; color: #1e293b; border-color: #cbd5e1; }
+body.claro #lector::before { color: rgba(0, 0, 0, 0.04); }
 
 /* SCROLL PERSONALIZADO */
 #lector::-webkit-scrollbar { width: 8px; }
-#lector::-webkit-scrollbar-thumb { background: #00b4ff; border-radius: 4px; }
+#lector::-webkit-scrollbar-thumb { background: var(--azul); border-radius: 4px; }
 
-/* MODOS Y BOTONES */
-body.dark #lector { background: #0a0a0c; color: #d1d1d1; }
-body.claro #lector { background: #ffffff; color: #1e293b; }
-
-.btn { 
-    display: block; width: 100%; padding: 8px 15px; background: rgba(0, 180, 255, 0.1); 
-    color: #00b4ff; text-align: center; border: 1px solid #00b4ff; cursor: pointer; 
-    border-radius: 2px; margin-bottom: 8px; font-family: 'Courier Prime', monospace;
-    font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; transition: 0.3s;
-}
-.btn:hover { background: #00b4ff; color: #050a0f; box-shadow: 0 0 10px #00b4ff; }
-.btn-modo { cursor: pointer; border: 1px solid #1f4f75; background: rgba(9, 26, 42, 0.5); padding: 5px 8px; border-radius: 2px; font-size: 0.9rem; transition: 0.3s; }
-.btn-modo:hover { border-color: #00b4ff; background: #091a2a; }
-
-.nav-link {
-    display: block; color: #a8dfff; text-decoration: none; margin-top: 20px;
-    padding: 10px 0; font-weight: 600; font-size: 0.85rem; text-transform: uppercase;
-    transition: 0.3s; border-top: 1px solid #1f4f75; text-align: center;
-}
-.nav-link:hover { color: #ffffff; padding-left: 5px; border-color: #00b4ff; }
-
-.buy-button { display: block; text-align: center; padding: 12px; background: #00b4ff; color: #050a0f; text-decoration: none; font-weight: bold; border-radius: 4px; margin-top: 20px; }
-
-.biblioteca-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr); 
-    gap: 10px;
-    margin-bottom: 15px;
-}
-.portada-mini { text-align: center; }
-.portada-mini img { width: 100%; border-radius: 4px; border: 1px solid #1f4f75; }
-.mini-button {
-    display: block; margin-top: 5px; font-size: 0.5rem; padding: 4px;
-    text-align: center; background: rgba(0, 180, 255, 0.2);
-    color: white; text-decoration: none; border-radius: 3px;
+/* PANEL DERECHO: ASIDE DE SAGA */
+aside { 
+    width: 280px; 
+    background: rgba(5, 10, 15, 0.85); 
+    backdrop-filter: blur(10px);
+    padding: 30px; 
+    height: calc(100vh - 73px); 
+    position: sticky; 
+    top: 73px;
+    border-left: 1px solid rgba(0, 180, 255, 0.4);
+    box-sizing: border-box;
+    z-index: 10;
+    overflow-y: auto;
 }
 
-/* AJUSTE PARA MÓVILES */
-@media (max-width: 1024px) {
-    body { display: block; height: auto; overflow-x: hidden; }
-    nav, aside { position: relative; width: 100%; height: auto; border: none; border-bottom: 1px solid #1f4f75; }
-    #lector-container { margin: 0; padding: 20px; height: auto; }
-    #lector { padding: 20px; }
+.buy-button { 
+    display: block; 
+    text-align: center; 
+    padding: 12px; 
+    background: rgba(0, 180, 255, 0.15); 
+    border: 1px solid var(--azul);
+    color: var(--azul); 
+    text-decoration: none; 
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.75rem;
+    letter-spacing: 1px;
+    font-weight: bold; 
+    border-radius: 4px; 
+    margin-top: 15px; 
+    transition: all 0.2s ease;
+}
+.buy-button:hover {
+    background: var(--azul);
+    color: #030812;
+    box-shadow: 0 0 12px rgba(0, 180, 255, 0.6);
+}
+
+/* AJUSTE RESPONSIVE */
+@media (min-width: 769px) {
+    .nav-content { display: block !important; }
+    .nav-toggle { cursor: default; }
+}
+
+@media (max-width: 1100px) {
+    .page-layout { flex-direction: column; }
+    nav, aside { 
+        position: relative; 
+        width: 100%; 
+        height: auto; 
+        top: 0;
+        border: none;
+        border-bottom: 1px solid rgba(0, 180, 255, 0.4); 
+    }
+    #lector-container { max-width: 100%; padding: 20px; }
+}
+
+@media(max-width: 768px) {
+    header.top-header { padding: 15px 20px; flex-direction: column; gap: 15px; }
+    .nav-content { display: none; }
+    .nav-content.active { display: block; }
+    .nav-toggle { cursor: pointer; }
+}
+
+/* CONTENEDOR DE CADA PORTADA EN EL NAV */
+.nav-portada-container {
+    background: rgba(5, 10, 15, 0.85);
+    backdrop-filter: blur(8px);
+    padding: 12px;
+    border: 1px solid rgba(0, 180, 255, 0.4);
+    border-radius: 6px;
+    margin-bottom: 20px;
+    text-align: center;
+    transition: 0.3s;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+    cursor: pointer;
+}
+
+.nav-portada-container:hover {
+    border-color: var(--azul);
+    box-shadow: 0 0 15px rgba(0, 180, 255, 0.4);
+    transform: translateY(-3px);
+}
+
+/* LA IMAGEN SE MANTIENE ÍNTEGRA SIN RECORTARSE */
+.nav-portada-img {
+    width: 100%;
+    height: auto;           /* Altura automática según proporción original */
+    max-height: 320px;      /* Evita que imágenes demasiado altas desborden el menú */
+    object-fit: contain;    /* Clave: asegura que se vea toda la imagen completa */
+    border-radius: 4px;
+    border: 1px solid rgba(0, 180, 255, 0.3);
+    display: block;
+    margin: 0 auto;
+    transition: 0.2s;
+}
+
+.nav-portada-container:hover .nav-portada-img {
+    border-color: #ffffff;
+    box-shadow: 0 0 10px var(--azul);
+}
+
+/* TÍTULO DEBAJO DE LA PORTADA */
+.nav-portada-titulo {
+    margin-top: 10px;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.7rem;
+    letter-spacing: 1px;
+    color: #e0f4ff;
+    text-transform: uppercase;
+}
+
+/* --- AJUSTES ESPECÍFICOS PARA MÓVILES --- */
+@media (max-width: 768px) {
+    /* Ocultar las portadas visuales en el menú móvil */
+    .nav-portada-img {
+        display: none !important;
+    }
+
+    /* Ajustar el contenedor para que actúe como un botón plano */
+    .nav-portada-container {
+        padding: 15px !important;
+        margin-bottom: 10px !important;
+        background: rgba(0, 180, 255, 0.05) !important;
+        border: 1px solid var(--azul) !important;
+        cursor: pointer;
+    }
+
+    /* Asegurar que el título se vea bien como botón */
+    .nav-portada-titulo {
+        margin-top: 0 !important;
+        font-size: 0.85rem !important;
+        font-weight: bold;
+    }
 }
     </style>
 </head>
-<body class="papel">
+<body class="dark">
 
-    <nav>
+    <div class="space-bg"></div>
+    <div id="random-events-layer"></div>
+
+    <!-- HEADER SUPERIOR -->
+    <header class="top-header">
         <a href="index.html" class="logo-link">
             <div class="logo-container">
                 <img src="imagenes/iconoae.png" alt="Logo" class="logo-icon">
                 <span>NIKAT NEXUS</span>
             </div>
         </a>
-        <a>ARCHIVOS EDE</a>
-        <br></br>
-        <button class="btn" onclick="cargar('textos/NIKAT_CAUTIVA.txt', this.innerText)">NIKAT CAUTIVA</button>
-        
-    </nav>
+        <div class="nav-menu-container">
+            <a href="index.html" class="nav-btn">VOLVER AL INICIO</a>
+        </div>
+    </header>
 
-    <main id="lector-container">
-        <div id="header-fijo">
-            <h2 id="titulo-cap" style="margin:0; font-size: 1.2rem; color: #00b4ff;">ARCHIVO LECTOR</h2>
-            <div class="modos">
-                <button class="btn-modo" onclick="cambiarModo('claro')">☀️</button>
-                <button class="btn-modo" onclick="cambiarModo('dark')">🌙</button>
-                <button class="btn-modo" onclick="cambiarModo('papel')">📖</button>
+    <div class="page-layout">
+        <!-- NAV IZQUIERDO: ARCHIVOS EDE -->
+        <nav>
+            <h3 class="nav-toggle" id="menu-toggle">ARCHIVOS EDE ▾</h3>
+            <div id="lista-relatos" class="nav-content">
+                <!-- Botón Relato 1 -->
+                <div class="nav-portada-container" onclick="cargar('textos/NIKAT_CAUTIVA.txt', 'NIKAT CAUTIVA')">
+                    <img src="imagenes/cautiva.png" alt="Nikat Cautiva" class="nav-portada-img">
+                    <div class="nav-portada-titulo">NIKAT CAUTIVA</div>
+                </div>
+                
+                <!-- Botón Relato 2 -->
+                <div class="nav-portada-container" onclick="cargar('textos/NIKAT_DESERTOR.txt', 'NIKAT DESERTOR')">
+                    <img src="imagenes/desertor.png" alt="Nikat Desertor" class="nav-portada-img">
+                    <div class="nav-portada-titulo">NIKAT DESERTOR</div>
+                </div>
             </div>
-        </div>
-        <div id="lector">
-            <p>Selecciona un archivo desde el panel izquierdo.</p>
-        </div>
-    </main>
+        </nav>
 
-    <aside id="libro">
-  <div style="border: 1px solid #00b4ff; padding: 15px; border-radius: 8px; background: rgba(0, 30, 50, 0.5);">
-    <h2 style="margin-top: 0; color: #00b4ff; font-size: 1rem; text-align: center; font-family: 'Orbitron'; letter-spacing: 2px; margin-bottom: 20px;">ARCHIVO DE SAGA</h2>
-    
-    <!-- Grid de libros -->
-    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px;">
-        
-        <!-- Libro 1 -->
-        <div style="text-align: center;">
-            <img src="imagenes/portada1.png" alt="Vol 1" style="width:100%; border-radius:4px; border: 1px solid #1f4f75;">
-            <a href="https://www.amazon.com/-/es/Jonatan-Arley-Hernández-Chavarro/dp/B0GPNXK7NS" 
-               style="display:block; margin-top: 8px; padding: 5px; background: rgba(0, 180, 255, 0.1); border: 1px solid #00b4ff; color: #00b4ff; text-decoration: none; font-size: 0.6rem; font-family: 'Orbitron'; border-radius: 2px; transition: 0.3s;"
-               target="_blank"
-               onmouseover="this.style.background='#00b4ff'; this.style.color='#050a0f'; this.style.fontWeight='bold';"
-               onmouseout="this.style.background='rgba(0, 180, 255, 0.1)'; this.style.color='#00b4ff'; this.style.fontWeight='normal';">
-               VOL I
-            </a>
-        </div>
-        
-        <!-- Libro 2 -->
-        <div style="text-align: center;">
-            <img src="imagenes/portada2.png" alt="Vol 2" style="width:100%; border-radius:4px; border: 1px solid #1f4f75;">
-            <a href="https://www.amazon.com/-/es/J-Hernández/dp/B0H4S4S2S2/ref=tmm_pap_swatch_0" 
-               style="display:block; margin-top: 8px; padding: 5px; background: rgba(0, 180, 255, 0.1); border: 1px solid #00b4ff; color: #00b4ff; text-decoration: none; font-size: 0.6rem; font-family: 'Orbitron'; border-radius: 2px; transition: 0.3s;"
-               target="_blank"
-               onmouseover="this.style.background='#00b4ff'; this.style.color='#050a0f'; this.style.fontWeight='bold';"
-               onmouseout="this.style.background='rgba(0, 180, 255, 0.1)'; this.style.color='#00b4ff'; this.style.fontWeight='normal';">
-               VOL II
-            </a>
-        </div>
-        
+        <!-- MAIN CENTRAL: LECTOR -->
+        <main id="lector-container">
+            <div id="header-fijo">
+                <h2 id="titulo-cap" style="margin:0; font-size: 1.1rem; color: var(--azul);">ARCHIVO LECTOR</h2>
+                <div class="modos">
+                    <button class="btn-modo" onclick="cambiarModo('claro')" title="Modo Claro">☀️</button>
+                    <button class="btn-modo" onclick="cambiarModo('dark')" title="Modo Oscuro">🌙</button>
+                    <button class="btn-modo" onclick="cambiarModo('papel')" title="Modo Papel">📖</button>
+                </div>
+            </div>
+            <div id="lector">
+                <p>Selecciona un archivo desde el panel izquierdo para iniciar la lectura desclasificada.</p>
+            </div>
+        </main>
+
+        <!-- ASIDE DERECHO: OBRA OFICIAL -->
+        <aside id="libro">
+            <div style="border: 1px solid rgba(0, 180, 255, 0.4); padding: 15px; border-radius: 8px; background: rgba(5, 10, 15, 0.85); backdrop-filter: blur(8px);">
+                <h2 style="margin-top: 0; color: var(--azul); text-align: center; font-family: 'Orbitron', sans-serif; font-size: 0.85rem; letter-spacing: 2px;">ARCHIVO DE SAGA</h2>
+                
+                <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 15px;">
+                    <!-- Libro 1 -->
+                    <div style="text-align: center;">
+                        <img src="imagenes/portada1.png" alt="Vol 1" style="width:100%; border-radius:4px; border: 1px solid rgba(0, 180, 255, 0.3);">
+                        <a href="https://www.amazon.com/-/es/Jonatan-Arley-Hernández-Chavarro/dp/B0GPNXK7NS" class="buy-button" style="margin-top:8px; padding:6px; font-size:0.6rem;" target="_blank">VOL I</a>
+                    </div>
+                    <!-- Libro 2 -->
+                    <div style="text-align: center;">
+                        <img src="imagenes/portada2.png" alt="Vol 2" style="width:100%; border-radius:4px; border: 1px solid rgba(0, 180, 255, 0.3);">
+                        <a href="https://www.amazon.com/-/es/J-Hernández/dp/B0H4S4S2S2/ref=tmm_pap_swatch_0" class="buy-button" style="margin-top:8px; padding:6px; font-size:0.6rem;" target="_blank">VOL II</a>
+                    </div>
+                </div>
+
+                <hr style="border: 0; border-top: 1px solid rgba(0, 180, 255, 0.3); margin: 20px 0;">
+                
+                <!-- Botón de Apoyo -->
+                <a href="https://ko-fi.com/nikatuniverse" 
+                   style="display:block; text-align:center; padding: 10px; background: rgba(40, 167, 69, 0.15); border: 1px solid #28a745; color: #28a745; text-decoration: none; font-family: 'Orbitron', sans-serif; font-size: 0.65rem; letter-spacing: 1px; border-radius: 4px; transition: 0.3s;" 
+                   target="_blank"
+                   onmouseover="this.style.background='#28a745'; this.style.color='#030812'; this.style.fontWeight='bold';" 
+                   onmouseout="this.style.background='rgba(40, 167, 69, 0.15)'; this.style.color='#28a745'; this.style.fontWeight='normal';">
+                    APÓYAME CON DONACIÓN
+                </a>
+            </div>
+            
+            <div style="margin-top: 25px; text-align: center;">
+                <p style="font-size: 0.6rem; color: #5c7a99; font-family: 'Orbitron'; letter-spacing: 2px;">SISTEMA EDE // 2026</p>
+            </div>
+        </aside>
     </div>
-    
-    <hr style="border: 0; border-top: 1px solid #1f4f75; margin: 20px 0;">
-    
-    <!-- Botón de Apoyo -->
-    <a href="https://ko-fi.com/nikatuniverse" 
-       style="display:block; text-align:center; padding: 10px; background: rgba(40, 167, 69, 0.1); border: 1px solid #28a745; color: #28a745; text-decoration: none; font-family: 'Courier New', monospace; font-size: 0.75rem; letter-spacing: 1px; border-radius: 2px; transition: 0.3s;" 
-       target="_blank"
-       onmouseover="this.style.background='#28a745'; this.style.color='#050a0f'; this.style.fontWeight='bold';" 
-       onmouseout="this.style.background='rgba(40, 167, 69, 0.1)'; this.style.color='#28a745'; this.style.fontWeight='normal';">
-       > APOYAME CON UNA DONACION
-    </a>
-  </div>
-  
-  <div style="margin-top: 20px; text-align: center;">
-      <p style="font-size: 0.6rem; color: #5c7a99; font-family: 'Exo 2'; letter-spacing: 2px;">SISTEMA EDE ARCHIVE // VERSIÓN 2026</p>
-  </div>
-</aside>
 
     <script>
         function cargar(archivo, nombreCapitulo) {
-    const lector = document.getElementById('lector');
-    
-    // 1. Fade Out: Hacemos el texto invisible rápidamente
-    lector.style.opacity = 0;
-    
-    // 2. Esperamos a que la transición termine (300ms) antes de cambiar el texto
-    setTimeout(() => {
-        fetch(archivo)
-            .then(res => res.text())
-            .then(data => {
-                // Actualizar contenido
-                lector.innerHTML = `<p>${data.replace(/\n/g, '</p><p>')}</p>`;
-                
-                // Resetear scroll
-                lector.scrollTop = 0;
-                
-                // Actualizar título
-                document.getElementById('titulo-cap').innerText = nombreCapitulo;
-                
-                // 3. Fade In: Volvemos a mostrar el lector
-                lector.style.opacity = 1;
-            });
-    }, 300); // Este tiempo debe coincidir con el tiempo del CSS (0.3s)
-}
-        function cambiarModo(modo) { document.body.className = modo; }
+            const lector = document.getElementById('lector');
+            lector.style.opacity = 0;
+            setTimeout(() => {
+                fetch(archivo)
+                    .then(res => res.text())
+                    .then(data => {
+                        lector.innerHTML = `<p>${data.replace(/\n/g, '</p><p>')}</p>`;
+                        lector.scrollTop = 0;
+                        document.getElementById('titulo-cap').innerText = nombreCapitulo;
+                        lector.style.opacity = 1;
+                    });
+            }, 300);
+        }
+
+        function cambiarModo(modo) { 
+            // Limpia las clases de modo y aplica la seleccionada
+            document.body.classList.remove('dark', 'claro', 'papel');
+            document.body.className = modo; 
+        }
+
+        // Script para el menú desplegable móvil de Archivos EDE
+        document.getElementById('menu-toggle').addEventListener('click', function() {
+            if (window.innerWidth <= 768) {
+                const lista = document.getElementById('lista-relatos');
+                lista.classList.toggle('active');
+                this.textContent = this.textContent.includes('▾') ? 'ARCHIVOS EDE ▴' : 'ARCHIVOS EDE ▾';
+            }
+        });
+
         document.addEventListener('contextmenu', e => e.preventDefault());
+
+        // Script para generar meteoritos y sondas de fondo idéntico al index principal
+        function spawnSpaceDebris() {
+            const layer = document.getElementById('random-events-layer');
+            if (!layer) return;
+            const el = document.createElement('div');
+            
+            const isMeteor = Math.random() < 0.7;
+            el.className = `space-debris ${isMeteor ? 'meteor' : 'probe'}`;
+
+            const randomTop = Math.floor(Math.random() * window.innerHeight);
+            el.style.top = randomTop + 'px';
+
+            const goingRight = Math.random() < 0.5;
+            const startX = goingRight ? -100 : window.innerWidth + 100;
+            const endX = goingRight ? window.innerWidth + 100 : -100;
+            const targetY = randomTop + (Math.random() * 200 - 100);
+
+            el.style.left = startX + 'px';
+
+            const duration = Math.random() * 13 + 12;
+            el.style.transition = `transform ${duration}s linear, opacity ${duration}s ease`;
+
+            layer.appendChild(el);
+
+            setTimeout(() => {
+                el.style.transform = `translate(${endX - startX}px, ${targetY - randomTop}px)`;
+            }, 50);
+
+            setTimeout(() => {
+                el.remove();
+            }, duration * 1000);
+
+            const nextTime = Math.random() * 7000 + 5000;
+            setTimeout(spawnSpaceDebris, nextTime);
+        }
+
+        setTimeout(spawnSpaceDebris, 2000);
     </script>
 </body>
 </html>

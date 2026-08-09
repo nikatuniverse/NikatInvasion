@@ -12,216 +12,320 @@
     <link rel="icon" type="image/png" href="imagenes/iconoae.png">
     
     <style>
-        :root {
-            --naranja: #ff8800;
-            --naranja-glow: rgba(255, 136, 0, 0.3);
-            --bg-dark: #0a0602;
-            --panel-bg: rgba(20, 13, 7, 0.85);
-            --text: #ffe0cc;
-        }
+    :root {
+        --naranja: #ff8800;
+        --naranja-glow: rgba(255, 136, 0, 0.3);
+        --bg-dark: #0a0602;
+        --panel-bg: rgba(20, 13, 7, 0.85);
+        --text: #ffe0cc;
+    }
 
-        /* ESTRUCTURA BASE */
-        html { scroll-behavior: smooth; }
-        body { 
-            margin: 0; 
-            font-family: 'Exo 2', sans-serif; 
-            background: linear-gradient(135deg, var(--bg-dark), #1a1109); 
-            color: var(--text); 
-            display: flex; 
-            overflow-x: hidden;
-        }
+    /* ESTRUCTURA BASE */
+    html { scroll-behavior: smooth; }
+    body { 
+        margin: 0; 
+        font-family: 'Exo 2', sans-serif; 
+        background: linear-gradient(135deg, var(--bg-dark), #1a1109); 
+        color: var(--text); 
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+        overflow-x: hidden;
+        position: relative;
+    }
 
-        /* EFECTO DE ESCANEO DE GUERRA (Más agresivo) */
-        body::before { 
-            content: ""; position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
-            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(255, 136, 0, 0.05) 50%); 
-            background-size: 100% 8px; pointer-events: none; z-index: 100; opacity: 0.15; 
-        }
+    /* EFECTO DE ESCANEO DE GUERRA */
+    body::before { 
+        content: ""; 
+        position: fixed; 
+        top: 0; 
+        left: 0; 
+        width: 100%; 
+        height: 100%; 
+        background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(255, 136, 0, 0.05) 50%); 
+        background-size: 100% 8px; 
+        pointer-events: none; 
+        z-index: 100; 
+        opacity: 0.15; 
+    }
 
-        /* MENÚ IZQUIERDO */
-        nav { 
-            width: 250px; 
-            background: var(--panel-bg); 
-            backdrop-filter: blur(10px);
-            padding: 30px; 
-            height: 100vh; 
-            position: fixed; 
-            border-right: 1px solid rgba(255, 136, 0, 0.3); 
-            box-sizing: border-box;
-            z-index: 10;
-        }
-        nav h2 { 
-            color: var(--naranja); 
-            font-size: 0.9rem; 
-            font-family: 'Orbitron', sans-serif;
-            letter-spacing: 2px; 
-            border-bottom: 1px solid var(--naranja-glow); 
-            padding-bottom: 10px; 
-            margin-top: 20px;
-        }
-        nav a { 
-            display: block; 
-            color: #ccaa88; 
-            text-decoration: none; 
-            margin-bottom: 15px; 
-            font-weight: 600; 
-            font-size: 0.75rem; 
-            font-family: 'Exo 2', sans-serif;
-            letter-spacing: 1px;
-            text-transform: uppercase; 
-            transition: .3s; 
-        }
-        nav a:hover { 
-            color: var(--naranja); 
-            padding-left: 5px; 
-            text-shadow: 0 0 8px var(--naranja-glow); 
-        }
+    /* HEADER SUPERIOR UNIFICADO */
+    header.top-header {
+        width: 100%;
+        background: rgba(20, 13, 7, 0.9);
+        backdrop-filter: blur(10px);
+        padding: 20px 40px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid rgba(255, 136, 0, 0.3);
+        box-sizing: border-box;
+        position: sticky;
+        top: 0;
+        z-index: 50;
+    }
 
-        /* CONTENIDO CENTRAL */
-        main { 
-            margin-left: 280px; 
-            margin-right: 280px; 
-            padding: 40px; 
-            flex: 1; 
-        }
-        h1 { 
-            text-align: center; 
-            font-family: 'Orbitron', sans-serif;
-            letter-spacing: 5px; 
-            font-weight: 700; 
-            font-size: 1.8rem;
-            color: var(--naranja);
-            margin-bottom: 50px; 
-            border-bottom: 1px solid rgba(255, 136, 0, 0.4); 
-            padding-bottom: 20px; 
-            text-shadow: 0 0 15px var(--naranja-glow);
-        }
-        .section-title { 
-            text-align: left; 
-            font-family: 'Orbitron', sans-serif;
-            letter-spacing: 3px; 
-            color: var(--naranja); 
-            margin-top: 60px; 
-            margin-bottom: 30px;
-            font-size: 1.1rem;
-            border-left: 4px solid var(--naranja); 
-            padding-left: 15px;
-            border-bottom: 1px dashed var(--naranja-glow);
-            padding-bottom: 10px;
-        }
+    .logo-link {
+        text-decoration: none;
+        color: inherit;
+    }
 
-        /* TARJETAS DE ARCHIVO */
-        .gallery { display: grid; gap: 40px; justify-items: center; }
-        .item { 
-            width: 100%; max-width: 800px; 
-            background: rgba(20, 13, 7, 0.85); 
-            backdrop-filter: blur(8px);
-            padding: 20px; 
-            border: 1px solid rgba(255, 136, 0, 0.3); 
-            border-radius: 8px; 
-            text-align: center; 
-            transition: 0.3s; 
-            position: relative;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
-        }
-        .item:hover { border-color: var(--naranja); box-shadow: 0 0 20px var(--naranja-glow); }
-        
-        /* Efecto desgaste para enemigos comunes */
-        .worn-unit img { filter: grayscale(0.3) contrast(1.2) sepia(0.2); }
-        
-        .item img { width: 100%; border: 1px solid var(--naranja-glow); border-radius: 4px; }
-        .item h3 { margin-top: 15px; letter-spacing: 2px; font-family: 'Orbitron', sans-serif; font-size: 0.9rem; color: var(--naranja); }
-        .item p { font-size: 0.85rem; color: #b3a294; margin-top: 10px; line-height: 1.4; }
+    .logo-container {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-weight: 700;
+        font-family: 'Orbitron', sans-serif;
+        font-size: 0.85rem;
+        letter-spacing: 2px;
+        color: var(--naranja);
+        transition: 0.3s;
+    }
 
-        /* BOTONES DE REDIRECCIÓN EN LAS TARJETAS 3D */
-        .btn-3d {
-            display: inline-block; margin-top: 15px; padding: 8px 20px;
-            border: 1px solid var(--naranja); background: rgba(255, 136, 0, 0.15);
-            color: var(--naranja); font-family: 'Orbitron', sans-serif;
-            font-size: 0.75rem; font-weight: bold; text-decoration: none;
-            letter-spacing: 1px;
-            text-transform: uppercase; border-radius: 4px; transition: 0.3s;
-        }
-        .btn-3d:hover {
-            background: var(--naranja); color: #000; box-shadow: 0 0 12px var(--naranja-glow);
-        }
+    .logo-container:hover {
+        color: #fff;
+        text-shadow: 0 0 8px var(--naranja-glow);
+    }
 
-        /* PANEL DERECHO */
+    .logo-icon {
+        width: 32px;
+        height: 32px;
+    }
+
+    .nav-menu-container {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        flex-wrap: wrap;
+    }
+
+    .nav-btn {
+        display: inline-block;
+        padding: 8px 18px;
+        border: 1px solid var(--naranja);
+        color: var(--naranja);
+        text-decoration: none;
+        font-family: 'Orbitron', sans-serif;
+        font-size: 0.65rem;
+        letter-spacing: 2px;
+        background: rgba(255, 136, 0, 0.05);
+        transition: all 0.3s ease;
+        cursor: pointer;
+        border-radius: 4px;
+        text-transform: uppercase;
+        font-weight: 600;
+    }
+
+    .nav-btn:hover {
+        background-color: var(--naranja);
+        color: #000;
+        box-shadow: 0 0 12px var(--naranja-glow);
+        transform: translateY(-2px);
+    }
+
+    .nav-btn-alt {
+        border-color: #00ffcc;
+        color: #00ffcc;
+        background: rgba(0, 255, 204, 0.05);
+    }
+
+    .nav-btn-alt:hover {
+        background-color: #00ffcc;
+        color: #000;
+        box-shadow: 0 0 12px rgba(0,255,204,0.4);
+    }
+
+    /* CONTENEDOR DE DISEÑO PRINCIPAL */
+    .page-layout {
+        display: flex;
+        flex: 1;
+        position: relative;
+        box-sizing: border-box;
+        z-index: 2;
+    }
+
+    /* CONTENIDO CENTRAL */
+    main { 
+        margin-left: 40px; 
+        margin-right: 320px; 
+        padding: 40px; 
+        flex: 1; 
+        box-sizing: border-box;
+    }
+    h1 { 
+        text-align: center; 
+        font-family: 'Orbitron', sans-serif;
+        letter-spacing: 5px; 
+        font-weight: 700; 
+        font-size: 1.8rem;
+        color: var(--naranja);
+        margin-bottom: 50px; 
+        border-bottom: 1px solid rgba(255, 136, 0, 0.4); 
+        padding-bottom: 20px; 
+        text-shadow: 0 0 15px var(--naranja-glow);
+    }
+    .section-title { 
+        text-align: left; 
+        font-family: 'Orbitron', sans-serif;
+        letter-spacing: 3px; 
+        color: var(--naranja); 
+        margin-top: 60px; 
+        margin-bottom: 30px;
+        font-size: 1.1rem;
+        border-left: 4px solid var(--naranja); 
+        padding-left: 15px;
+        border-bottom: 1px dashed var(--naranja-glow);
+        padding-bottom: 10px; 
+    }
+
+    /* TARJETAS DE ARCHIVO / GALERÍA CON TOOLTIP */
+    .gallery { 
+        display: grid; 
+        grid-template-columns: repeat(2, 1fr); 
+        gap: 30px; 
+        justify-items: center; 
+    }
+    .item { 
+        width: 100%; 
+        background: rgba(20, 13, 7, 0.85); 
+        backdrop-filter: blur(8px);
+        padding: 20px; 
+        border: 1px solid rgba(255, 136, 0, 0.3); 
+        border-radius: 8px; 
+        text-align: center; 
+        transition: 0.3s; 
+        position: relative;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+        box-sizing: border-box;
+    }
+
+    /* ESTILOS DEL TOOLTIP TÁCTICO */
+    .item::after {
+        content: attr(data-tooltip);
+        position: absolute;
+        bottom: 80px;
+        left: 50%;
+        transform: translateX(-50%) translateY(10px);
+        width: 85%;
+        max-width: 300px;
+        background: rgba(20, 13, 7, 0.95);
+        color: var(--text);
+        font-family: 'Exo 2', sans-serif;
+        font-size: 0.72rem;
+        font-weight: 300;
+        line-height: 1.5;
+        padding: 14px 18px;
+        border: 1px solid var(--naranja);
+        box-shadow: 0 0 20px var(--naranja-glow), inset 0 0 8px rgba(255, 136, 0, 0.2);
+        border-radius: 6px;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease;
+        z-index: 1000;
+        pointer-events: none;
+        text-align: center;
+        letter-spacing: 0.5px;
+        backdrop-filter: blur(8px);
+    }
+
+    .item:hover::after {
+        opacity: 1;
+        visibility: visible;
+        transform: translateX(-50%) translateY(0);
+    }
+
+    .item:hover { 
+        border-color: var(--naranja); 
+        box-shadow: 0 0 20px var(--naranja-glow); 
+        transform: translateY(-5px);
+    }
+    
+    .worn-unit img { filter: grayscale(0.3) contrast(1.2) sepia(0.2); }
+    
+    .item img { width: 100%; border: 1px solid var(--naranja-glow); border-radius: 4px; }
+    .item h3 { margin-top: 15px; letter-spacing: 2px; font-family: 'Orbitron', sans-serif; font-size: 0.8rem; color: var(--naranja); }
+    .item p { font-size: 0.85rem; color: #b3a294; margin-top: 10px; line-height: 1.4; }
+
+    /* BOTONES DE REDIRECCIÓN EN LAS TARJETAS */
+    .btn-3d {
+        display: inline-block; margin-top: 15px; padding: 8px 20px;
+        border: 1px solid var(--naranja); background: rgba(255, 136, 0, 0.15);
+        color: var(--naranja); font-family: 'Orbitron', sans-serif;
+        font-size: 0.75rem; font-weight: bold; text-decoration: none;
+        letter-spacing: 1px;
+        text-transform: uppercase; border-radius: 4px; transition: 0.3s;
+    }
+    .btn-3d:hover {
+        background: var(--naranja); color: #000; box-shadow: 0 0 12px var(--naranja-glow);
+    }
+
+    /* PANEL DERECHO */
+    aside { 
+        width: 280px; 
+        background: rgba(20, 13, 7, 0.85); 
+        backdrop-filter: blur(10px);
+        padding: 30px; 
+        height: calc(100vh - 78px); 
+        position: fixed; 
+        right: 0; 
+        top: 78px;
+        border-left: 1px solid rgba(255, 136, 0, 0.3); 
+        box-sizing: border-box;
+        z-index: 10;
+        overflow-y: auto;
+    }
+    .buy-button { 
+        display: block; text-align: center; padding: 12px; 
+        background: rgba(255, 136, 0, 0.15); 
+        border: 1px solid var(--naranja);
+        color: var(--naranja); text-decoration: none; 
+        font-family: 'Orbitron', sans-serif;
+        font-size: 0.75rem;
+        letter-spacing: 1px;
+        font-weight: bold; border-radius: 4px; margin-top: 20px; 
+        transition: all 0.2s ease;
+    }
+    .buy-button:hover { 
+        background: var(--naranja); 
+        color: #000; 
+        box-shadow: 0 0 12px var(--naranja-glow); 
+    }
+
+    /* RESPONSIVE */
+    @media(max-width: 1200px) {
+        .gallery { grid-template-columns: 1fr; }
+    }
+
+    @media(max-width: 1100px) {
+        .page-layout { flex-direction: column; }
+        main { margin: 0; padding: 20px; }
         aside { 
-            width: 250px; 
-            background: var(--panel-bg); 
-            backdrop-filter: blur(10px);
-            padding: 30px; 
-            height: 100vh; 
-            position: fixed; 
-            right: 0; 
-            border-left: 1px solid rgba(255, 136, 0, 0.3); 
-            box-sizing: border-box;
-            z-index: 10;
+            width: 100%; 
+            height: auto !important; 
+            position: relative !important; 
+            top: 0;
+            border: none;
+            border-top: 1px solid rgba(255, 136, 0, 0.3);
+            padding: 20px;
         }
-        .buy-button { 
-            display: block; text-align: center; padding: 12px; 
-            background: rgba(255, 136, 0, 0.15); 
-            border: 1px solid var(--naranja);
-            color: var(--naranja); text-decoration: none; 
-            font-family: 'Orbitron', sans-serif;
-            font-size: 0.75rem;
-            letter-spacing: 1px;
-            font-weight: bold; border-radius: 4px; margin-top: 20px; 
-            transition: all 0.2s ease;
-        }
-        .buy-button:hover { background: var(--naranja); color: #000; box-shadow: 0 0 12px var(--naranja-glow); }
+    }
 
-        .tech-log-link {
-            display: block; margin-top: 30px; padding: 10px;
-            border: 1px dashed var(--naranja); color: var(--naranja);
-            text-align: center; font-size: 0.75rem; text-decoration: none;
-            font-family: 'Courier Prime', monospace;
+    @media(max-width: 850px) {
+        header.top-header {
+            padding: 15px 20px;
+            flex-direction: column;
+            gap: 15px;
         }
-
-        @media(max-width: 1100px) {
-            body { flex-direction: column; }
-            nav, aside { width: 100%; height: auto !important; position: relative !important; border: none; padding: 20px; box-sizing: border-box; }
-            nav { order: 1; border-bottom: 1px solid rgba(255, 136, 0, 0.3); }
-            main { order: 2; margin: 0; padding: 20px; }
-            aside { order: 3; border-top: 1px solid rgba(255, 136, 0, 0.3); }
+        .nav-menu-container {
+            justify-content: center;
         }
-
-        /* Estilos para el nuevo encabezado del nav */
-        .logo-link {
-            text-decoration: none;
-            color: inherit;
-            margin-bottom: 30px;
-            display: block;
-        }
-
-        .logo-container {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-weight: 700;
-            font-family: 'Orbitron', sans-serif;
-            font-size: 0.85rem;
-            letter-spacing: 1px;
-            color: var(--naranja);
-            transition: 0.3s;
-        }
-
-        .logo-container:hover {
-            color: #fff;
-            text-shadow: 0 0 8px var(--naranja-glow);
-        }
-
-        .logo-icon {
-            width: 32px;
-            height: 32px;
-        }
+    }
     </style>
 </head>
 
 <body>
 
-<nav>
+<header class="top-header">
     <a href="../index.html" class="logo-link">
         <div class="logo-container">
             <img src="../comun/iconoae2.png" alt="Logo" class="logo-icon">
@@ -229,52 +333,49 @@
         </div>
     </a>
 
-    <h2>RESISTANCE HUB</h2>
-    <a href="#operativos">OPERATIVOS</a>
-    <a href="#amenazas">NIKAT</a>
-    <a href="#nodos">NODOS ESTRATÉGICOS</a>
-    
-    <h2 style="margin-top: 30px;">MONITOREO</h2>
-    <a href="treejs/ede.html" target="_blank" style="color: #00ffcc; text-shadow: 0 0 5px rgba(0,255,204,0.2);">[EDE 40]</a>
-    <a href="treejs/bunker.html" target="_blank" style="color: #00ffcc; text-shadow: 0 0 5px rgba(0,255,204,0.2);">[BUNKER DIOMEDE]</a>
-
-    <div style="margin-top: 40px; border-top: 1px solid rgba(255, 136, 0, 0.2); padding-top: 20px;">
-        <a href="registros.html" style="color: var(--naranja); font-size: 0.7rem;">[ LOGS TÉCNICOS ]</a>
+    <div class="nav-menu-container">
+        <a href="#operativos" class="nav-btn">OPERATIVOS</a>
+        <a href="#amenazas" class="nav-btn">NIKAT</a>
+        <a href="#nodos" class="nav-btn">NODOS</a>
+        <a href="treejs/ede.html" target="_blank" class="nav-btn nav-btn-alt">[EDE 40]</a>
+        <a href="treejs/bunker.html" target="_blank" class="nav-btn nav-btn-alt">[BUNKER]</a>
+        <a href="registros.html" class="nav-btn" style="border-color: var(--naranja);">[LOGS]</a>
     </div>
-</nav>
+</header>
 
+<div class="page-layout">
 <main>
     <h1>NIKAT : RESISTENCIA</h1>
 
     <section id="operativos">
         <h2 class="section-title">PERSONAL ACTIVO / SOBREVIVIENTES</h2>
         <div class="gallery">
-            <div class="item">
+            <div class="item" data-tooltip="Sobrevivientes del Proyecto K tras cuatro años confinados en el búnker Diomede. Actualmente operan como la unidad principal de exploración en superficie, reforzados por tres nuevos operativos.">
                 <img src="imagenes/personajes_v2.PNG" alt="Personajes Vol 2">
                 <h3>EQUIPO DE EXPLORACIÓN</h3>
                 <p>Equipo de exploración tras la caída de la Tierra.</p>
             </div>
-            <div class="item">
+            <div class="item" data-tooltip="Núcleo de mando subterráneo. Dirigido por Kravik, encargado de la administración del búnker, junto a Musk y su equipo de especialistas coordinando la resistencia desde las instalaciones blindadas.">
                 <img src="imagenes/secundariosbunker.PNG" alt="secundarios Vol 2">
                 <h3>SUPERVIVIENTES BUNKER</h3>
                 <p>Personal del bunker tras la caída de la Tierra.</p>
             </div>
-            <div class="item">
+            <div class="item" data-tooltip="Comunidad de unos 500 supervivientes en el puesto avanzado de Anchorage. Al mando de Priya Desmunk e integran a dos efectivos del Proyecto K que lograron escapar de la caída del búnker Diomede.">
                 <img src="imagenes/secundariosanchorage.PNG" alt="secundarios Vol 2">
                 <h3>PERSONAL DE ANCHORAGE</h3>
                 <p>Personal de Anchorage tras la caída de la Tierra.</p>
             </div>
-            <div class="item">
+            <div class="item" data-tooltip="Durante 6 años,Ana se mantuvo como la única superviviente en Guayaquil. Tras la activación de la EDE, Llegan refuerzos de la Alianza Espacial de Colombia y Perú para asegurar la defensa del ascensor espacial.">
                 <img src="imagenes/secundariosguayaquil.PNG" alt="secundarios Vol 2">
                 <h3>SOBREVIVIENTES PACIFICO</h3>
                 <p>Personal de Guayaquil tras la caída de la Tierra.</p>
             </div>
-            <div class="item">
+            <div class="item" data-tooltip="Guarnición del Nodo Sur bajo el mando del coronel Héctor. Reúne a unos 1,500 soldados de la alianza y numerosos refugiados civiles de todo el mundo, protegidos por el desierto y las montañas de la cordillera.">
                 <img src="imagenes/secundariosantofagasta.PNG" alt="secundarios Vol 2">
                 <h3>SOBREVIVIENTES ANTOFAGASTA</h3>
                 <p>Personal de Antofagasta tras la caída de la Tierra.</p>
             </div>
-            <div class="item">
+            <div class="item" data-tooltip="Fuerzas que resistieron en Columbia (Planeta Taryn 3) y lograron regresar a la Tierra. La alianza entre las bandas delincuenciales de Columbia y las fuerzas de la Alianza Espacial, conformó un bloque de ataque decisivo en la batalla en la tierra.">
                 <img src="imagenes/secundarioscolumbia.PNG" alt="secundarios Vol 2">
                 <h3>SOBREVIVIENTES COLUMBIA</h3>
                 <p>Personal de Columbia tras la caída de la Tierra.</p>
@@ -285,17 +386,17 @@
     <section id="amenazas">
         <h2 class="section-title">NIKAT</h2>
         <div class="gallery">
-            <div class="item worn-unit">
+            <div class="item worn-unit" data-tooltip="Infantería estándar Nikat y nuevas bio-mutaciones. Unidades desgastadas por la larga campaña en la Tierra, flanqueadas por letales bestias de guerra y organismos mutantes desplegados para aplastar los focos de resistencia.">
                 <img src="imagenes/nikatcomunes.PNG" alt="Nikat Común">
                 <h3>INFANTERÍA VETERANA</h3>
                 <p>Unidades Nikat estandar.</p>
             </div>
-            <div class="item">
+            <div class="item" data-tooltip="Seudogenerales y variantes de élite: seres genéticamente modificados (o producto de mutaciones naturales desconocidas). Incluye a un coloso acorazado de roca y lava, una sigilosa asesina de blindaje oscuro con cuchillas, y una aberración simbiótica de apéndices tentaculares y núcleo central expuesto.">
                 <img src="imagenes/pseudogenerales.PNG" alt="Nuevos Enemigos">
                 <h3>UNIDADES DE ELITE</h3>
                 <p>Pseudo generales.</p>
             </div>
-            <div class="item">
+            <div class="item" data-tooltip="Comandante de alto rango Nikat con una mutación de origen desconocido que le otorga una imponente presencia y la capacidad de articular palabras básicas. Es el encargado de organizar y dirigir a las hordas enemigas en el ataque frontal a Antofagasta.">
                 <img src="imagenes/generalinfectado.PNG" alt="Nuevos Enemigos">
                 <h3>GENERAL NIKAT</h3>
                 <p>General Nikat???.</p>
@@ -306,26 +407,26 @@
     <section id="nodos">
         <h2 class="section-title">PUNTOS DE CONFLICTO GLOBAL</h2>
         <div class="gallery">
-            <div class="item">
+            <div class="item" data-tooltip="Base de operaciones que vincula la superficie con el ascensor orbital de la Isla Santay.">
                 <img src="imagenes/base ascensor zoom.PNG" alt="Guayaquil">
                 <h3>GUAYAQUIL: BASE ASCENSOR ESPACIAL ISLA SANTAY</h3>
                 <p>Base del ascensor espacial conectado a la EDE-40.</p>
             </div>
             
-            <div class="item">
+            <div class="item" data-tooltip="Última plataforma orbital de defensa activa sobre la atmósfera terrestre.">
                 <img src="imagenes/EDE.PNG" alt="Guayaquil">
                 <h3>GUAYAQUIL: EDE 40</h3>
                 <p>Ultima EDE operativa del planeta.</p>
                 <a href="treejs/ede.html" target="_blank" class="btn-3d">Inicializar Render 3D EDE</a>
             </div>
             
-            <div class="item">
+            <div class="item" data-tooltip="Centro fortificado de operaciones y bastión estratégico del sur del continente.">
                 <img src="imagenes/antofagasta.PNG" alt="Antofagasta">
                 <h3>ANTOFAGASTA: LA FORTALEZA</h3>
                 <p>Centro fortificado de la resistencia en el Nodo Sur.</p>
             </div>
 
-            <div class="item">
+            <div class="item" data-tooltip="Complejo fortificado resistente a las condiciones extremas del norte global.">
                 <img src="imagenes/anchorage.PNG" alt="Anchorage">
                 <h3>ANCHORAGE: EL BASTIÓN</h3>
                 <p>Bastión de resistencia al norte.</p>
@@ -344,6 +445,7 @@
         <a href="https://www.amazon.com/-/es/J-Hern%C3%A1ndez/dp/B0H4S4S2S2/ref=tmm_pap_swatch_0" class="buy-button" target="_blank">COMPRAR EN AMAZON</a>
     </div>
 </aside>
+</div>
 
 </body>
 </html>

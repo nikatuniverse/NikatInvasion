@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Sistema Solar Extendido - Three.js</title>
   <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@300;400;600&family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
-  <style>
+ <style>
     :root {
       --azul: #00b4ff;
       --naranja: #ff8800;
@@ -32,7 +32,7 @@
       z-index: 1;
     }
 
-    /* Panel de control de botones inferior estilo Nexus */
+    /* Panel de control de botones (Por defecto abajo en PC) */
     #controls-panel {
       position: absolute;
       bottom: 20px;
@@ -66,13 +66,7 @@
       transition: all 0.2s ease;
     }
 
-    .planet-btn:hover {
-      background: var(--azul);
-      color: #000;
-      box-shadow: 0 0 12px rgba(0, 180, 255, 0.6);
-    }
-
-    .planet-btn.active {
+    .planet-btn:hover, .planet-btn.active {
       background: var(--azul);
       color: #000;
       box-shadow: 0 0 12px rgba(0, 180, 255, 0.6);
@@ -117,7 +111,7 @@
       letter-spacing: 2px;
     }
 
-    /* Panel Lateral Derecho Translúcido estilo Nexus */
+    /* Panel Lateral Derecho (PC) */
     #info-panel {
       position: absolute;
       top: 20px;
@@ -166,26 +160,69 @@
     }
 
     /* ========================================================= */
-    /* AJUSTES PARA MÓVILES Y NAVEGADORES DE APPS (INSTAGRAM)     */
+    /* DISEÑO ESPECÍFICO PARA MÓVILES                            */
     /* ========================================================= */
     @media (max-width: 768px) {
-      #info-panel {
-        width: 92vw;
-        right: 4vw;
-        top: 10px;
-        max-height: 55dvh; /* Usa altura dinámica para evitar que colisione con el menú inferior */
-      }
-
+      /* 1. Botones arriba, expandidos horizontalmente ocupando casi todo el ancho */
       #controls-panel {
-        bottom: 10px;
-        padding: 8px 10px;
-        max-height: 30dvh;
-        overflow-y: auto; /* Permite deslizar si los botones se amontonan */
+        top: 8px;
+        bottom: auto;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 94vw;
+        max-width: 94vw;
+        padding: 6px;
+        gap: 4px;
+        max-height: 18dvh; /* Altura controlada para que no estorbe arriba */
+        overflow-y: auto;
+        border-radius: 12px;
       }
 
       .planet-btn {
-        padding: 5px 10px;
+        flex: 1 1 auto; /* Permite que los botones se expandan de manera uniforme */
+        text-align: center;
+        padding: 5px 6px;
+        font-size: 0.58rem;
+        letter-spacing: 0.3px;
+        border-radius: 8px;
+      }
+
+      /* Ocultamos el indicador secundario superior izquierdo en móvil para ganar limpieza */
+      #info {
+        display: none;
+      }
+
+      /* 2. Tarjeta de información más pequeña ubicada abajo, dejando el centro libre */
+      #info-panel {
+        top: auto;
+        bottom: 10px;
+        right: 4vw;
+        left: 4vw;
+        width: 92vw;
+        max-height: 32dvh; /* Compacta para que el planeta quede centrado en el espacio restante */
+        padding: 10px 12px;
+        border-radius: 10px;
+      }
+
+      #info-panel h2 {
+        font-size: 0.85rem;
+        padding-bottom: 4px;
+        margin-bottom: 6px;
+        letter-spacing: 1px;
+      }
+
+      .info-group {
+        margin-bottom: 6px;
+      }
+
+      .info-group strong {
+        font-size: 0.6rem;
+        margin-bottom: 1px;
+      }
+
+      .info-group span {
         font-size: 0.7rem;
+        line-height: 1.25;
       }
     }
   </style>
@@ -346,9 +383,129 @@
         // Guardamos la referencia para animarla después
         mesh.userData.moonOrbit = moonOrbitGroup;
 
-      } else if (data.name === 'Júpiter') {
+      } if (data.name === 'Mercurio') {
         geo = new THREE.SphereGeometry(data.size, 32, 32);
-        mat = new THREE.MeshStandardMaterial({ color: data.color, roughness: 0.8 });
+        mat = new THREE.MeshStandardMaterial({ 
+          map: textureLoader.load('imagenes/mercuriotextura.jpg'), 
+          roughness: 0.6 
+        });
+        mesh = new THREE.Mesh(geo, mat);
+      } 
+      
+      else if (data.name === 'Venus') {
+        geo = new THREE.SphereGeometry(data.size, 32, 32);
+        mat = new THREE.MeshStandardMaterial({ 
+          map: textureLoader.load('imagenes/venustextura.jpg'), 
+          roughness: 0.6 
+        });
+        mesh = new THREE.Mesh(geo, mat);
+      } 
+      
+      else if (data.name === 'Tierra') {
+        geo = new THREE.SphereGeometry(data.size, 32, 32);
+        mat = new THREE.MeshStandardMaterial({ 
+          map: textureLoader.load('imagenes/tierratextura.jpg'), 
+          roughness: 0.6 
+        });
+        mesh = new THREE.Mesh(geo, mat);
+      } 
+
+      else if (data.name === 'Marte') {
+        geo = new THREE.SphereGeometry(data.size, 32, 32);
+        mat = new THREE.MeshStandardMaterial({ 
+          map: textureLoader.load('imagenes/martetextura.jpg'), 
+          roughness: 0.6 
+        });
+        mesh = new THREE.Mesh(geo, mat);
+      } 
+
+      else if (data.name === 'Urano') {
+        geo = new THREE.SphereGeometry(data.size, 32, 32);
+        mat = new THREE.MeshStandardMaterial({ 
+          map: textureLoader.load('imagenes/uranotextura.jpg'), 
+          roughness: 0.6 
+        });
+        mesh = new THREE.Mesh(geo, mat);
+      } 
+
+      else if (data.name === 'Saturno') {
+        geo = new THREE.SphereGeometry(data.size, 32, 32);
+        mat = new THREE.MeshStandardMaterial({ 
+          map: textureLoader.load('imagenes/saturnotextura.jpg'), 
+          roughness: 0.6 
+        });
+        mesh = new THREE.Mesh(geo, mat);
+      } 
+
+      else if (data.name === 'Neptuno') {
+        geo = new THREE.SphereGeometry(data.size, 32, 32);
+        mat = new THREE.MeshStandardMaterial({ 
+          map: textureLoader.load('imagenes/neptunotextura.jpg'), 
+          roughness: 0.6 
+        });
+        mesh = new THREE.Mesh(geo, mat);
+      } 
+
+      else if (data.name === 'Plutón') {
+        geo = new THREE.SphereGeometry(data.size, 32, 32);
+        mat = new THREE.MeshStandardMaterial({ 
+          map: textureLoader.load('imagenes/plutontextura.jpg'), 
+          roughness: 0.6 
+        });
+        mesh = new THREE.Mesh(geo, mat);
+      }  
+
+      else if (data.name === 'Sol') {
+        geo = new THREE.SphereGeometry(data.size, 32, 32);
+        // Usamos MeshBasicMaterial para que el Sol sea una fuente de luz propia y no oscurezca su textura
+        mat = new THREE.MeshBasicMaterial({ 
+          map: textureLoader.load('imagenes/soltextura.jpg')
+        });
+        mesh = new THREE.Mesh(geo, mat);
+      }
+      
+      else if (data.name === 'Rakum') {
+        geo = new THREE.SphereGeometry(data.size, 32, 32);
+        mat = new THREE.MeshStandardMaterial({ 
+          map: textureLoader.load('imagenes/rakumtextura.jpg'), 
+          roughness: 0.6 
+        });
+        mesh = new THREE.Mesh(geo, mat);
+      } 
+      
+      else if (data.name === 'Taryn 3') {
+        geo = new THREE.SphereGeometry(data.size, 32, 32);
+        mat = new THREE.MeshStandardMaterial({ 
+          map: textureLoader.load('imagenes/taryntextura.jpg'), 
+          roughness: 0.6 
+        });
+        mesh = new THREE.Mesh(geo, mat);
+      } 
+      
+      else if (data.name === 'Volstek') {
+        geo = new THREE.SphereGeometry(data.size, 32, 32);
+        mat = new THREE.MeshStandardMaterial({ 
+          map: textureLoader.load('imagenes/volstektextura.jpg'), 
+          roughness: 0.6 
+        });
+        mesh = new THREE.Mesh(geo, mat);
+      } 
+      
+      else if (data.name === 'Dravos') {
+        geo = new THREE.SphereGeometry(data.size, 32, 32);
+        mat = new THREE.MeshStandardMaterial({ 
+          map: textureLoader.load('imagenes/dravosktextura.jpg'), 
+          roughness: 0.6 
+        });
+        mesh = new THREE.Mesh(geo, mat);
+      }
+      
+      else if (data.name === 'Júpiter') {
+        geo = new THREE.SphereGeometry(data.size, 32, 32);
+        mat = new THREE.MeshStandardMaterial({ 
+          map: textureLoader.load('imagenes/jupitertextura.jpg'), 
+          roughness: 0.6 
+        });
         mesh = new THREE.Mesh(geo, mat);
 
         // --- CREACIÓN DE LAS LUNAS DE JÚPITER ---

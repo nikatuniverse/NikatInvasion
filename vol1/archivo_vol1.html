@@ -20,7 +20,7 @@
   :root {
     --azul: #00b4ff;
     --naranja: #ff8800;
-    --bg: #050a0f;
+    --bg: #030812;
   }
 
   /* ESTRUCTURA BASE */
@@ -30,8 +30,77 @@
     font-family: 'Exo 2', sans-serif; 
     background-color: var(--bg); 
     color: #e0f4ff; 
-    display: flex; 
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
     overflow-x: hidden;
+    position: relative;
+  }
+
+  /* --- FONDO ESPACIAL --- */
+  .space-bg {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    pointer-events: none;
+    z-index: 0;
+    background-image: 
+        radial-gradient(rgba(255,255,255,0.8) 1.2px, transparent 0),
+        radial-gradient(rgba(0,180,255,0.7) 1.5px, transparent 0),
+        radial-gradient(rgba(180,60,255,0.5) 2px, transparent 0);
+    background-size: 400px 400px, 300px 300px, 600px 600px;
+    background-position: 0 0, 100px 70px, 200px 150px;
+    opacity: 0.6;
+    animation: driftSpace 160s linear infinite;
+  }
+
+  @keyframes driftSpace {
+    from { background-position: 0 0, 100px 70px, 200px 150px; }
+    to { background-position: 1200px 1200px, 1300px 1270px, 1400px 1350px; }
+  }
+
+  .space-bg::after {
+    content: "";
+    position: absolute;
+    top: 25%; left: 25%;
+    width: 800px; height: 450px;
+    background: radial-gradient(ellipse, rgba(0, 140, 255, 0.12) 0%, rgba(130, 20, 190, 0.08) 40%, transparent 70%);
+    pointer-events: none;
+    animation: nebulaPulse 25s ease-in-out infinite alternate;
+  }
+
+  @keyframes nebulaPulse {
+    0% { transform: scale(1); opacity: 0.6; }
+    100% { transform: scale(1.25); opacity: 1; }
+  }
+
+  /* --- CAPA DE METEORITOS --- */
+  #random-events-layer {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    pointer-events: none;
+    z-index: 1;
+    overflow: hidden;
+  }
+
+  .space-debris {
+    position: absolute;
+    pointer-events: none;
+    opacity: 0.6;
+  }
+
+  .meteor {
+    width: 2px;
+    height: 2px;
+    background: white;
+    box-shadow: 0 0 8px 2px rgba(255, 255, 255, 0.8), -15px 0 20px rgba(0, 180, 255, 0.5);
+    border-radius: 50%;
+  }
+
+  .probe {
+    width: 5px;
+    height: 1.5px;
+    background: var(--azul);
+    box-shadow: 0 0 6px var(--azul);
   }
 
   /* EFECTO DE ESCANEO TÁCTICO */
@@ -49,52 +118,260 @@
     opacity: 0.1; 
   }
 
-  /* MENÚ IZQUIERDO ESTILO NEXUS */
-  nav { 
-    width: 250px; 
-    background: rgba(5, 10, 15, 0.85); 
+  /* HEADER SUPERIOR UNIFICADO */
+  header.top-header {
+    width: 100%;
+    background: rgba(3, 8, 18, 0.85);
     backdrop-filter: blur(10px);
-    padding: 30px; 
-    height: 100vh; 
-    position: fixed; 
-    border-right: 1px solid rgba(0, 180, 255, 0.4);
+    padding: 20px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgba(0, 180, 255, 0.3);
     box-sizing: border-box;
-    z-index: 10;
-  }
-  
-  nav h2 { 
-    color: var(--azul); 
-    font-size: 0.9rem; 
-    font-family: 'Orbitron', sans-serif;
-    letter-spacing: 2px;
-    margin-top: 20px;
-  }
-  
-  nav a { 
-    display: block; 
-    color: #a8dfff; 
-    text-decoration: none; 
-    margin-bottom: 15px; 
-    font-weight: 600; 
-    font-size: 0.75rem; 
-    font-family: 'Exo 2', sans-serif;
-    letter-spacing: 1px;
-    text-transform: uppercase; 
-    transition: .3s; 
-  }
-  
-  nav a:hover { 
-    color: #ffffff; 
-    padding-left: 5px; 
-    text-shadow: 0 0 8px rgba(0, 180, 255, 0.6);
+    position: sticky;
+    top: 0;
+    z-index: 50;
   }
 
-  /* CONTENIDO CENTRAL */
+  .logo-link {
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .logo-container {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-weight: 700;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.9rem;
+    letter-spacing: 2px;
+    color: #ffffff;
+  }
+
+  .logo-icon {
+    width: 32px;
+    height: 32px;
+  }
+
+  .nav-menu-container {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .dropdown-container {
+    position: relative;
+    display: inline-block;
+  }
+
+  .nav-btn {
+    display: inline-block;
+    padding: 8px 18px;
+    border: 1px solid var(--azul);
+    color: var(--azul);
+    text-decoration: none;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.65rem;
+    letter-spacing: 2px;
+    background: rgba(0, 180, 255, 0.03);
+    transition: all 0.3s ease;
+    cursor: pointer;
+    border-radius: 4px;
+  }
+
+  .nav-btn:hover {
+    background-color: rgba(0, 180, 255, 0.15);
+    color: #ffffff;
+    border-color: #ffffff;
+    box-shadow: 0 0 15px var(--azul), inset 0 0 10px rgba(0, 180, 255, 0.5);
+    transform: translateY(-2px);
+  }
+
+  .dropdown-menu {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 100%;
+    margin-top: 5px;
+    background: rgba(3, 8, 18, 0.95);
+    border: 1px solid var(--azul);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.9), 0 0 15px rgba(0, 180, 255, 0.3);
+    z-index: 100;
+    min-width: 240px;
+    text-align: left;
+    padding: 5px 0;
+    backdrop-filter: blur(5px);
+    border-radius: 4px;
+  }
+
+  .dropdown-menu.show {
+    display: block;
+  }
+
+  .dropdown-item {
+    display: block;
+    padding: 10px 20px;
+    color: #a8dfff;
+    text-decoration: none;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.6rem;
+    letter-spacing: 1.5px;
+    transition: all 0.2s ease;
+    border-left: 2px solid transparent;
+    text-transform: uppercase;
+  }
+
+  .dropdown-item:hover {
+    background-color: rgba(0, 180, 255, 0.15);
+    color: #ffffff;
+    border-left-color: var(--azul);
+    padding-left: 25px;
+  }
+
+  /* --- BANNER DE RADAR / MONITOREO TÁCTICO --- */
+  .radar-banner {
+    position: relative;
+    width: 100%;
+    height: 140px;
+    background: rgba(3, 12, 25, 0.9);
+    border: 1px solid rgba(0, 180, 255, 0.4);
+    border-radius: 6px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 30px;
+    box-sizing: border-box;
+    margin-bottom: 40px;
+    box-shadow: inset 0 0 25px rgba(0, 180, 255, 0.15), 0 10px 20px rgba(0,0,0,0.5);
+  }
+
+  /* Cuadrícula de plano cartesiano de fondo en el banner */
+  .radar-banner::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background-image: 
+      linear-gradient(rgba(0, 180, 255, 0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0, 180, 255, 0.05) 1px, transparent 1px);
+    background-size: 20px 20px;
+    pointer-events: none;
+  }
+
+  /* Animación del círculo de radar al fondo a la derecha */
+  .radar-scope {
+    position: absolute;
+    right: 40px;
+    width: 100px;
+    height: 100px;
+    border: 1px dashed rgba(0, 180, 255, 0.4);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+  }
+
+  .radar-scope::before {
+    content: "";
+    position: absolute;
+    width: 80px;
+    height: 80px;
+    border: 1px solid rgba(0, 180, 255, 0.2);
+    border-radius: 50%;
+  }
+
+  /* Línea de barrido del radar girando */
+  .radar-sweep {
+    position: absolute;
+    top: 50%; left: 50%;
+    width: 50px;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--azul));
+    transform-origin: left center;
+    animation: sweepRotate 4s linear infinite;
+  }
+
+  @keyframes sweepRotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+
+  .radar-blip {
+    position: absolute;
+    top: 30px;
+    right: 65px;
+    width: 5px;
+    height: 5px;
+    background: var(--naranja);
+    border-radius: 50%;
+    box-shadow: 0 0 8px var(--naranja);
+    animation: blipPulse 2s ease-in-out infinite;
+  }
+
+  @keyframes blipPulse {
+    0%, 100% { opacity: 0.2; }
+    50% { opacity: 1; }
+  }
+
+  /* Textos y datos del banner */
+  .radar-info {
+    z-index: 2;
+    font-family: 'Orbitron', sans-serif;
+  }
+
+  .radar-status {
+    font-size: 0.6rem;
+    letter-spacing: 3px;
+    color: var(--naranja);
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .blinking-dot {
+    width: 6px;
+    height: 6px;
+    background: var(--naranja);
+    border-radius: 50%;
+    box-shadow: 0 0 8px var(--naranja);
+    animation: blipPulse 1s infinite;
+  }
+
+  .radar-title {
+    font-size: 1.1rem;
+    letter-spacing: 2px;
+    color: #ffffff;
+    margin: 0;
+    text-shadow: 0 0 10px rgba(0, 180, 255, 0.4);
+  }
+
+  .radar-sub {
+    font-size: 0.65rem;
+    color: #a8dfff;
+    margin-top: 5px;
+    letter-spacing: 1px;
+    font-family: 'Exo 2', sans-serif;
+  }
+
+  /* CONTENEDOR DE DISEÑO PRINCIPAL */
+  .page-layout {
+    display: flex;
+    flex: 1;
+    position: relative;
+    box-sizing: border-box;
+    z-index: 2;
+  }
+
   main { 
-    margin-left: 280px; 
-    margin-right: 280px; 
+    margin-left: 40px; 
+    margin-right: 320px; 
     padding: 40px; 
     flex: 1; 
+    box-sizing: border-box;
   }
   
   h1 { 
@@ -122,16 +399,15 @@
     padding-bottom: 10px; 
   }
 
-  /* TARJETAS DE ARCHIVO */
   .gallery { 
     display: grid; 
-    gap: 40px; 
+    grid-template-columns: repeat(2, 1fr); 
+    gap: 30px; 
     justify-items: center; 
   }
   
   .item { 
     width: 100%; 
-    max-width: 800px; 
     background: rgba(5, 10, 15, 0.85); 
     backdrop-filter: blur(8px);
     padding: 20px; 
@@ -140,11 +416,48 @@
     text-align: center; 
     transition: 0.3s; 
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+    box-sizing: border-box;
+    position: relative;
+  }
+
+  .item::after {
+      content: attr(data-tooltip);
+      position: absolute;
+      bottom: 60px;
+      left: 50%;
+      transform: translateX(-50%) translateY(10px);
+      width: 85%;
+      max-width: 300px;
+      background: rgba(3, 8, 18, 0.95);
+      color: #e0f4ff;
+      font-family: 'Exo 2', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 300;
+      line-height: 1.5;
+      padding: 14px 18px;
+      border: 1px solid var(--azul);
+      box-shadow: 0 0 20px rgba(0, 180, 255, 0.6), inset 0 0 8px rgba(0, 180, 255, 0.3);
+      border-radius: 6px;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease;
+      z-index: 1000;
+      pointer-events: none;
+      text-align: center;
+      letter-spacing: 0.5px;
+      backdrop-filter: blur(8px);
+  }
+
+  .item:hover::after {
+      opacity: 1;
+      visibility: visible;
+      transform: translateX(-50%) translateY(0);
   }
   
   .item:hover { 
     border-color: var(--azul); 
     box-shadow: 0 0 20px rgba(0, 180, 255, 0.3); 
+    transform: translateY(-5px);
   }
   
   .item img { 
@@ -157,22 +470,23 @@
     margin-top: 15px; 
     letter-spacing: 2px; 
     font-family: 'Orbitron', sans-serif; 
-    font-size: 0.9rem;
+    font-size: 0.8rem;
     color: #ffffff;
   }
 
-  /* PANEL DERECHO ESTILO NEXUS */
   aside { 
-    width: 250px; 
+    width: 280px; 
     background: rgba(5, 10, 15, 0.85); 
     backdrop-filter: blur(10px);
     padding: 30px; 
-    height: 100vh; 
+    height: calc(100vh - 73px); 
     position: fixed; 
     right: 0; 
+    top: 73px;
     border-left: 1px solid rgba(0, 180, 255, 0.4);
     box-sizing: border-box;
     z-index: 10;
+    overflow-y: auto;
   }
   
   .buy-button { 
@@ -198,108 +512,229 @@
     box-shadow: 0 0 12px rgba(0, 180, 255, 0.6);
   }
 
-  /* Estilos para el logo y link */
-  .logo-link {
-    text-decoration: none;
-    color: inherit;
-    margin-bottom: 30px;
-    display: block;
-  }
-
-  .logo-container {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-weight: 700;
-    font-family: 'Orbitron', sans-serif;
-    font-size: 0.85rem;
-    letter-spacing: 1px;
-    color: #ffffff;
-  }
-
-  .logo-icon {
-    width: 32px;
-    height: 32px;
-  }
-
   /* RESPONSIVE */
+  @media(max-width: 1200px) {
+    .gallery { grid-template-columns: 1fr; }
+  }
+
   @media(max-width: 1100px) {
-    body { flex-direction: column; }
-    nav, aside { 
+    .page-layout { flex-direction: column; }
+    main { margin: 0; padding: 20px; }
+    aside { 
       width: 100%; 
       height: auto !important; 
       position: relative !important; 
+      top: 0;
       border: none;
+      border-top: 1px solid rgba(0, 180, 255, 0.4);
       padding: 20px;
-      box-sizing: border-box;
     }
-    nav { order: 1; border-bottom: 1px solid rgba(0, 180, 255, 0.4); }
-    main { order: 2; margin: 0; padding: 20px; }
-    aside { order: 3; border-top: 1px solid rgba(0, 180, 255, 0.4); }
-    #menu-toggle { display: none !important; }
+  }
+
+  @media(max-width: 768px) {
+    header.top-header {
+      padding: 15px 20px;
+      flex-direction: column;
+      gap: 15px;
+    }
+    .radar-banner {
+      height: auto;
+      padding: 20px;
+      flex-direction: column;
+      text-align: center;
+      gap: 15px;
+    }
+    .radar-scope {
+      position: relative;
+      right: 0;
+      margin: 0 auto;
+    }
+    .radar-status {
+      justify-content: center;
+    }
   }
 </style>
 </head>
 
 <body>
 
-<nav>
+<div class="space-bg"></div>
+<div id="random-events-layer"></div>
+
+<header class="top-header">
   <a href="../index.html" class="logo-link">
     <div class="logo-container">
       <img src="../comun/iconoae.png" alt="Logo" class="logo-icon">
       <span>NIKAT NEXUS</span>
     </div>
   </a>
-  <h2>A.E. ARCHIVE</h2>
-  <a href="#infraestructura">INFRAESTRUCTURA</a>
-  <a href="#unidades">UNIDADES</a>
-  <a href="registros.html">REGISTROS / INFORMES</a> 
-  <div style="margin-top: 40px; border-top: 1px solid rgba(0, 180, 255, 0.2); padding-top: 20px;">
-    <a href="mailto:nikatuniverse@gmail.com" style="color: var(--azul); font-size: 0.7rem;">CONTACTO: ADMIN</a>
-    <button id="menu-toggle" style="display: none; background: var(--azul);">MENÚ</button>
-  </div>
-</nav>
 
-<main>
-  <h1>NIKAT : INVASION</h1>
-
-  <section id="infraestructura">
-    <h2 class="section-title">INFRAESTRUCTURA</h2>
-    <div class="gallery">
-      <div class="item"><img src="imagenes/navenikat.png" alt="Nave Maestra"><h3>NAVE MAESTRA NIKAT</h3></div>
-      <div class="item"><img src="imagenes/EDE.png" alt="EDE"><h3>EDE (ESTACIÓN DE DEFENSA ESPACIAL)</h3></div>
-      <div class="item"><img src="imagenes/Transmisor interuniversar.png" alt="Transmisor"><h3>TRANSMISOR INTERUNIVERSAL</h3></div>
+  <div class="nav-menu-container">
+    <a href="#infraestructura" class="nav-btn">INFRAESTRUCTURA</a>
+    <a href="#unidades" class="nav-btn">UNIDADES</a>
+    
+    <div class="dropdown-container">
+      <button class="nav-btn dropdown-toggle">
+        ARCHIVOS EDE ▼
+      </button>
+      <div class="dropdown-menu">
+        <a href="registros.html" class="dropdown-item">REGISTROS / INFORMES</a>
+        <a href="mailto:nikatuniverse@gmail.com" class="dropdown-item">CONTACTO: ADMIN</a>
+      </div>
     </div>
-  </section>
-
-  <section id="unidades">
-    <h2 class="section-title">UNIDADES</h2>
-    <div class="gallery">
-      <div class="item"><img src="imagenes/nox.png" alt="Nox"><h3>EQUIPO NOX</h3></div>
-      <div class="item"><img src="imagenes/umbra.png" alt="Umbra"><h3>EQUIPO UMBRA</h3></div>
-      <div class="item"><img src="imagenes/vesper.png" alt="Vesper"><h3>EQUIPO VESPER</h3></div>
-      <div class="item"><img src="imagenes/secundarios.png" alt="Secundarios"><h3>PERSONAJES SECUNDARIOS</h3></div>
-      <div class="item"><img src="imagenes/nikat.png" alt="Nikat"><h3>SOLDADOS NIKAT</h3></div>
-      <div class="item"><img src="imagenes/generales.png" alt="Generales"><h3>GENERALES NIKAT</h3></div>
-    </div>
-  </section>
-
-</main>
-
-<aside id="libro">
-  <div style="border: 1px solid rgba(0, 180, 255, 0.4); padding: 15px; border-radius: 8px; background: rgba(5, 10, 15, 0.85); backdrop-filter: blur(8px);">
-    <h2 style="margin-top: 0; color: var(--azul); text-align: center; font-family: 'Orbitron', sans-serif; font-size: 0.85rem; letter-spacing: 2px;">OBRA OFICIAL</h2>
-    <img src="imagenes/portada.png" alt="Portada" style="width:100%; border-radius:4px; margin-bottom: 10px; border: 1px solid rgba(0, 180, 255, 0.3);">
-    <p style="font-size: 0.8rem; text-align: center; color: #a8dfff; line-height: 1.4;">
-      La guerra con los Nikat ha comenzado. Adquiere el volumen completo.
-    </p>
-    <a href="https://www.amazon.com/-/es/Jonatan-Arley-Hernández-Chavarro/dp/B0GPNXK7NS" class="buy-button" target="_blank">COMPRAR EN AMAZON</a>
   </div>
-</aside>
+</header>
+
+<div class="page-layout">
+  <main>
+    <h1>NIKAT : INVASION</h1>
+
+    <!-- BANNER DE RADAR TÁCTICO AÑADIDO -->
+    <div class="radar-banner">
+      <div class="radar-info">
+        <div class="radar-status">
+          <div class="blinking-dot"></div>
+          ALERTA DE DEFENSA PLANETARIA // SECTOR ACTIVO
+        </div>
+        <h2 class="radar-title">CENTRO DE INTELIGENCIA EDE</h2>
+        <div class="radar-sub">Monitoreo en tiempo real de recursos y amenazas hostiles</div>
+      </div>
+      <!-- Simulación visual del radar con animación -->
+      <div class="radar-scope">
+        <div class="radar-sweep"></div>
+        <div class="radar-blip"></div>
+      </div>
+    </div>
+
+    <div style="background: rgba(3, 12, 25, 0.7); border-left: 3px solid var(--azul); padding: 20px 25px; margin-bottom: 40px; border-radius: 0 8px 8px 0; font-family: 'Exo 2', sans-serif; font-size: 1rem; color: #e0f4ff; line-height: 1.7; box-shadow: 0 5px 20px rgba(0, 0, 0, 0.4);">
+      <p style="margin: 0; font-weight: 300;">
+        REGISTRO CLASIFICADO // El enemigo no negocia, no avisa y no perdona. Una fuerza multiversal devoradora de mundos ha puesto a la Tierra en su mira. Analiza la infraestructura defensiva, examina el armamento del Proyecto K y descubre a los combatientes que plantan cara al fin de los tiempos.
+      </p>
+    </div>
+
+    <section id="infraestructura">
+      <h2 class="section-title">INFRAESTRUCTURA</h2>
+      <div class="gallery">
+        <div class="item" data-tooltip="La colosal nave insignia de la flota de invasión Nikat. Capaz de viajes interdimensionales y portadora de millones de soldados Nikat.">
+          <img src="imagenes/navenikat.png" alt="Nave Maestra">
+          <h3>NAVE MAESTRA NIKAT</h3>
+        </div>
+        <div class="item" data-tooltip="Estación de defensa espacial avanzada construida para repeler ataques orbitales y coordinar las comunicaciones globales.">
+          <img src="imagenes/EDE.png" alt="EDE">
+          <h3>EDE (ESTACIÓN DE DEFENSA ESPACIAL)</h3>
+        </div>
+        <div class="item" data-tooltip="Dispositivo experimental capaz de enviar señales a través de múltiples realidades y dimensiones de la galaxia.">
+          <img src="imagenes/Transmisor interuniversar.png" alt="Transmisor">
+          <h3>TRANSMISOR INTERUNIVERSAL</h3>
+        </div>
+      </div>
+    </section>
+
+    <section id="unidades">
+      <h2 class="section-title">UNIDADES DE LA HUMANIDAD</h2>
+      <div class="gallery">
+        <div class="item" data-tooltip="Escuadrón de asalto rápido especializado en diferentes terrenos, diseñado para romper y traspasar las líneas enemigas con máxima velocidad.">
+          <img src="imagenes/nox.png" alt="Nox">
+          <h3>EQUIPO NOX</h3>
+        </div>
+        <div class="item" data-tooltip="Equipo de sigilo especializado en la eliminación de objetivos específicos de alto valor, aunque perfectamente capaces de enfrentarse a múltiples hostiles en combate cerrado.">
+          <img src="imagenes/umbra.png" alt="Umbra">
+          <h3>EQUIPO UMBRA</h3>
+        </div>
+        <div class="item" data-tooltip="Unidad novata en entrenamiento del Proyecto K. Sirven como el punto de selección inicial para evaluar si los nuevos reclutas serán asignados a equipos de asalto o de sigilo.">
+          <img src="imagenes/vesper.png" alt="Vesper">
+          <h3>EQUIPO VESPER</h3>
+        </div>
+        <div class="item" data-tooltip="Aliados, científicos, soldados y civiles que sostienen la logística de la resistencia frente al avance Nikat.">
+          <img src="imagenes/secundarios.png" alt="Secundarios">
+          <h3>CIVILES y MANDOS MILITARES</h3>
+        </div>
+      </div>
+    </section>
+
+    <section id="nikat">
+      <h2 class="section-title">FUERZAS NIKAT</h2>
+      <div class="gallery">
+        <div class="item" data-tooltip="Unidades de invasión Nikat en sus diferentes etapas y mutaciones. Conforman el grueso principal del ejército de conquista.">
+          <img src="imagenes/nikat.png" alt="Nikat">
+          <h3>SOLDADOS NIKAT</h3>
+        </div>
+        <div class="item" data-tooltip="Comandantes supremos al mando de grandes legiones y ejércitos Nikat. Transmiten sus órdenes a través de unidades Alpha o de élite, entrando personalmente en combate solo ante amenazas masivas o cuando se requiere asegurar una posición clave de inmediato.">
+          <img src="imagenes/generales.png" alt="Generales">
+          <h3>GENERALES NIKAT</h3>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <aside id="libro">
+    <div style="border: 1px solid rgba(0, 180, 255, 0.4); padding: 15px; border-radius: 8px; background: rgba(5, 10, 15, 0.85); backdrop-filter: blur(8px);">
+      <h2 style="margin-top: 0; color: var(--azul); text-align: center; font-family: 'Orbitron', sans-serif; font-size: 0.85rem; letter-spacing: 2px;">OBRA OFICIAL</h2>
+      <img src="imagenes/portada.png" alt="Portada" style="width:100%; border-radius:4px; margin-bottom: 10px; border: 1px solid rgba(0, 180, 255, 0.3);">
+      <p style="font-size: 0.8rem; text-align: center; color: #a8dfff; line-height: 1.4; margin: 10px 0;">
+        La guerra con los Nikat ha comenzado. Adquiere el volumen completo.
+      </p>
+      <a href="https://www.amazon.com/-/es/Jonatan-Arley-Hernández-Chavarro/dp/B0GPNXK7NS" class="buy-button" target="_blank">COMPRAR EN AMAZON</a>
+    </div>
+  </aside>
+</div>
 
 <script>
-    document.getElementById('menu-toggle').addEventListener('click', function() {
-        document.querySelector('nav').classList.toggle('activo');
+    function spawnSpaceDebris() {
+        const layer = document.getElementById('random-events-layer');
+        if (!layer) return;
+        const el = document.createElement('div');
+        
+        const isMeteor = Math.random() < 0.7;
+        el.className = `space-debris ${isMeteor ? 'meteor' : 'probe'}`;
+
+        const randomTop = Math.floor(Math.random() * window.innerHeight);
+        el.style.top = randomTop + 'px';
+
+        const goingRight = Math.random() < 0.5;
+        const startX = goingRight ? -100 : window.innerWidth + 100;
+        const endX = goingRight ? window.innerWidth + 100 : -100;
+        const targetY = randomTop + (Math.random() * 200 - 100);
+
+        el.style.left = startX + 'px';
+
+        const duration = Math.random() * 13 + 12;
+        el.style.transition = `transform ${duration}s linear, opacity ${duration}s ease`;
+
+        layer.appendChild(el);
+
+        setTimeout(() => {
+            el.style.transform = `translate(${endX - startX}px, ${targetY - randomTop}px)`;
+        }, 50);
+
+        setTimeout(() => {
+            el.remove();
+        }, duration * 1000);
+
+        const nextTime = Math.random() * 7000 + 5000;
+        setTimeout(spawnSpaceDebris, nextTime);
+    }
+
+    setTimeout(spawnSpaceDebris, 2000);
+
+    setTimeout(spawnSpaceDebris, 2000);
+
+    // Nuevo script para el menú desplegable
+    const dropdownToggle = document.querySelector('.dropdown-toggle');
+    const dropdownMenu = document.querySelector('.dropdown-menu');
+
+    dropdownToggle.addEventListener('click', function(event) {
+        event.stopPropagation(); // Evita que el click cierre el menú inmediatamente
+        dropdownMenu.classList.toggle('show');
+    });
+
+    // Cerrar el menú si se hace clic fuera de él
+    window.addEventListener('click', function(event) {
+        if (!event.target.matches('.dropdown-toggle')) {
+            if (dropdownMenu.classList.contains('show')) {
+                dropdownMenu.classList.remove('show');
+            }
+        }
     });
 </script>
 
