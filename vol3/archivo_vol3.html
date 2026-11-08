@@ -1,349 +1,770 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NIKAT CONTRAATAQUE | ARCHIVO TÁCTICO</title>
-    
-    <meta name="description" content="Registros de la coalición y la resistencia global. Estrategias, nuevos enemigos y nodos de control en Guayaquil, Anchorage y Antofagasta.">
-    <meta name="author" content="Jonatan Arley Hernández Chavarro">
+<meta charset="UTF-8">
+<meta name="description" content="Explora los registros desclasificados de la invasión Nikat. Descubre la historia, tecnología y el destino de la resistencia en este archivo oficial del universo de ciencia ficción.">
+<meta name="keywords" content="Nikat, ciencia ficción, libro, invasión alienígena, archivos desclasificados, Jonatan Arley Hernández Chavarro, historia distópica">
+<meta name="author" content="Jonatan Arley Hernández Chavarro">
 
-    <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@300;400;600&family=Orbitron:wght@400;700&family=Courier+Prime&display=swap" rel="stylesheet">
-    <link rel="icon" type="image/png" href="imagenes/iconoae.png">
-    
-    <style>
-        :root {
-            --verde: #2e8b57;
-            --verde-glow: rgba(46, 139, 87, 0.35);
-            --bg-dark: #050a07;
-            --panel-bg: rgba(7, 15, 10, 0.88);
-            --text: #d2f0df;
-        }
+<meta property="og:title" content="NIKAT INVASIÓN | VOLUMEN 3 - ALIANZA">
+<meta property="og:description" content="Acceso a los registros restringidos sobre la coalición y la guerra contra los Nikat.">
+<meta property="og:image" content="https://tu-sitio.github.io/imagenes/portada.png">
+<meta property="og:url" content="https://tu-sitio.github.io/">
+<meta property="og:type" content="website">
+<link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@300;400;600&family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+<link rel="icon" type="image/png" href="imagenes/logoCR.png">
+<title>NIKAT INVASIÓN | VOLUMEN 3 - ALIANZA</title>
 
-        /* ESTRUCTURA BASE */
-        html { scroll-behavior: smooth; }
-        body { 
-            margin: 0; 
-            font-family: 'Exo 2', sans-serif; 
-            background: linear-gradient(135deg, var(--bg-dark), #0f1c13); 
-            color: var(--text); 
-            display: flex; 
-            overflow-x: hidden;
-        }
+<style>
+  :root {
+    --verde: #00ff88; /* Verde cósmico para las facciones aliadas y tecnología unificada */
+    --dorado: #ffb703; /* Acento secundario para destacar mandos o alianzas estelares */
+    --bg: #020f08;     /* Fondo espacial con un sutil subtono verdoso oscuro */
+  }
 
-        /* EFECTO DE ESCANEO DE GUERRA (Tono verde táctico) */
-        body::before { 
-            content: ""; position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
-            background: linear-gradient(rgba(10, 20, 14, 0) 50%, rgba(46, 139, 87, 0.04) 50%); 
-            background-size: 100% 8px; pointer-events: none; z-index: 100; opacity: 0.15; 
-        }
+  /* ESTRUCTURA BASE */
+  html { scroll-behavior: smooth; }
+  body { 
+    margin: 0; 
+    font-family: 'Exo 2', sans-serif; 
+    background-color: var(--bg); 
+    color: #e0fff4; 
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    overflow-x: hidden;
+    position: relative;
+  }
 
-        /* MENÚ IZQUIERDO */
-        nav { 
-            width: 250px; 
-            background: var(--panel-bg); 
-            backdrop-filter: blur(10px);
-            padding: 30px; 
-            height: 100vh; 
-            position: fixed; 
-            border-right: 1px solid rgba(46, 139, 87, 0.3); 
-            box-sizing: border-box;
-            z-index: 10;
-        }
-        nav h2 { 
-            color: var(--verde); 
-            font-size: 0.9rem; 
-            font-family: 'Orbitron', sans-serif;
-            letter-spacing: 2px; 
-            border-bottom: 1px solid var(--verde-glow); 
-            padding-bottom: 10px; 
-            margin-top: 20px;
-        }
-        nav a { 
-            display: block; 
-            color: #9abfa7; 
-            text-decoration: none; 
-            margin-bottom: 15px; 
-            font-weight: 600; 
-            font-size: 0.75rem; 
-            font-family: 'Exo 2', sans-serif;
-            letter-spacing: 1px;
-            text-transform: uppercase; 
-            transition: .3s; 
-        }
-        nav a:hover { 
-            color: var(--verde); 
-            padding-left: 5px; 
-            text-shadow: 0 0 8px var(--verde-glow); 
-        }
+  /* --- FONDO ESPACIAL VERDOSO --- */
+  .space-bg {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    pointer-events: none;
+    z-index: 0;
+    background-image: 
+        radial-gradient(rgba(255,255,255,0.8) 1.2px, transparent 0),
+        radial-gradient(rgba(0,255,136,0.6) 1.5px, transparent 0),
+        radial-gradient(rgba(0,180,255,0.4) 2px, transparent 0);
+    background-size: 400px 400px, 300px 300px, 600px 600px;
+    background-position: 0 0, 100px 70px, 200px 150px;
+    opacity: 0.6;
+    animation: driftSpace 160s linear infinite;
+  }
 
-        /* CONTENIDO CENTRAL */
-        main { 
-            margin-left: 280px; 
-            margin-right: 280px; 
-            padding: 40px; 
-            flex: 1; 
-        }
-        h1 { 
-            text-align: center; 
-            font-family: 'Orbitron', sans-serif;
-            letter-spacing: 5px; 
-            font-weight: 700; 
-            font-size: 1.8rem;
-            color: var(--verde);
-            margin-bottom: 50px; 
-            border-bottom: 1px solid rgba(46, 139, 87, 0.4); 
-            padding-bottom: 20px; 
-            text-shadow: 0 0 15px var(--verde-glow);
-        }
-        .section-title { 
-            text-align: left; 
-            font-family: 'Orbitron', sans-serif;
-            letter-spacing: 3px; 
-            color: var(--verde); 
-            margin-top: 60px; 
-            margin-bottom: 30px;
-            font-size: 1.1rem;
-            border-left: 4px solid var(--verde); 
-            padding-left: 15px;
-            border-bottom: 1px dashed var(--verde-glow);
-            padding-bottom: 10px;
-        }
+  @keyframes driftSpace {
+    from { background-position: 0 0, 100px 70px, 200px 150px; }
+    to { background-position: 1200px 1200px, 1300px 1270px, 1400px 1350px; }
+  }
 
-        /* TARJETAS DE ARCHIVO */
-        .gallery { display: grid; gap: 40px; justify-items: center; }
-        .item { 
-            width: 100%; max-width: 800px; 
-            background: rgba(7, 15, 10, 0.88); 
-            backdrop-filter: blur(8px);
-            padding: 20px; 
-            border: 1px solid rgba(46, 139, 87, 0.3); 
-            border-radius: 8px; 
-            text-align: center; 
-            transition: 0.3s; 
-            position: relative;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
-        }
-        .item:hover { border-color: var(--verde); box-shadow: 0 0 20px var(--verde-glow); }
-        
-        /* Efecto desgaste para enemigos comunes */
-        .worn-unit img { filter: grayscale(0.3) contrast(1.2) sepia(0.2); }
-        
-        .item img { width: 100%; border: 1px solid var(--verde-glow); border-radius: 4px; }
-        .item h3 { margin-top: 15px; letter-spacing: 2px; font-family: 'Orbitron', sans-serif; font-size: 0.9rem; color: var(--verde); }
-        .item p { font-size: 0.85rem; color: #a2b8ab; margin-top: 10px; line-height: 1.4; }
+  .space-bg::after {
+    content: "";
+    position: absolute;
+    top: 25%; left: 25%;
+    width: 800px; height: 450px;
+    background: radial-gradient(ellipse, rgba(0, 255, 136, 0.1) 0%, rgba(0, 100, 150, 0.08) 40%, transparent 70%);
+    pointer-events: none;
+    animation: nebulaPulse 25s ease-in-out infinite alternate;
+  }
 
-        /* BOTONES DE REDIRECCIÓN EN LAS TARJETAS 3D */
-        .btn-3d {
-            display: inline-block; margin-top: 15px; padding: 8px 20px;
-            border: 1px solid var(--verde); background: rgba(46, 139, 87, 0.15);
-            color: var(--verde); font-family: 'Orbitron', sans-serif;
-            font-size: 0.75rem; font-weight: bold; text-decoration: none;
-            letter-spacing: 1px;
-            text-transform: uppercase; border-radius: 4px; transition: 0.3s;
-        }
-        .btn-3d:hover {
-            background: var(--verde); color: #000; box-shadow: 0 0 12px var(--verde-glow);
-        }
+  @keyframes nebulaPulse {
+    0% { transform: scale(1); opacity: 0.6; }
+    100% { transform: scale(1.25); opacity: 1; }
+  }
 
-        /* PANEL DERECHO */
-        aside { 
-            width: 250px; 
-            background: var(--panel-bg); 
-            backdrop-filter: blur(10px);
-            padding: 30px; 
-            height: 100vh; 
-            position: fixed; 
-            right: 0; 
-            border-left: 1px solid rgba(46, 139, 87, 0.3); 
-            box-sizing: border-box;
-            z-index: 10;
-        }
-        .buy-button { 
-            display: block; text-align: center; padding: 12px; 
-            background: rgba(46, 139, 87, 0.15); 
-            border: 1px solid var(--verde);
-            color: var(--verde); text-decoration: none; 
-            font-family: 'Orbitron', sans-serif;
-            font-size: 0.75rem;
-            letter-spacing: 1px;
-            font-weight: bold; border-radius: 4px; margin-top: 20px; 
-            transition: all 0.2s ease;
-        }
-        .buy-button:hover { background: var(--verde); color: #000; box-shadow: 0 0 12px var(--verde-glow); }
+  /* --- CAPA DE METEORITOS --- */
+  #random-events-layer {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    pointer-events: none;
+    z-index: 1;
+    overflow: hidden;
+  }
 
-        .tech-log-link {
-            display: block; margin-top: 30px; padding: 10px;
-            border: 1px dashed var(--verde); color: var(--verde);
-            text-align: center; font-size: 0.75rem; text-decoration: none;
-            font-family: 'Courier Prime', monospace;
-        }
+  .space-debris {
+    position: absolute;
+    pointer-events: none;
+    opacity: 0.6;
+  }
 
-        @media(max-width: 1100px) {
-            body { flex-direction: column; }
-            nav, aside { width: 100%; height: auto !important; position: relative !important; border: none; padding: 20px; box-sizing: border-box; }
-            nav { order: 1; border-bottom: 1px solid rgba(46, 139, 87, 0.3); }
-            main { order: 2; margin: 0; padding: 20px; }
-            aside { order: 3; border-top: 1px solid rgba(46, 139, 87, 0.3); }
-        }
+  .meteor {
+    width: 2px;
+    height: 2px;
+    background: white;
+    box-shadow: 0 0 8px 2px rgba(255, 255, 255, 0.8), -15px 0 20px rgba(0, 255, 136, 0.5);
+    border-radius: 50%;
+  }
 
-        /* Estilos para el nuevo encabezado del nav */
-        .logo-link {
-            text-decoration: none;
-            color: inherit;
-            margin-bottom: 30px;
-            display: block;
-        }
+  .probe {
+    width: 5px;
+    height: 1.5px;
+    background: var(--verde);
+    box-shadow: 0 0 6px var(--verde);
+  }
 
-        .logo-container {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-weight: 700;
-            font-family: 'Orbitron', sans-serif;
-            font-size: 0.85rem;
-            letter-spacing: 1px;
-            color: var(--verde);
-            transition: 0.3s;
-        }
+  /* EFECTO DE ESCANEO TÁCTICO */
+  body::before { 
+    content: ""; 
+    position: fixed; 
+    top: 0; left: 0; width: 100%; height: 100%; 
+    background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%); 
+    background-size: 100% 4px; 
+    pointer-events: none; 
+    z-index: 100; 
+    opacity: 0.1; 
+  }
 
-        .logo-container:hover {
-            color: #fff;
-            text-shadow: 0 0 8px var(--verde-glow);
-        }
+  /* HEADER SUPERIOR UNIFICADO */
+  header.top-header {
+    width: 100%;
+    background: rgba(2, 15, 8, 0.85);
+    backdrop-filter: blur(10px);
+    padding: 20px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgba(0, 255, 136, 0.3);
+    box-sizing: border-box;
+    position: sticky;
+    top: 0;
+    z-index: 50;
+  }
 
-        .logo-icon {
-            width: 32px;
-            height: 32px;
-        }
-    </style>
+  .logo-link {
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .logo-container {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-weight: 700;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.9rem;
+    letter-spacing: 2px;
+    color: #ffffff;
+  }
+
+  .logo-icon {
+    width: 32px;
+    height: 32px;
+  }
+
+  .nav-menu-container {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .dropdown-container {
+    position: relative;
+    display: inline-block;
+  }
+
+  .nav-btn {
+    display: inline-block;
+    padding: 8px 18px;
+    border: 1px solid var(--verde);
+    color: var(--verde);
+    text-decoration: none;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.65rem;
+    letter-spacing: 2px;
+    background: rgba(0, 255, 136, 0.03);
+    transition: all 0.3s ease;
+    cursor: pointer;
+    border-radius: 4px;
+  }
+
+  .nav-btn:hover {
+    background-color: rgba(0, 255, 136, 0.15);
+    color: #ffffff;
+    border-color: #ffffff;
+    box-shadow: 0 0 15px var(--verde), inset 0 0 10px rgba(0, 255, 136, 0.5);
+    transform: translateY(-2px);
+  }
+
+  .dropdown-menu {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 100%;
+    margin-top: 5px;
+    background: rgba(2, 15, 8, 0.95);
+    border: 1px solid var(--verde);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.9), 0 0 15px rgba(0, 255, 136, 0.3);
+    z-index: 100;
+    min-width: 240px;
+    text-align: left;
+    padding: 5px 0;
+    backdrop-filter: blur(5px);
+    border-radius: 4px;
+  }
+
+  .dropdown-menu.show {
+    display: block;
+  }
+
+  .dropdown-item {
+    display: block;
+    padding: 10px 20px;
+    color: #a8ffd9;
+    text-decoration: none;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.6rem;
+    letter-spacing: 1.5px;
+    transition: all 0.2s ease;
+    border-left: 2px solid transparent;
+    text-transform: uppercase;
+  }
+
+  .dropdown-item:hover {
+    background-color: rgba(0, 255, 136, 0.15);
+    color: #ffffff;
+    border-left-color: var(--verde);
+    padding-left: 25px;
+  }
+
+  /* --- BANNER DE RADAR / MONITOREO TÁCTICO --- */
+  .radar-banner {
+    position: relative;
+    width: 100%;
+    height: 140px;
+    background: rgba(2, 20, 12, 0.9);
+    border: 1px solid rgba(0, 255, 136, 0.4);
+    border-radius: 6px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 30px;
+    box-sizing: border-box;
+    margin-bottom: 40px;
+    box-shadow: inset 0 0 25px rgba(0, 255, 136, 0.15), 0 10px 20px rgba(0,0,0,0.5);
+  }
+
+  .radar-banner::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background-image: 
+      linear-gradient(rgba(0, 255, 136, 0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0, 255, 136, 0.05) 1px, transparent 1px);
+    background-size: 20px 20px;
+    pointer-events: none;
+  }
+
+  .radar-scope {
+    position: absolute;
+    right: 40px;
+    width: 100px;
+    height: 100px;
+    border: 1px dashed rgba(0, 255, 136, 0.4);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+  }
+
+  .radar-scope::before {
+    content: "";
+    position: absolute;
+    width: 80px;
+    height: 80px;
+    border: 1px solid rgba(0, 255, 136, 0.2);
+    border-radius: 50%;
+  }
+
+  .radar-sweep {
+    position: absolute;
+    top: 50%; left: 50%;
+    width: 50px;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--verde));
+    transform-origin: left center;
+    animation: sweepRotate 4s linear infinite;
+  }
+
+  @keyframes sweepRotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+
+  .radar-blip {
+    position: absolute;
+    top: 30px;
+    right: 65px;
+    width: 5px;
+    height: 5px;
+    background: var(--dorado);
+    border-radius: 50%;
+    box-shadow: 0 0 8px var(--dorado);
+    animation: blipPulse 2s ease-in-out infinite;
+  }
+
+  @keyframes blipPulse {
+    0%, 100% { opacity: 0.2; }
+    50% { opacity: 1; }
+  }
+
+  .radar-info {
+    z-index: 2;
+    font-family: 'Orbitron', sans-serif;
+  }
+
+  .radar-status {
+    font-size: 0.6rem;
+    letter-spacing: 3px;
+    color: var(--dorado);
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .blinking-dot {
+    width: 6px;
+    height: 6px;
+    background: var(--dorado);
+    border-radius: 50%;
+    box-shadow: 0 0 8px var(--dorado);
+    animation: blipPulse 1s infinite;
+  }
+
+  .radar-title {
+    font-size: 1.1rem;
+    letter-spacing: 2px;
+    color: #ffffff;
+    margin: 0;
+    text-shadow: 0 0 10px rgba(0, 255, 136, 0.4);
+  }
+
+  .radar-sub {
+    font-size: 0.65rem;
+    color: #a8ffd9;
+    margin-top: 5px;
+    letter-spacing: 1px;
+    font-family: 'Exo 2', sans-serif;
+  }
+
+  /* CONTENEDOR DE DISEÑO PRINCIPAL */
+  .page-layout {
+    display: flex;
+    flex: 1;
+    position: relative;
+    box-sizing: border-box;
+    z-index: 2;
+  }
+
+  main { 
+    margin-left: 40px; 
+    margin-right: 320px; 
+    padding: 40px; 
+    flex: 1; 
+    box-sizing: border-box;
+  }
+  
+  h1 { 
+    text-align: center; 
+    font-family: 'Orbitron', sans-serif;
+    letter-spacing: 5px; 
+    font-weight: 700; 
+    font-size: 1.8rem;
+    color: var(--verde);
+    margin-bottom: 50px; 
+    border-bottom: 1px solid rgba(0, 255, 136, 0.4); 
+    padding-bottom: 20px; 
+    text-shadow: 0 0 10px rgba(0, 255, 136, 0.3);
+  }
+  
+  .section-title { 
+    text-align: center; 
+    font-family: 'Orbitron', sans-serif;
+    letter-spacing: 3px; 
+    color: var(--verde); 
+    margin-top: 60px; 
+    margin-bottom: 30px;
+    font-size: 1.1rem;
+    border-bottom: 1px dashed rgba(0, 255, 136, 0.2);
+    padding-bottom: 10px; 
+  }
+
+  .gallery { 
+    display: grid; 
+    grid-template-columns: repeat(2, 1fr); 
+    gap: 30px; 
+    justify-items: center; 
+  }
+  
+  .item { 
+    width: 100%; 
+    background: rgba(3, 15, 9, 0.85); 
+    backdrop-filter: blur(8px);
+    padding: 20px; 
+    border: 1px solid rgba(0, 255, 136, 0.4); 
+    border-radius: 8px; 
+    text-align: center; 
+    transition: 0.3s; 
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+    box-sizing: border-box;
+    position: relative;
+  }
+
+  .item::after {
+      content: attr(data-tooltip);
+      position: absolute;
+      bottom: 60px;
+      left: 50%;
+      transform: translateX(-50%) translateY(10px);
+      width: 85%;
+      max-width: 300px;
+      background: rgba(2, 15, 8, 0.95);
+      color: #e0fff4;
+      font-family: 'Exo 2', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 300;
+      line-height: 1.5;
+      padding: 14px 18px;
+      border: 1px solid var(--verde);
+      box-shadow: 0 0 20px rgba(0, 255, 136, 0.6), inset 0 0 8px rgba(0, 255, 136, 0.3);
+      border-radius: 6px;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease;
+      z-index: 1000;
+      pointer-events: none;
+      text-align: center;
+      letter-spacing: 0.5px;
+      backdrop-filter: blur(8px);
+  }
+
+  .item:hover::after {
+      opacity: 1;
+      visibility: visible;
+      transform: translateX(-50%) translateY(0);
+  }
+  
+  .item:hover { 
+    border-color: var(--verde); 
+    box-shadow: 0 0 20px rgba(0, 255, 136, 0.3); 
+    transform: translateY(-5px);
+  }
+  
+  .item img { 
+    width: 100%; 
+    border: 1px solid rgba(0, 255, 136, 0.3); 
+    border-radius: 4px; 
+  }
+  
+  .item h3 { 
+    margin-top: 15px; 
+    letter-spacing: 2px; 
+    font-family: 'Orbitron', sans-serif; 
+    font-size: 0.8rem;
+    color: #ffffff;
+  }
+
+  aside { 
+    width: 280px; 
+    background: rgba(3, 15, 9, 0.85); 
+    backdrop-filter: blur(10px);
+    padding: 30px; 
+    height: calc(100vh - 73px); 
+    position: fixed; 
+    right: 0; 
+    top: 73px;
+    border-left: 1px solid rgba(0, 255, 136, 0.4);
+    box-sizing: border-box;
+    z-index: 10;
+    overflow-y: auto;
+  }
+  
+  .buy-button { 
+    display: block; 
+    text-align: center; 
+    padding: 12px; 
+    background: rgba(0, 255, 136, 0.15); 
+    border: 1px solid var(--verde);
+    color: var(--verde); 
+    text-decoration: none; 
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.75rem;
+    letter-spacing: 1px;
+    font-weight: bold; 
+    border-radius: 4px; 
+    margin-top: 20px; 
+    transition: all 0.2s ease;
+  }
+
+  .buy-button:hover {
+    background: var(--verde);
+    color: #000;
+    box-shadow: 0 0 12px rgba(0, 255, 136, 0.6);
+  }
+
+  /* RESPONSIVE */
+  @media(max-width: 1200px) {
+    .gallery { grid-template-columns: 1fr; }
+  }
+
+  @media(max-width: 1100px) {
+    .page-layout { flex-direction: column; }
+    main { margin: 0; padding: 20px; }
+    aside { 
+      width: 100%; 
+      height: auto !important; 
+      position: relative !important; 
+      top: 0;
+      border: none;
+      border-top: 1px solid rgba(0, 255, 136, 0.4);
+      padding: 20px;
+    }
+  }
+
+  @media(max-width: 768px) {
+    header.top-header {
+      padding: 15px 20px;
+      flex-direction: column;
+      gap: 15px;
+    }
+    .radar-banner {
+      height: auto;
+      padding: 20px;
+      flex-direction: column;
+      text-align: center;
+      gap: 15px;
+    }
+    .radar-scope {
+      position: relative;
+      right: 0;
+      margin: 0 auto;
+    }
+    .radar-status {
+      justify-content: center;
+    }
+  }
+</style>
 </head>
 
 <body>
 
-<nav>
-    <a href="../index.html" class="logo-link">
-        <div class="logo-container">
-            <img src="../comun/iconoae2.png" alt="Logo" class="logo-icon">
-            <span>NIKAT NEXUS</span>
-        </div>
-    </a>
+<div class="space-bg"></div>
+<div id="random-events-layer"></div>
 
-    <h2>RESISTANCE HUB</h2>
-    <a href="#operativos">OPERATIVOS</a>
-    <a href="#amenazas">NIKAT</a>
-    <a href="#nodos">NODOS ESTRATÉGICOS</a>
+<header class="top-header">
+  <a href="../index.html" class="logo-link">
+    <div class="logo-container">
+      <img src="../comun/logoCR.png" alt="Logo" class="logo-icon">
+      <span>NIKAT NEXUS : VOL 3</span>
+    </div>
+  </a>
+
+  <div class="nav-menu-container">
+    <a href="#unidades" class="nav-btn">COALICION DE RAZAS</a>
+    <a href="#nikat" class="nav-btn">INVASORES NIKAT</a>
+    <a href="#locaciones" class="nav-btn">LOCACIONES</a>
     
-    <h2 style="margin-top: 30px;">MONITOREO</h2>
-    <a href="treejs/ede.html" target="_blank" style="color: #00ffcc; text-shadow: 0 0 5px rgba(0,255,204,0.2);">[EDE 40]</a>
-    <a href="treejs/bunker.html" target="_blank" style="color: #00ffcc; text-shadow: 0 0 5px rgba(0,255,204,0.2);">[BUNKER DIOMEDE]</a>
-
-    <div style="margin-top: 40px; border-top: 1px solid rgba(46, 139, 87, 0.2); padding-top: 20px;">
-        <a href="registros.html" style="color: var(--verde); font-size: 0.7rem;">[ LOGS TÉCNICOS ]</a>
+    <div class="dropdown-container">
+      <button class="nav-btn dropdown-toggle">
+        ARCHIVOS EDE ▼
+      </button>
+      <div class="dropdown-menu">
+        <a href="registros.html" class="dropdown-item">REGISTROS / INFORMES</a>
+        <a href="mailto:nikatuniverse@gmail.com" class="dropdown-item">CONTACTO: ADMIN</a>
+      </div>
     </div>
-</nav>
+  </div>
+</header>
 
-<main>
-    <h1>NIKAT : CONTRAATAQUE</h1>
+<div class="page-layout">
+  <main>
+    <h1>NIKAT : VOLUMEN 3</h1>
 
-    <section id="operativos">
-        <h2 class="section-title">PERSONAL ACTIVO / COALICIÓN</h2>
-        <div class="gallery">
-            <div class="item">
-                <img src="imagenes/personajes_v2.PNG" alt="Personajes Vol 3">
-                <h3>EQUIPO DE LA COALICIÓN</h3>
-                <p>Protagonistas y líderes de la nueva alianza aliada.</p>
-            </div>
-            <div class="item">
-                <img src="imagenes/secundariosbunker.PNG" alt="secundarios Vol 3">
-                <h3>FUERZAS DE APOYO BUNKER</h3>
-                <p>Personal del bunker tras la reorganización defensiva.</p>
-            </div>
-            <div class="item">
-                <img src="imagenes/secundariosanchorage.PNG" alt="secundarios Vol 3">
-                <h3>PERSONAL DE ANCHORAGE</h3>
-                <p>Tropas del bastión norte en posición de contraofensiva.</p>
-            </div>
-            <div class="item">
-                <img src="imagenes/secundariosguayaquil.PNG" alt="secundarios Vol 3">
-                <h3>SOBREVIVIENTES PACIFICO</h3>
-                <p>Unidades del sector costero y base orbital.</p>
-            </div>
-            <div class="item">
-                <img src="imagenes/secundariosantofagasta.PNG" alt="secundarios Vol 3">
-                <h3>SOBREVIVIENTES ANTOFAGASTA</h3>
-                <p>Guarnición de La Fortaleza en alerta máxima.</p>
-            </div>
-            <div class="item">
-                <img src="imagenes/secundarioscolumbia.PNG" alt="secundarios Vol 3">
-                <h3>SOBREVIVIENTES COLUMBIA</h3>
-                <p>Células de resistencia operando en los sectores urbanos.</p>
-            </div>
+    <div class="radar-banner">
+      <div class="radar-info">
+        <div class="radar-status">
+          <div class="blinking-dot"></div>
+          COALICIÓN // RED DE DEFENSA
         </div>
-    </section>
-
-    <section id="amenazas">
-        <h2 class="section-title">NIKAT</h2>
-        <div class="gallery">
-            <div class="item worn-unit">
-                <img src="imagenes/nikatcomunes.PNG" alt="Nikat Común">
-                <h3>INFANTERÍA VETERANA</h3>
-                <p>Unidades Nikat estandar.</p>
-            </div>
-            <div class="item">
-                <img src="imagenes/pseudogenerales.PNG" alt="Nuevos Enemigos">
-                <h3>UNIDADES DE ELITE</h3>
-                <p>Pseudo generales.</p>
-            </div>
-            <div class="item">
-                <img src="imagenes/generalinfectado.PNG" alt="Nuevos Enemigos">
-                <h3>GENERAL NIKAT</h3>
-                <p>General Nikat???.</p>
-            </div>
-        </div>
-    </section>
-
-    <section id="nodos">
-        <h2 class="section-title">PUNTOS DE CONFLICTO GLOBAL</h2>
-        <div class="gallery">
-            <div class="item">
-                <img src="imagenes/base ascensor zoom.PNG" alt="Guayaquil">
-                <h3>GUAYAQUIL: BASE ASCENSOR ESPACIAL ISLA SANTAY</h3>
-                <p>Base del ascensor espacial conectado a la EDE-40.</p>
-            </div>
-            
-            <div class="item">
-                <img src="imagenes/EDE.PNG" alt="Guayaquil">
-                <h3>GUAYAQUIL: EDE 40</h3>
-                <p>Ultima EDE operativa del planeta.</p>
-                <a href="treejs/ede.html" target="_blank" class="btn-3d">Inicializar Render 3D EDE</a>
-            </div>
-            
-            <div class="item">
-                <img src="imagenes/antofagasta.PNG" alt="Antofagasta">
-                <h3>ANTOFAGASTA: LA FORTALEZA</h3>
-                <p>Centro fortificado de la resistencia en el Nodo Sur.</p>
-            </div>
-
-            <div class="item">
-                <img src="imagenes/anchorage.PNG" alt="Anchorage">
-                <h3>ANCHORAGE: EL BASTIÓN</h3>
-                <p>Bastión de resistencia al norte.</p>
-            </div>
-        </div>
-    </section>
-</main>
-
-<aside id="libro">
-    <div style="border: 1px solid rgba(46, 139, 87, 0.4); padding: 15px; border-radius: 8px; background: rgba(7, 15, 10, 0.88); backdrop-filter: blur(8px);">
-        <h2 style="margin-top: 0; color: var(--verde); text-align: center; font-family: 'Orbitron', sans-serif; font-size: 0.85rem; letter-spacing: 2px;">ESTADO: CONTRAATAQUE</h2>
-        <img src="imagenes/portada.png" alt="Portada Vol 3" style="width:100%; border-radius:4px; margin-bottom: 10px; border: 1px solid rgba(46, 139, 87, 0.3);">
-        <p style="font-size: 0.8rem; text-align: center; color: #a2b8ab; line-height: 1.4;">
-            La coalición avanza.
-        </p>
-        <a href="https://www.amazon.com/-/es/J-Hern%C3%A1ndez/dp/B0H4S4S2S2/ref=tmm_pap_swatch_0" class="buy-button" target="_blank">COMPRAR EN AMAZON</a>
+        <h2 class="radar-title">CENTRO DE INTELIGENCIA UNIFICADO</h2>
+        <div class="radar-sub">Coordinación táctica de fuerzas aliadas frente al avance Nikat</div>
+      </div>
+      <div class="radar-scope">
+        <div class="radar-sweep"></div>
+        <div class="radar-blip"></div>
+      </div>
     </div>
-</aside>
+
+    <div style="background: rgba(2, 20, 12, 0.7); border-left: 3px solid var(--verde); padding: 20px 25px; margin-bottom: 40px; border-radius: 0 8px 8px 0; font-family: 'Exo 2', sans-serif; font-size: 1rem; color: #e0fff4; line-height: 1.7; box-shadow: 0 5px 20px rgba(0, 0, 0, 0.4);">
+      <p style="margin: 0; font-weight: 300;">
+        REGISTRO DE COALICIÓN // La supervivencia ya no es un esfuerzo solitario. Múltiples razas y facciones han unificado su tecnología y ejércitos para frenar la marea devoradora. Analiza los frentes aliados, las nuevas flotas conjuntas y el contraataque definitivo en este tercer volumen.
+      </p>
+    </div>
+
+    <section id="unidades">
+      <h2 class="section-title">FUERZAS DE LA COALICIÓN</h2>
+      <div class="gallery">
+        <div class="item" data-tooltip="Sobrevivientes del proyecto K, con ayuda de la Coalición ahora tienen equipo y armas para hacer frente a los Nikat.">
+          <img src="imagenes/34.png" alt="Nox">
+          <h3>EQUIPO NOCTIS</h3>
+        </div>
+        <div class="item" data-tooltip="Lideres de las razas aliadas.">
+          <img src="imagenes/35.png" alt="Umbra">
+          <h3>LIDERES DE RAZA</h3>
+        </div>
+        <div class="item" data-tooltip="Personajes de apoyo logistico en la Tierra.">
+          <img src="imagenes/36.png" alt="Vesper">
+          <h3>EQUIPO DE LOGISTICA</h3>
+        </div>
+        <div class="item" data-tooltip="Equipo de tanque en la batalla de Guayaquil.">
+          <img src="imagenes/37.png" alt="Cientificos">
+          <h3>EQUIPO DE TANQUE</h3>
+        </div>
+        <div class="item" data-tooltip="Equipo del planeta Taryn 3.">
+          <img src="imagenes/38.png" alt="Mandos">
+          <h3>EQUIPO DE TARYN</h3>
+        </div>
+        <div class="item" data-tooltip="Equipo cientifico que ayuda en la recuperacion de Nathan.">
+          <img src="imagenes/39.png" alt="Volstek">
+          <h3>EQUIPO CIENTIFICO EN LA EDE 40</h3>
+        </div>
+        <div class="item" data-tooltip="Fases de recuperacion de Nathan luego de su infección.">
+          <img src="imagenes/45.png" alt="Armadura">
+          <h3>FASES DE RECUPERACIÓN</h3>
+        </div>
+        <div class="item" data-tooltip="Personajes de razas aliadas.">
+          <img src="imagenes/40.png" alt="Armadura">
+          <h3>PERSONAJES DE APOYO DE LA COALICIÓN</h3>
+        </div>
+        
+        <div class="item" data-tooltip="Soldados y equipamiento del ejercito Elryon.">
+          <img src="imagenes/41.png" alt="Armadura">
+          <h3>EJERCITO ELRYON</h3>
+        </div>
+        <div class="item" data-tooltip="Soldados y equipamiento del ejercito Sylari.">
+          <img src="imagenes/42.png" alt="Armadura">
+          <h3>EJERCITO SYLARI</h3>
+        </div>
+        <div class="item" data-tooltip="Soldados y equipamiento del ejercito Tharak Kar.">
+          <img src="imagenes/43.png" alt="Armadura">
+          <h3>EJERCITO THARAK KAR</h3>
+        </div>
+        <div class="item" data-tooltip="Soldados y equipamiento del ejercito Tharak Kir y Kor.">
+          <img src="imagenes/44.png" alt="Armadura">
+          <h3>EJERCITO THARAK KIR Y KOR</h3>
+        </div>
+      </div>
+    </section>
+
+    <section id="nikat">
+      <h2 class="section-title">AMENAZA NIKAT</h2>
+      <div class="gallery">
+        <div class="item" data-tooltip="Unidades de invasión Nikat en sus diferentes etapas y mutaciones. Conforman el grueso principal del ejército de invasión.">
+          <img src="imagenes/47.png" alt="Nikat">
+          <h3>SOLDADOS Y BESTIAS NIKAT</h3>
+        </div>
+        <div class="item" data-tooltip="Comandantes supremos al mando de grandes legiones y ejércitos Nikat. Transmiten sus órdenes a través de unidades Alpha o de élite.">
+          <img src="imagenes/46.png" alt="Generales">
+          <h3>GENERALES NIKAT</h3>
+        </div>
+        <div class="item" data-tooltip="Reina del enjambre Nikat, quien da vida a los soldados Nikat.">
+          <img src="imagenes/48.png" alt="Bestia">
+          <h3>REINA NIKAT</h3>
+        </div>
+        <div class="item" data-tooltip="Infectados Nikat creados a partir de experimentos geneticos.">
+          <img src="imagenes/49.png" alt="Bestia">
+          <h3>INFECTADOS NIKAT</h3>
+        </div>
+      </div>
+    </section>
+
+    <section id="locaciones">
+      <h2 class="section-title">LOCACIONES</h2>
+      <div class="gallery">
+        <div class="item" data-tooltip="Puntos de batallas clave en la reconquista de la Tierra.">
+          <img src="imagenes/50.png" alt="Nave Maestra">
+          <h3>PUNTOS DE LOGISTICA</h3>
+        </div>
+        <div class="item" data-tooltip="Puntos de batalla para la defensa de la Tierra.">
+          <img src="imagenes/51.png" alt="EDE">
+          <h3>PUNTOS DE BATALLA</h3>
+        </div>
+        <div class="item" data-tooltip="Interior de la nave maestra Nikat tipo Deu'.">
+          <img src="imagenes/52.png" alt="Transmisor">
+          <h3>INTERIOR NAVE NIKAT DEU</h3>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <aside id="libro">
+    <div style="border: 1px solid rgba(0, 255, 136, 0.4); padding: 15px; border-radius: 8px; background: rgba(3, 15, 9, 0.85); backdrop-filter: blur(8px);">
+      <h2 style="margin-top: 0; color: var(--verde); text-align: center; font-family: 'Orbitron', sans-serif; font-size: 0.85rem; letter-spacing: 2px;">OBRA OFICIAL</h2>
+      <img src="imagenes/3.png" alt="Portada" style="width:100%; border-radius:4px; margin-bottom: 10px; border: 1px solid rgba(0, 255, 136, 0.3);">
+      <p style="font-size: 0.8rem; text-align: center; color: #a8ffd9; line-height: 1.4; margin: 10px 0;">
+        La coalición se alza. Adquiere el tercer volumen completo en Amazon.
+      </p>
+      <a href="https://www.amazon.com/-/es/Jonatan-Arley-Hernández-Chavarro/dp/B0GPNXK7NS" class="buy-button" target="_blank">COMPRAR EN AMAZON</a>
+    </div>
+  </aside>
+</div>
+
+<script>
+    function spawnSpaceDebris() {
+        const layer = document.getElementById('random-events-layer');
+        if (!layer) return;
+        const el = document.createElement('div');
+        
+        const isMeteor = Math.random() < 0.7;
+        el.className = `space-debris ${isMeteor ? 'meteor' : 'probe'}`;
+
+        const randomTop = Math.floor(Math.random() * window.innerHeight);
+        el.style.top = randomTop + 'px';
+
+        const goingRight = Math.random() < 0.5;
+        const startX = goingRight ? -100 : window.innerWidth + 100;
+        const endX = goingRight ? window.innerWidth + 100 : -100;
+        const targetY = randomTop + (Math.random() * 200 - 100);
+
+        el.style.left = startX + 'px';
+
+        const duration = Math.random() * 13 + 12;
+        el.style.transition = `transform ${duration}s linear, opacity ${duration}s ease`;
+
+        layer.appendChild(el);
+
+        setTimeout(() => {
+            el.style.transform = `translate(${endX - startX}px, ${targetY - randomTop}px)`;
+        }, 50);
+
+        setTimeout(() => {
+            el.remove();
+        }, duration * 1000);
+
+        const nextTime = Math.random() * 7000 + 5000;
+        setTimeout(spawnSpaceDebris, nextTime);
+    }
+
+    setTimeout(spawnSpaceDebris, 2000);
+
+    const dropdownToggle = document.querySelector('.dropdown-toggle');
+    const dropdownMenu = document.querySelector('.dropdown-menu');
+
+    dropdownToggle.addEventListener('click', function(event) {
+        event.stopPropagation();
+        dropdownMenu.classList.toggle('show');
+    });
+
+    window.addEventListener('click', function(event) {
+        if (!event.target.matches('.dropdown-toggle')) {
+            if (dropdownMenu.classList.contains('show')) {
+                dropdownMenu.classList.remove('show');
+            }
+        }
+    });
+</script>
 
 </body>
 </html>

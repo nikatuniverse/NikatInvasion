@@ -7,24 +7,22 @@
 <meta name="keywords" content="Nikat, ciencia ficción, libro, invasión alienígena, archivos desclasificados, Jonatan Arley Hernández Chavarro, historia distópica">
 <meta name="author" content="Jonatan Arley Hernández Chavarro">
 
-<meta property="og:title" content="NIKAT INVASIÓN | ARCHIVO CLASIFICADO">
-<meta property="og:description" content="Acceso a los registros restringidos sobre la guerra contra los Nikat.">
+<meta property="og:title" content="NIKAT INVASIÓN | REGISTROS - VOLUMEN 3">
+<meta property="og:description" content="Acceso a los registros restringidos sobre la coalición y la guerra contra los Nikat.">
 <meta property="og:image" content="https://tu-sitio.github.io/imagenes/portada.png">
 <meta property="og:url" content="https://tu-sitio.github.io/">
 <meta property="og:type" content="website">
-<meta name="google-site-verification" content="gdf8CoGBZx2gj_RoFmp-wvZrbNHVpr9vJW5yXOELPu8" />
 
 <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@300;400;600&family=Orbitron:wght@400;700&family=Courier+Prime&display=swap" rel="stylesheet">
-<link rel="icon" type="image/png" href="imagenes/iconoae.png">
-<title>REGISTROS | NIKAT INVASIÓN</title>
+<link rel="icon" type="image/png" href="../comun/logoCR.png">
+<title>REGISTROS | NIKAT INVASIÓN - VOL 3</title>
 
 <style>
     :root {
-        --naranja: #ff8800;
-        --naranja-glow: rgba(255, 136, 0, 0.3);
-        --bg-dark: #0a0602;
-        --panel-bg: rgba(20, 13, 7, 0.85);
-        --text: #ffe0cc;
+        --verde: #00ff88; /* Verde cósmico para facciones aliadas y tecnología unificada */
+        --dorado: #ffb703; /* Acento secundario para destacar mandos o alianzas */
+        --bg: #020f08;     /* Fondo espacial con un sutil subtono verdoso oscuro */
+        --text: #e0fff4;
     }
 
     /* ESTRUCTURA BASE */
@@ -32,224 +30,523 @@
     body { 
         margin: 0; 
         font-family: 'Exo 2', sans-serif; 
-        background: linear-gradient(135deg, var(--bg-dark), #1a1109); 
+        background-color: var(--bg); 
         color: var(--text); 
-        display: flex; 
+        display: flex;
+        flex-direction: column;
         min-height: 100vh;
         overflow-x: hidden;
+        position: relative;
     }
 
-    /* EFECTO DE ESCANEO */
+    /* --- FONDO ESPACIAL VERDOSO --- */
+    .space-bg {
+        position: fixed;
+        top: 0; left: 0; width: 100%; height: 100%;
+        pointer-events: none;
+        z-index: 0;
+        background-image: 
+            radial-gradient(rgba(255,255,255,0.8) 1.2px, transparent 0),
+            radial-gradient(rgba(0,255,136,0.6) 1.5px, transparent 0),
+            radial-gradient(rgba(0,180,255,0.4) 2px, transparent 0);
+        background-size: 400px 400px, 300px 300px, 600px 600px;
+        background-position: 0 0, 100px 70px, 200px 150px;
+        opacity: 0.6;
+        animation: driftSpace 160s linear infinite;
+    }
+
+    @keyframes driftSpace {
+        from { background-position: 0 0, 100px 70px, 200px 150px; }
+        to { background-position: 1200px 1200px, 1300px 1270px, 1400px 1350px; }
+    }
+
+    .space-bg::after {
+        content: "";
+        position: absolute;
+        top: 25%; left: 25%;
+        width: 800px; height: 450px;
+        background: radial-gradient(ellipse, rgba(0, 255, 136, 0.1) 0%, rgba(0, 100, 150, 0.08) 40%, transparent 70%);
+        pointer-events: none;
+        animation: nebulaPulse 25s ease-in-out infinite alternate;
+    }
+
+    @keyframes nebulaPulse {
+        0% { transform: scale(1); opacity: 0.6; }
+        100% { transform: scale(1.25); opacity: 1; }
+    }
+
+    /* --- CAPA DE METEORITOS --- */
+    #random-events-layer {
+        position: fixed;
+        top: 0; left: 0; width: 100%; height: 100%;
+        pointer-events: none;
+        z-index: 1;
+        overflow: hidden;
+    }
+
+    .space-debris {
+        position: absolute;
+        pointer-events: none;
+        opacity: 0.6;
+    }
+
+    .meteor {
+        width: 2px;
+        height: 2px;
+        background: white;
+        box-shadow: 0 0 8px 2px rgba(255, 255, 255, 0.8), -15px 0 20px rgba(0, 255, 136, 0.5);
+        border-radius: 50%;
+    }
+
+    .probe {
+        width: 5px;
+        height: 1.5px;
+        background: var(--verde);
+        box-shadow: 0 0 6px var(--verde);
+    }
+
+    /* EFECTO DE ESCANEO TÁCTICO */
     body::before { 
         content: ""; 
-        position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
-        background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(255, 136, 0, 0.05) 50%); 
-        background-size: 100% 8px; 
-        pointer-events: none; z-index: 100; opacity: 0.15; 
+        position: fixed; 
+        top: 0; left: 0; width: 100%; height: 100%; 
+        background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%); 
+        background-size: 100% 4px; 
+        pointer-events: none; 
+        z-index: 100; 
+        opacity: 0.1; 
     }
 
-    /* MENÚ IZQUIERDO */
-    nav { 
-        width: 250px; 
-        background: var(--panel-bg); 
+    /* HEADER SUPERIOR UNIFICADO */
+    header.top-header {
+        width: 100%;
+        background: rgba(2, 15, 8, 0.85);
         backdrop-filter: blur(10px);
-        padding: 30px; 
-        height: 100vh; 
-        position: fixed; 
-        border-right: 1px solid rgba(255, 136, 0, 0.3); 
+        padding: 20px 40px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid rgba(0, 255, 136, 0.3);
         box-sizing: border-box;
-        z-index: 50; 
+        position: sticky;
+        top: 0;
+        z-index: 50;
     }
-    nav h2 { 
-        color: var(--naranja); 
-        font-size: 0.9rem; 
+
+    .logo-link {
+        text-decoration: none;
+        color: inherit;
+    }
+
+    .logo-container {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-weight: 700;
         font-family: 'Orbitron', sans-serif;
-        letter-spacing: 2px; 
-        border-bottom: 1px solid var(--naranja-glow); 
-        padding-bottom: 10px; 
-        margin-top: 20px;
+        font-size: 0.9rem;
+        letter-spacing: 2px;
+        color: #ffffff;
     }
-    nav a { 
-        display: block; 
-        color: #ccaa88; 
-        text-decoration: none; 
-        margin-bottom: 15px; 
-        font-weight: 600; 
-        font-size: 0.75rem; 
+
+    .logo-icon {
+        width: 32px;
+        height: 32px;
+    }
+
+    .nav-menu-container {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+    }
+
+    .dropdown-container {
+        position: relative;
+        display: inline-block;
+    }
+
+    .nav-btn {
+        display: inline-block;
+        padding: 8px 18px;
+        border: 1px solid var(--verde);
+        color: var(--verde);
+        text-decoration: none;
+        font-family: 'Orbitron', sans-serif;
+        font-size: 0.65rem;
+        letter-spacing: 2px;
+        background: rgba(0, 255, 136, 0.03);
+        transition: all 0.3s ease;
+        cursor: pointer;
+        border-radius: 4px;
+    }
+
+    .nav-btn:hover {
+        background-color: rgba(0, 255, 136, 0.15);
+        color: #ffffff;
+        border-color: #ffffff;
+        box-shadow: 0 0 15px var(--verde), inset 0 0 10px rgba(0, 255, 136, 0.5);
+        transform: translateY(-2px);
+    }
+
+    .dropdown-menu {
+        display: none;
+        position: absolute;
+        right: 0;
+        top: 100%;
+        margin-top: 5px;
+        background: rgba(2, 15, 8, 0.95);
+        border: 1px solid var(--verde);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.9), 0 0 15px rgba(0, 255, 136, 0.3);
+        z-index: 100;
+        min-width: 240px;
+        text-align: left;
+        padding: 5px 0;
+        backdrop-filter: blur(5px);
+        border-radius: 4px;
+    }
+
+    .dropdown-menu.show {
+        display: block;
+    }
+
+    .dropdown-item {
+        display: block;
+        padding: 10px 20px;
+        color: #a8ffd9;
+        text-decoration: none;
+        font-family: 'Orbitron', sans-serif;
+        font-size: 0.6rem;
+        letter-spacing: 1.5px;
+        transition: all 0.2s ease;
+        border-left: 2px solid transparent;
+        text-transform: uppercase;
+    }
+
+    .dropdown-item:hover {
+        background-color: rgba(0, 255, 136, 0.15);
+        color: #ffffff;
+        border-left-color: var(--verde);
+        padding-left: 25px;
+    }
+
+    /* MENÚ IZQUIERDO LATERAL */
+    nav.left-sidebar {
+        width: 250px;
+        background: rgba(3, 15, 9, 0.85);
+        backdrop-filter: blur(10px);
+        padding: 30px;
+        height: calc(100vh - 73px);
+        position: fixed;
+        left: 0;
+        top: 73px;
+        border-right: 1px solid rgba(0, 255, 136, 0.4);
+        box-sizing: border-box;
+        z-index: 10;
+        overflow-y: auto;
+    }
+
+    nav.left-sidebar h2 {
+        color: var(--verde);
+        font-size: 0.85rem;
+        font-family: 'Orbitron', sans-serif;
+        letter-spacing: 2px;
+        border-bottom: 1px solid rgba(0, 255, 136, 0.3);
+        padding-bottom: 10px;
+        margin-top: 10px;
+    }
+
+    nav.left-sidebar a {
+        display: block;
+        color: #a8ffd9;
+        text-decoration: none;
+        margin-bottom: 15px;
+        font-weight: 600;
+        font-size: 0.75rem;
         font-family: 'Exo 2', sans-serif;
         letter-spacing: 1px;
-        text-transform: uppercase; 
-        transition: .3s; 
-    }
-    nav a:hover { 
-        color: var(--naranja); 
-        padding-left: 5px; 
-        text-shadow: 0 0 8px var(--naranja-glow); 
+        text-transform: uppercase;
+        transition: .3s;
     }
 
-    /* CONTENIDO CENTRAL */
+    nav.left-sidebar a:hover {
+        color: var(--verde);
+        padding-left: 5px;
+        text-shadow: 0 0 8px rgba(0, 255, 136, 0.5);
+    }
+
+    /* CONTENEDOR DE DISEÑO PRINCIPAL */
+    .page-layout {
+        display: flex;
+        flex: 1;
+        position: relative;
+        box-sizing: border-box;
+        z-index: 2;
+    }
+
     main { 
-        margin-left: 280px; 
-        margin-right: 280px; 
+        margin-left: 270px; 
+        margin-right: 300px; 
         padding: 40px; 
         flex: 1; 
+        box-sizing: border-box;
     }
+    
     h1 { 
         text-align: center; 
         font-family: 'Orbitron', sans-serif;
         letter-spacing: 5px; 
         font-weight: 700; 
         font-size: 1.8rem;
-        color: var(--naranja);
+        color: var(--verde);
         margin-bottom: 50px; 
-        border-bottom: 1px solid rgba(255, 136, 0, 0.4); 
+        border-bottom: 1px solid rgba(0, 255, 136, 0.4); 
         padding-bottom: 20px; 
-        text-shadow: 0 0 15px var(--naranja-glow);
+        text-shadow: 0 0 15px rgba(0, 255, 136, 0.4);
     }
     
-    /* TARJETAS */
-    .gallery-informes { display: grid; gap: 20px; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
+    /* TARJETAS DE REGISTROS */
+    .gallery-informes { display: grid; gap: 20px; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
     .card-informe { 
-        background: rgba(20, 13, 7, 0.85); 
+        background: rgba(3, 15, 9, 0.85); 
         backdrop-filter: blur(8px);
-        border: 1px solid rgba(255, 136, 0, 0.3); 
+        border: 1px solid rgba(0, 255, 136, 0.4); 
         padding: 25px; border-radius: 8px; 
         cursor: pointer; transition: 0.3s; position: relative; overflow: hidden;
         box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
     }
     .card-informe:hover { 
-        background: rgba(30, 20, 10, 0.95); 
-        border-color: var(--naranja); 
+        background: rgba(5, 25, 15, 0.95); 
+        border-color: var(--verde); 
         transform: translateY(-3px); 
-        box-shadow: 0 0 20px var(--naranja-glow);
+        box-shadow: 0 0 20px rgba(0, 255, 136, 0.4);
     }
-    .card-informe h3 { margin-top: 0; color: var(--naranja); font-family: 'Orbitron', sans-serif; font-size: 0.9rem; letter-spacing: 1px; }
+    .card-informe h3 { margin-top: 0; color: var(--verde); font-family: 'Orbitron', sans-serif; font-size: 0.9rem; letter-spacing: 1px; }
 
     /* PANEL DERECHO */
     aside { 
-        width: 250px; 
-        background: var(--panel-bg); 
+        width: 280px; 
+        background: rgba(3, 15, 9, 0.85); 
         backdrop-filter: blur(10px);
         padding: 30px; 
-        height: 100vh; 
+        height: calc(100vh - 73px); 
         position: fixed; 
         right: 0; 
-        border-left: 1px solid rgba(255, 136, 0, 0.3); 
+        top: 73px;
+        border-left: 1px solid rgba(0, 255, 136, 0.4); 
         box-sizing: border-box;
-        z-index: 50;
+        z-index: 10;
+        overflow-y: auto;
     }
     .buy-button { 
         display: block; text-align: center; padding: 12px; 
-        background: rgba(255, 136, 0, 0.15); 
-        border: 1px solid var(--naranja);
-        color: var(--naranja); text-decoration: none; 
+        background: rgba(0, 255, 136, 0.15); 
+        border: 1px solid var(--verde);
+        color: var(--verde); text-decoration: none; 
         font-family: 'Orbitron', sans-serif;
         font-size: 0.75rem;
         letter-spacing: 1px;
         font-weight: bold; border-radius: 4px; margin-top: 20px; 
         transition: all 0.2s ease;
     }
-    .buy-button:hover { background: var(--naranja); color: #000; box-shadow: 0 0 12px var(--naranja-glow); }
+    .buy-button:hover { background: var(--verde); color: #000; box-shadow: 0 0 12px rgba(0, 255, 136, 0.6); }
 
-    /* MODAL */
+    /* MODAL DE INFORMES */
     .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 1000; }
     .modal-contenido { 
-        background: rgba(20, 13, 7, 0.95); 
+        background: rgba(3, 15, 9, 0.95); 
         backdrop-filter: blur(12px);
-        margin: 5% auto; padding: 40px; width: 60%; border: 2px solid var(--naranja); 
+        margin: 5% auto; padding: 40px; width: 60%; border: 2px solid var(--verde); 
         border-radius: 8px; color: white; position: relative; max-height: 80vh; overflow-y: auto; 
-        box-shadow: 0 0 30px var(--naranja-glow);
+        box-shadow: 0 0 30px rgba(0, 255, 136, 0.4);
     }
-    .cerrar { position: sticky; top: -20px; float: right; cursor: pointer; color: var(--naranja); font-size: 2rem; z-index: 10; }
+    .cerrar { position: sticky; top: -20px; float: right; cursor: pointer; color: var(--verde); font-size: 2rem; z-index: 10; }
 
     /* MINIJUEGOS */
-    #slider { appearance: none; width: 100%; height: 10px; background: #0f0a05; border: 1px solid var(--naranja); outline: none; border-radius: 2px; }
-    #slider::-webkit-slider-thumb { appearance: none; width: 20px; height: 20px; background: var(--naranja); cursor: pointer; border: 2px solid #fff; border-radius: 50%; box-shadow: 0 0 8px var(--naranja); }
+    #slider { appearance: none; width: 100%; height: 10px; background: #020f08; border: 1px solid var(--verde); outline: none; border-radius: 2px; }
+    #slider::-webkit-slider-thumb { appearance: none; width: 20px; height: 20px; background: var(--verde); cursor: pointer; border: 2px solid #fff; border-radius: 50%; box-shadow: 0 0 8px var(--verde); }
     
-    #escaneo-area { width: 100%; height: 300px; background: #000; position: relative; cursor: crosshair; overflow: hidden; border: 1px solid rgba(255, 136, 0, 0.4); border-radius: 4px; }
+    #escaneo-area { width: 100%; height: 300px; background: #000; position: relative; cursor: crosshair; overflow: hidden; border: 1px solid rgba(0, 255, 136, 0.4); border-radius: 4px; }
     #linterna { 
         position: absolute; width: 120px; height: 120px; border-radius: 50%; 
-        background: radial-gradient(circle, rgba(255, 136, 0, 0.4) 0%, rgba(0,0,0,0) 75%); 
+        background: radial-gradient(circle, rgba(0, 255, 136, 0.4) 0%, rgba(0,0,0,0) 75%); 
         pointer-events: none; transform: translate(-50%, -50%); 
     }
-    .num-oculto { color: var(--naranja); opacity: 0; font-weight: bold; font-size: 2rem; transition: 0.3s; pointer-events: auto; font-family: 'Orbitron', sans-serif; }
-    .num-oculto.revelado { opacity: 1 !important; transform: scale(1.1); text-shadow: 0 0 10px var(--naranja); }
+    .num-oculto { color: var(--verde); opacity: 0; font-weight: bold; font-size: 2rem; transition: 0.3s; pointer-events: auto; font-family: 'Orbitron', sans-serif; }
+    .num-oculto.revelado { opacity: 1 !important; transform: scale(1.1); text-shadow: 0 0 10px var(--verde); }
 
-    /* BOTÓN MÓVIL */
-    #menu-toggle { display: none; position: fixed; top: 10px; left: 10px; z-index: 200; background: var(--naranja); color: #000; padding: 10px; border-radius: 4px; cursor: pointer; font-family: 'Orbitron', sans-serif; font-size: 0.75rem; font-weight: bold; }
-
+    /* RESPONSIVE */
     @media(max-width: 1100px) {
-        body { flex-direction: column; }
-        nav, aside { width: 100%; height: auto !important; position: relative !important; border: none; padding: 20px; box-sizing: border-box; }
-        nav { order: 1; border-bottom: 1px solid rgba(255, 136, 0, 0.3); }
-        main { order: 2; margin: 0; padding: 20px; }
-        aside { order: 3; border-top: 1px solid rgba(255, 136, 0, 0.3); }
+        .page-layout { flex-direction: column; }
+        nav.left-sidebar, aside { 
+            width: 100%; 
+            height: auto !important; 
+            position: relative !important; 
+            top: 0;
+            border: none;
+            padding: 20px;
+        }
+        nav.left-sidebar { border-bottom: 1px solid rgba(0, 255, 136, 0.4); }
+        aside { border-top: 1px solid rgba(0, 255, 136, 0.4); }
+        main { margin: 0; padding: 20px; }
         .modal-contenido { width: 90% !important; }
-        #menu-toggle { display: block; }
-        #nav-menu { display: none; }
+    }
+
+    @media(max-width: 768px) {
+        header.top-header {
+            padding: 15px 20px;
+            flex-direction: column;
+            gap: 15px;
+        }
     }
 </style>
 </head>
 
 <body>
 
-<div id="menu-toggle">MENU</div>
+<div class="space-bg"></div>
+<div id="random-events-layer"></div>
 
-<nav id="nav-menu">
-  <h2>N.I. ARCHIVE</h2>
-  <a href="archivo_vol2.html">INICIO</a>
-  <a href="registros.html">REGISTROS</a>
-</nav>
+<header class="top-header">
+  <a href="../index.html" class="logo-link">
+    <div class="logo-container">
+      <img src="../comun/logoCR.png" alt="Logo" class="logo-icon">
+      <span>NIKAT NEXUS : VOL 3</span>
+    </div>
+  </a>
 
-<main>
-  <h1>REGISTROS DESCLASIFICADOS</h1>
-  <div id="lista-registros" class="gallery-informes"></div>
-</main>
+  <div class="nav-menu-container">
+    <a href="index.html" class="nav-btn">INICIO</a>
+    
+    <div class="dropdown-container">
+      <button class="nav-btn dropdown-toggle">
+        ARCHIVOS EDE ▼
+      </button>
+      <div class="dropdown-menu">
+        <a href="registros.html" class="dropdown-item">REGISTROS / INFORMES</a>
+        <a href="mailto:nikatuniverse@gmail.com" class="dropdown-item">CONTACTO: ADMIN</a>
+      </div>
+    </div>
+  </div>
+</header>
 
+<div class="page-layout">
+  <!-- MENÚ IZQUIERDO FIX -->
+  <nav class="left-sidebar">
+    <h2>N.I. ARCHIVE</h2>
+    <a href="archivo_vol3.html">INICIO</a>
+    <a href="registros.html">REGISTROS</a>
+  </nav>
+
+  <main>
+    <h1>REGISTROS DESCLASIFICADOS</h1>
+    <div id="lista-registros" class="gallery-informes"></div>
+  </main>
+
+  <!-- PANEL DERECHO -->
+  <aside id="libro">
+    <div style="border: 1px solid rgba(0, 255, 136, 0.4); padding: 15px; border-radius: 8px; background: rgba(3, 15, 9, 0.85); backdrop-filter: blur(8px);">
+      <h2 style="margin-top: 0; color: var(--verde); text-align: center; font-size: 0.85rem; font-family: 'Orbitron', sans-serif; letter-spacing: 2px;">OBRA OFICIAL</h2>
+      <img src="imagenes/3.png" alt="Portada" style="width:100%; border-radius:4px; margin-bottom: 10px; border: 1px solid rgba(0, 255, 136, 0.3);">
+      <p style="font-size: 0.8rem; text-align: center; color: #a8ffd9; line-height: 1.4; margin: 10px 0;">
+        La coalición se alza. Adquiere el tercer volumen completo en Amazon.
+      </p>
+      <a href="https://www.amazon.com/-/es/Jonatan-Arley-Hernández-Chavarro/dp/B0GPNXK7NS" class="buy-button" target="_blank">COMPRAR EN AMAZON</a>
+    </div>
+  </aside>
+</div>
+
+<!-- MODAL DE LECTURA DE REGISTROS -->
 <div id="modal-informe" class="modal">
   <div id="modal-caja" class="modal-contenido">
     <span class="cerrar" onclick="cerrarModal()">&times;</span>
     <div id="modal-nivel" style="font-size: 0.7rem; letter-spacing: 2px; margin-bottom: 10px; font-weight: bold; font-family: 'Orbitron', sans-serif;"></div>
     <h2 id="modal-titulo" style="font-family: 'Orbitron', sans-serif; font-size: 1.1rem; letter-spacing: 1px;"></h2>
     <p id="modal-texto" style="font-family: 'Courier Prime', monospace; white-space: pre-line; line-height: 1.6; font-size: 0.85rem;"></p>
-    <hr style="border: 0; border-top: 1px solid rgba(255, 136, 0, 0.3); margin: 20px 0;">
-    <small id="modal-firma" style="color: var(--naranja); font-weight: bold; font-family: 'Courier Prime', monospace;"></small>
+    <hr style="border: 0; border-top: 1px solid rgba(0, 255, 136, 0.3); margin: 20px 0;">
+    <small id="modal-firma" style="color: var(--verde); font-weight: bold; font-family: 'Courier Prime', monospace;"></small>
   </div>
 </div>
 
+<!-- MODAL DE SEGURIDAD Y MINIJUEGOS -->
 <div id="pantalla-seguridad" class="modal" style="z-index: 2000;">
-  <div class="modal-contenido" style="text-align: center; border-color: #ff4500;">
+  <div class="modal-contenido" style="text-align: center; border-color: var(--dorado);">
     <span class="cerrar" onclick="cerrarSeguridad()">&times;</span>
 
     <div id="terminal-carga" style="display:none; text-align:center; padding: 20px;">
-        <div id="texto-consola" style="font-family: 'Courier Prime', monospace; color: var(--naranja); font-size: 0.9rem; margin-bottom: 10px;">INICIANDO...</div>
-        <div style="width: 100%; height: 5px; background: #0f0a05; border: 1px solid var(--naranja); border-radius: 2px;">
-            <div id="barra-progreso" style="width: 0%; height: 100%; background: var(--naranja); transition: width 0.4s;"></div>
+        <div id="texto-consola" style="font-family: 'Courier Prime', monospace; color: var(--verde); font-size: 0.9rem; margin-bottom: 10px;">INICIANDO...</div>
+        <div style="width: 100%; height: 5px; background: #020f08; border: 1px solid var(--verde); border-radius: 2px;">
+            <div id="barra-progreso" style="width: 0%; height: 100%; background: var(--verde); transition: width 0.4s;"></div>
         </div>
     </div>
 
     <div id="contenido-juego">
-        <h2 id="titulo-seguridad" style="color: #ff4500; font-family: 'Orbitron', sans-serif; font-size: 1rem; letter-spacing: 2px;">AUTENTICACIÓN REQUERIDA</h2>
-        <div id="msg-error" style="color: #ff4500; font-size: 0.8rem; height: 20px; margin-bottom: 10px; font-family: 'Courier Prime', monospace;"></div>
+        <h2 id="titulo-seguridad" style="color: var(--dorado); font-family: 'Orbitron', sans-serif; font-size: 1rem; letter-spacing: 2px;">AUTENTICACIÓN REQUERIDA</h2>
+        <div id="msg-error" style="color: var(--dorado); font-size: 0.8rem; height: 20px; margin-bottom: 10px; font-family: 'Courier Prime', monospace;"></div>
         <div id="area-minijuego" style="margin: 30px 0;"></div>
         <button id="btn-validar" onclick="verificarAcceso()" class="buy-button" style="width: 200px; margin: 0 auto;">VALIDAR ACCESO</button>
     </div>
   </div>
 </div>
 
-<aside id="libro">
-  <div style="border: 1px solid rgba(255, 136, 0, 0.4); padding: 15px; border-radius: 8px; background: rgba(20, 13, 7, 0.85); backdrop-filter: blur(8px);">
-    <h2 style="margin-top: 0; color: var(--naranja); text-align: center; font-size: 0.85rem; font-family: 'Orbitron', sans-serif; letter-spacing: 2px;">OBRA OFICIAL</h2>
-    <img src="imagenes/portada.png" alt="Portada" style="width:100%; border-radius:4px; margin-bottom: 10px; border: 1px solid rgba(255, 136, 0, 0.3);">
-    <p style="font-size: 0.8rem; text-align: center; color: #ccaa88; line-height: 1.4;">
-      La guerra con los Nikat ha comenzado. Adquiere el volumen completo.
-    </p>
-    <a href="https://www.amazon.com/-/es/J-Hernández/dp/B0H4S4S2S2" class="buy-button" target="_blank">COMPRAR EN AMAZON</a>
-  </div>
-</aside>
-
 <script>
-// --- CONFIGURACIÓN ---
+// --- ANIMACIÓN DE METEORITOS Y PROBES ---
+function spawnSpaceDebris() {
+    const layer = document.getElementById('random-events-layer');
+    if (!layer) return;
+    const el = document.createElement('div');
+    
+    const isMeteor = Math.random() < 0.7;
+    el.className = `space-debris ${isMeteor ? 'meteor' : 'probe'}`;
+
+    const randomTop = Math.floor(Math.random() * window.innerHeight);
+    el.style.top = randomTop + 'px';
+
+    const goingRight = Math.random() < 0.5;
+    const startX = goingRight ? -100 : window.innerWidth + 100;
+    const endX = goingRight ? window.innerWidth + 100 : -100;
+    const targetY = randomTop + (Math.random() * 200 - 100);
+
+    el.style.left = startX + 'px';
+
+    const duration = Math.random() * 13 + 12;
+    el.style.transition = `transform ${duration}s linear, opacity ${duration}s ease`;
+
+    layer.appendChild(el);
+
+    setTimeout(() => {
+        el.style.transform = `translate(${endX - startX}px, ${targetY - randomTop}px)`;
+    }, 50);
+
+    setTimeout(() => {
+        el.remove();
+    }, duration * 1000);
+
+    const nextTime = Math.random() * 7000 + 5000;
+    setTimeout(spawnSpaceDebris, nextTime);
+}
+
+setTimeout(spawnSpaceDebris, 2000);
+
+// --- MENÚ DESPLEGABLE ---
+const dropdownToggle = document.querySelector('.dropdown-toggle');
+const dropdownMenu = document.querySelector('.dropdown-menu');
+
+if (dropdownToggle && dropdownMenu) {
+    dropdownToggle.addEventListener('click', function(event) {
+        event.stopPropagation();
+        dropdownMenu.classList.toggle('show');
+    });
+
+    window.addEventListener('click', function(event) {
+        if (!event.target.matches('.dropdown-toggle')) {
+            if (dropdownMenu.classList.contains('show')) {
+                dropdownMenu.classList.remove('show');
+            }
+        }
+    });
+}
+
+// --- CONFIGURACIÓN DE REGISTROS Y SEGURIDAD ---
 let registroPendiente = null;
 let frecuenciaObjetivo = 50;
 let numerosEncontrados = [];
@@ -259,8 +556,8 @@ let faseJuego = 'RECOLECCION';
 
 function getColorPorNivel(nivel) {
   if (nivel === 'TOP SECRET') return '#ff4500';
-  if (nivel === 'CONFIDENCIAL') return '#ffaa00';
-  return '#ff8800';
+  if (nivel === 'CONFIDENCIAL') return '#ffb703';
+  return '#00ff88';
 }
 
 function getIconoPorNivel(nivel) {
@@ -268,7 +565,6 @@ function getIconoPorNivel(nivel) {
   return `<svg width="24" height="24" viewBox="0 0 24 24" fill="${color}"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/></svg>`;
 }
 
-// --- LÓGICA DE INTERFAZ ---
 function mostrarError(txt) {
     const err = document.getElementById('msg-error');
     err.innerText = txt;
@@ -281,7 +577,7 @@ function procesarAcceso() {
     
     let barra = document.getElementById('barra-progreso');
     let texto = document.getElementById('texto-consola');
-    let pasos = ["Bypass de Firewall...", "Desencriptando registros...", "Sincronizando señal...", "ACCESO CONCEDIDO"];
+    let pasos = ["Bypass de Firewall...", "Desencriptando registros...", "Sincronizando señal de la Coalición...", "ACCESO CONCEDIDO"];
     let i = 0;
 
     let interval = setInterval(() => {
@@ -334,8 +630,8 @@ function intentarAbrir(item) {
 function cargarSlider() {
   frecuenciaObjetivo = Math.floor(Math.random() * 81) + 10;
   document.getElementById("area-minijuego").innerHTML = `
-    <p style="font-size: 0.75rem; color: #ccaa88; letter-spacing: 2px; font-family: 'Orbitron', sans-serif;">SINTONIZAR FRECUENCIA:</p>
-    <h2 style="color: var(--naranja); margin: 10px 0; font-family: 'Orbitron', sans-serif;">${frecuenciaObjetivo} MHz</h2>
+    <p style="font-size: 0.75rem; color: #a8ffd9; letter-spacing: 2px; font-family: 'Orbitron', sans-serif;">SINTONIZAR FRECUENCIA:</p>
+    <h2 style="color: var(--verde); margin: 10px 0; font-family: 'Orbitron', sans-serif;">${frecuenciaObjetivo} MHz</h2>
     <input type="range" id="slider" min="0" max="100" value="0">
   `;
 }
@@ -346,11 +642,11 @@ function iniciarEscaneo() {
   codigoObjetivo = Array.from({length: 4}, () => Math.floor(Math.random() * 10));
   document.getElementById("area-minijuego").innerHTML = `
     <div id="contenedor-juego">
-      <p id="instruccion" style="font-size:0.75rem; color: #ccaa88; font-family: 'Orbitron', sans-serif;">FASE 1: Localice la secuencia de seguridad.</p>
+      <p id="instruccion" style="font-size:0.75rem; color: #a8ffd9; font-family: 'Orbitron', sans-serif;">FASE 1: Localice la secuencia de seguridad.</p>
       <div id="escaneo-area" onmousemove="moverLinterna(event)">
         <div id="linterna"></div>
         ${codigoObjetivo.map((num, i) => `
-          <div class="num-oculto" id="n${i}" style="position:absolute; top:${Math.random()*150 + 20}px; left:${Math.random()*80 + 5}%;" onmouseover="revelarNumero(${i}, ${num})">${num}</div>
+          <div class="num-oculto" id="n${i}" style="position:absolute; top:${Math.random()*150 + 20}px; left:${Math.random()*80 + 5}\%;" onmouseover="revelarNumero(${i}, ${num})">${num}</div>
         `).join('')}
       </div>
     </div>
@@ -375,8 +671,8 @@ function revelarNumero(id, num) {
         faseJuego = 'DESCIFRADO';
         document.getElementById("contenedor-juego").innerHTML = `
           <p style="font-family: 'Orbitron', sans-serif; font-size: 0.8rem;">SECUENCIA DETECTADA: [ ${numerosEncontrados.join(' - ')} ]</p>
-          <p style="font-size:0.75rem; color:#ffaa00; font-family: 'Orbitron', sans-serif;">FASE 2: Ingrese combinación de 4 dígitos:</p>
-          <input type="text" id="input-combinacion" maxlength="4" style="background:#0f0a05; color:var(--naranja); border:1px solid var(--naranja); padding:10px; font-size:1.5rem; text-align:center; width:150px; font-family:'Orbitron', sans-serif; border-radius:4px;">
+          <p style="font-size:0.75rem; color:var(--dorado); font-family: 'Orbitron', sans-serif;">FASE 2: Ingrese combinación de 4 dígitos:</p>
+          <input type="text" id="input-combinacion" maxlength="4" style="background:#020f08; color:var(--verde); border:1px solid var(--verde); padding:10px; font-size:1.5rem; text-align:center; width:150px; font-family:'Orbitron', sans-serif; border-radius:4px;">
           <div id="bitacora" style="margin-top:15px; font-size:0.7rem; color:#ff4500; font-family:monospace;"></div>
         `;
       }, 600);
@@ -412,16 +708,38 @@ function verificarAcceso() {
         
         document.getElementById("bitacora").innerHTML += `
             <div style="margin-bottom:5px; border-left: 2px solid #ff4500; padding-left: 5px;">
-                INTENTO ${intento} > <span style="color:var(--naranja)">${pistas}</span>
+                INTENTO ${intento} > <span style="color:var(--verde)">${pistas}</span>
             </div>`;
         mostrarError("ERROR: CÓDIGO INVÁLIDO - REVISAR DIFERENCIAL");
     }
   }
 }
 
-// --- CARGA DE DATOS ---
-fetch('registros.json').then(r => r.json()).then(data => {
+// --- CARGA DE DATOS DE LOS REGISTROS CON RESPALDO ---
+const registrosDataBack = [
+  {
+    titulo: "INFORME TÁCTICO: COALICIÓN ELRYON",
+    descripcion: "Registro desclasificado sobre las primeras maniobras defensivas de la coalición y el despliegue de tecnología pesada.",
+    nivel: "PÚBLICO",
+    firma: "COMANDO EDE-40"
+  },
+  {
+    titulo: "SEÑAL INTERCEPTADA NIKAT",
+    descripcion: "Frecuencia captada cerca del sector Guayaquil. Muestra mutaciones en especímenes Alpha.",
+    nivel: "CONFIDENCIAL",
+    firma: "UNIDAD NOCTIS"
+  },
+  {
+    titulo: "PROYECTO NATHAN: FASE FINAL",
+    descripcion: "Archivos sobre la recuperación y contención del paciente tras la infección Nikat.",
+    nivel: "TOP SECRET",
+    firma: "DIRECTORIO CIENTÍFICO"
+  }
+];
+
+function renderizarRegistros(data) {
   const contenedor = document.getElementById('lista-registros');
+  contenedor.innerHTML = '';
   data.forEach(item => {
     const div = document.createElement('div');
     div.className = 'card-informe';
@@ -430,19 +748,27 @@ fetch('registros.json').then(r => r.json()).then(data => {
             ${getIconoPorNivel(item.nivel)}
             <h3 style="margin: 0;">${item.titulo}</h3>
         </div>
-        <p style="font-size:0.8rem; color:#b3a294; line-height: 1.4;">${item.descripcion.substring(0, 70)}...</p>
+        <p style="font-size:0.8rem; color:#a8ffd9; line-height: 1.4;">${item.descripcion.substring(0, 70)}...</p>
         <small style="color:${getColorPorNivel(item.nivel)}; font-family: 'Orbitron', sans-serif; font-size: 0.7rem; letter-spacing: 1px;">NIVEL: ${item.nivel}</small>
     `;
     div.onclick = () => intentarAbrir(item);
     contenedor.appendChild(div);
   });
-}).catch(e => console.error("Error cargando JSON:", e));
+}
 
-// Toggle Menú para móviles
-document.getElementById('menu-toggle').onclick = () => {
-    const nav = document.getElementById('nav-menu');
-    nav.style.display = nav.style.display === 'block' ? 'none' : 'block';
-};
+// Intentar cargar desde 'registros_vol3.json' o 'registros.json', de lo contrario usar datos locales
+fetch('registros_vol3.json')
+  .then(r => r.json())
+  .then(data => renderizarRegistros(data))
+  .catch(() => {
+    fetch('registros.json')
+      .then(r => r.json())
+      .then(data => renderizarRegistros(data))
+      .catch(e => {
+        console.warn("No se encontró JSON externo, utilizando registros predeterminados.", e);
+        renderizarRegistros(registrosDataBack);
+      });
+  });
 </script>
 </body>
 </html>
