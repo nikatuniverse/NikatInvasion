@@ -333,11 +333,10 @@
                 <div class="title" style="color:var(--naranja)">Vol II: Resistencia</div>
             </a>
 
-            <div class="book-anchor y-2354 v3" onclick="document.getElementById('error-modal').style.display='flex'" style="cursor: pointer;">
+            <a href="vol3/archivo_vol3.html" class="book-anchor y-2354">
                 <div class="cover" style="border-color: var(--verde);"><img src="comun/3.png" alt="Vol 3"></div>
-                <div class="v3-overlay">ACCESO RESTRINGIDO</div>
                 <div class="title" style="color:var(--verde)">Vol III: Contraataque</div>
-            </div>
+            </a>
 
         </div>
     </div>
@@ -349,59 +348,57 @@
     </footer>
 
     <script>
-        const view = document.getElementById('view');
-        view.addEventListener('wheel', (e) => { e.preventDefault(); view.scrollLeft += e.deltaY; });
+    const view = document.getElementById('view');
+    view.addEventListener('wheel', (e) => { e.preventDefault(); view.scrollLeft += e.deltaY; });
+    
+    window.onload = () => {
+        const vol1 = document.querySelector('.y-2348');
+        const vol3 = document.querySelector('.y-2354');
         
-        window.onload = () => {
-            const vol1 = document.querySelector('.y-2348');
-            view.scrollLeft = vol1.offsetLeft - (window.innerWidth / 2) + 60;
-        };
+        // Calculamos el centro exacto entre el primer y el tercer libro
+        const centroEntreLibros = (vol1.offsetLeft + vol3.offsetLeft + vol3.offsetWidth) / 2;
+        
+        // Posicionamos el scroll de la línea de tiempo en ese punto central
+        view.scrollLeft = centroEntreLibros - (window.innerWidth / 2);
+    };
 
-        /* --- GENERADOR ALEATORIO DE METEORITOS Y COSAS DEL ESPACIO --- */
-        function spawnSpaceDebris() {
-            const layer = document.getElementById('random-events-layer');
-            const el = document.createElement('div');
-            
-            // Decidir aleatoriamente si es un meteorito o una pequeña sonda/nave lejana
-            const isMeteor = Math.random() < 0.7;
-            el.className = `space-debris ${isMeteor ? 'meteor' : 'probe'}`;
+    /* --- GENERADOR ALEATORIO DE METEORITOS Y COSAS DEL ESPACIO --- */
+    function spawnSpaceDebris() {
+        const layer = document.getElementById('random-events-layer');
+        const el = document.createElement('div');
+        
+        const isMeteor = Math.random() < 0.7;
+        el.className = `space-debris ${isMeteor ? 'meteor' : 'probe'}`;
 
-            // Posición vertical aleatoria
-            const randomTop = Math.floor(Math.random() * window.innerHeight);
-            el.style.top = randomTop + 'px';
+        const randomTop = Math.floor(Math.random() * window.innerHeight);
+        el.style.top = randomTop + 'px';
 
-            // Dirección de cruce (izquierda a derecha o viceversa, con un ligero ángulo)
-            const goingRight = Math.random() < 0.5;
-            const startX = goingRight ? -100 : window.innerWidth + 100;
-            const endX = goingRight ? window.innerWidth + 100 : -100;
-            const targetY = randomTop + (Math.random() * 200 - 100); // ligera inclinación diagonal
+        const goingRight = Math.random() < 0.5;
+        const startX = goingRight ? -100 : window.innerWidth + 100;
+        const endX = goingRight ? window.innerWidth + 100 : -100;
+        const targetY = randomTop + (Math.random() * 200 - 100);
 
-            el.style.left = startX + 'px';
+        el.style.left = startX + 'px';
 
-            // Duración aleatoria (entre 12 y 25 segundos para que sea un movimiento calmado y sutil)
-            const duration = Math.random() * 13 + 12;
-            el.style.transition = `transform ${duration}s linear, opacity ${duration}s ease`;
+        const duration = Math.random() * 13 + 12;
+        el.style.transition = `transform ${duration}s linear, opacity ${duration}s ease`;
 
-            layer.appendChild(el);
+        layer.appendChild(el);
 
-            // Forzar movimiento
-            setTimeout(() => {
-                el.style.transform = `translate(${endX - startX}px, ${targetY - randomTop}px)`;
-            }, 50);
+        setTimeout(() => {
+            el.style.transform = `translate(${endX - startX}px, ${targetY - randomTop}px)`;
+        }, 50);
 
-            // Limpiar elemento al terminar
-            setTimeout(() => {
-                el.remove();
-            }, duration * 1000);
+        setTimeout(() => {
+            el.remove();
+        }, duration * 1000);
 
-            // Programar el siguiente objeto espacial en un tiempo aleatorio (entre 5 y 12 segundos)
-            const nextTime = Math.random() * 7000 + 5000;
-            setTimeout(spawnSpaceDebris, nextTime);
-        }
+        const nextTime = Math.random() * 7000 + 5000;
+        setTimeout(spawnSpaceDebris, nextTime);
+    }
 
-        // Iniciar el primer objeto espacial a los 2 segundos
-        setTimeout(spawnSpaceDebris, 2000);
-    </script>
+    setTimeout(spawnSpaceDebris, 2000);
+</script>
 
     <div id="error-modal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.85); z-index:100; justify-content:center; align-items:center;">
         <div style="border: 1px solid var(--verde); padding: 20px; text-align: center; max-width: 400px; background: #050a0f;">

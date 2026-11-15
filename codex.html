@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NIKAT | CODEX TÉCNICO EDE</title>
+    <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@300;700&family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="imagenes/iconoae.png">
+    <style>
+        :root {
+            --azul: #00b4ff;
+            --naranja: #ff8800;
+            --verde: #22c55e;
+            --bg: #030812;
+        }
+
+        body {
+            margin: 0; background-color: var(--bg); color: white;
+            font-family: 'Exo 2', sans-serif; min-height: 100vh;
+            display: flex; flex-direction: column;
+            position: relative; overflow-x: hidden;
+        }
+
+        /* Fondo espacial fijo */
+        .space-bg {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none; z-index: 0;
+            background-image: 
+                radial-gradient(rgba(255,255,255,0.8) 1.2px, transparent 0),
+                radial-gradient(rgba(0,180,255,0.7) 1.5px, transparent 0);
+            background-size: 400px 400px, 300px 300px;
+            opacity: 0.6;
+        }
+
+        header {
+            text-align: center;
+            padding: 30px 20px;
+            background: linear-gradient(to bottom, rgba(0,180,255,0.1), transparent);
+            z-index: 10;
+            border-bottom: 1px solid rgba(0, 180, 255, 0.2);
+        }
+
+        h1 {
+            font-family: 'Orbitron', sans-serif;
+            letter-spacing: 8px;
+            font-size: 1.8rem;
+            color: var(--azul);
+            margin: 0;
+            text-shadow: 0 0 15px rgba(0, 180, 255, 0.4);
+        }
+
+        .subtitle {
+            font-size: 0.75rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: #888;
+            margin-top: 5px;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 15px;
+            color: var(--azul);
+            text-decoration: none;
+            font-family: 'Orbitron';
+            font-size: 0.65rem;
+            letter-spacing: 2px;
+            border: 1px solid rgba(0,180,255,0.3);
+            padding: 5px 15px;
+            transition: 0.3s;
+        }
+
+        .back-link:hover {
+            background: rgba(0,180,255,0.15);
+            border-color: var(--azul);
+        }
+
+        /* Contenedor Principal Responsive */
+        .codex-container {
+            max-width: 1300px;
+            margin: 30px auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 30px;
+            z-index: 5;
+            flex: 1;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        /* Menú Lateral */
+        .codex-nav {
+            background: rgba(5, 10, 15, 0.85);
+            border: 1px solid rgba(0, 180, 255, 0.2);
+            padding: 20px;
+            height: fit-content;
+            border-radius: 4px;
+            backdrop-filter: blur(5px);
+        }
+
+        .codex-nav h3 {
+            font-family: 'Orbitron';
+            font-size: 0.8rem;
+            color: var(--azul);
+            letter-spacing: 2px;
+            margin-top: 0;
+            border-bottom: 1px solid rgba(0, 180, 255, 0.2);
+            padding-bottom: 10px;
+        }
+
+        .category-btn {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 8px;
+            background: transparent;
+            border: 1px solid transparent;
+            color: #ccc;
+            text-align: left;
+            font-family: 'Orbitron';
+            font-size: 0.65rem;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .category-btn:hover, .category-btn.active {
+            background: rgba(0, 180, 255, 0.1);
+            color: var(--azul);
+            border-color: var(--azul);
+        }
+
+        /* Panel de Contenido */
+        .codex-content {
+            background: rgba(5, 10, 15, 0.9);
+            border: 1px solid rgba(0, 180, 255, 0.2);
+            padding: 30px;
+            border-radius: 4px;
+            min-height: 450px;
+            backdrop-filter: blur(5px);
+        }
+
+        h2 {
+            font-family: 'Orbitron';
+            font-size: 1.3rem;
+            color: var(--naranja);
+            letter-spacing: 3px;
+            margin-top: 0;
+            border-bottom: 1px solid rgba(255, 136, 0, 0.3);
+            padding-bottom: 8px;
+        }
+
+        p {
+            font-size: 0.9rem;
+            line-height: 1.6;
+            color: #ddd;
+        }
+
+        /* Tarjetas de registros individuales */
+        .data-card {
+            background: rgba(0, 180, 255, 0.03);
+            border-left: 2px solid var(--azul);
+            padding: 18px;
+            margin-bottom: 18px;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            position: relative;
+        }
+
+        .data-card:hover {
+            background: rgba(0, 180, 255, 0.08);
+            border-color: var(--naranja);
+            transform: translateX(4px);
+        }
+
+        .data-card h4 {
+            font-family: 'Orbitron';
+            margin: 0 0 5px 0;
+            font-size: 0.9rem;
+            color: var(--azul);
+        }
+
+        .data-card span {
+            font-size: 0.7rem;
+            color: #888;
+            font-family: 'Orbitron';
+        }
+
+        .card-hint {
+            font-size: 0.65rem;
+            color: var(--naranja);
+            font-family: 'Orbitron';
+            margin-top: 10px;
+            display: block;
+            letter-spacing: 1px;
+        }
+
+        /* --- MODAL DE INFORMACIÓN AMPLIADA --- */
+        #codex-modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(2, 5, 10, 0.9);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            box-sizing: border-box;
+            backdrop-filter: blur(8px);
+        }
+
+        .modal-box {
+            background: #050a14;
+            border: 1px solid var(--azul);
+            box-shadow: 0 0 30px rgba(0, 180, 255, 0.3);
+            width: 100%;
+            max-width: 800px;
+            max-height: 85vh;
+            display: flex;
+            flex-direction: column;
+            border-radius: 4px;
+            position: relative;
+            animation: modalAppear 0.3s ease;
+        }
+
+        @keyframes modalAppear {
+            from { transform: scale(0.95); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        .modal-header {
+            padding: 20px 25px;
+            border-bottom: 1px solid rgba(0, 180, 255, 0.2);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(0, 180, 255, 0.05);
+        }
+
+        .modal-header h3 {
+            font-family: 'Orbitron';
+            color: var(--azul);
+            margin: 0;
+            font-size: 1.1rem;
+            letter-spacing: 2px;
+        }
+
+        .close-btn {
+            background: transparent;
+            border: 1px solid var(--naranja);
+            color: var(--naranja);
+            padding: 5px 12px;
+            font-family: 'Orbitron';
+            font-size: 0.7rem;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .close-btn:hover {
+            background: var(--naranja);
+            color: black;
+        }
+
+        .modal-body {
+            padding: 25px;
+            overflow-y: auto;
+            flex: 1;
+            scrollbar-width: thin;
+            scrollbar-color: var(--azul) transparent;
+        }
+
+        .modal-body::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .modal-body::-webkit-scrollbar-thumb {
+            background: var(--azul);
+        }
+
+        .modal-classification {
+            font-family: 'Orbitron';
+            font-size: 0.75rem;
+            color: #888;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .modal-text {
+            font-size: 0.95rem;
+            line-height: 1.8;
+            color: #e2e8f0;
+            white-space: pre-line;
+        }
+
+        footer {
+            padding: 20px;
+            text-align: center;
+            background: rgba(0, 0, 0, 0.4);
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            z-index: 10;
+            font-size: 0.65rem;
+            color: #666;
+            letter-spacing: 3px;
+        }
+
+        /* Adaptabilidad móvil estricta */
+        @media (max-width: 768px) {
+            .codex-container {
+                grid-template-columns: 1fr;
+                margin: 15px auto;
+                padding: 0 10px;
+            }
+            .modal-box {
+                max-height: 92vh;
+                margin: 10px;
+            }
+            h1 { font-size: 1.4rem; letter-spacing: 4px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="space-bg"></div>
+
+    <header>
+        <h1>ARCHIVOS CODEX EDE</h1>
+        <div class="subtitle">Base de Datos Táctica y Científica del Universo Nikat</div>
+        <a href="index.html" class="back-link">&larr; VOLVER AL NEXUS PRINCIPAL</a>
+    </header>
+
+    <div class="codex-container">
+        <!-- Menú Lateral Dinámico -->
+        <div class="codex-nav">
+            <h3>DIRECTORIO</h3>
+            <div id="nav-categories">
+                <!-- Se inyecta con JavaScript -->
+            </div>
+        </div>
+
+        <!-- Visor de Información -->
+        <div class="codex-content" id="content-area">
+            <!-- Se inyecta con JavaScript -->
+        </div>
+    </div>
+
+    <!-- MODAL DE LECTURA AMPLIADA -->
+    <div id="codex-modal">
+        <div class="modal-box">
+            <div class="modal-header">
+                <h3 id="modal-title">TÍTULO DEL REGISTRO</h3>
+                <button class="close-btn" onclick="closeModal()">CERRAR [X]</button>
+            </div>
+            <div class="modal-body">
+                <span class="modal-classification" id="modal-class">CLASIFICACIÓN</span>
+                <div class="modal-text" id="modal-desc">Contenido ampliado...</div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="copyright">
+            &copy; 2026 JONATAN ARLEY HERNÁNDEZ CHAVARRO // EDE ARCHIVE SYSTEM
+        </div>
+    </footer>
+
+    <script>
+        let codexData = [];
+        let currentCategory = '';
+
+        // Cargar datos del archivo JSON externo
+        async function loadCodex() {
+            try {
+                const response = await fetch('codex_data.json');
+                codexData = await response.json();
+                
+                // Obtener categorías únicas
+                const categories = [...new Set(codexData.map(item => item.categoria))];
+                currentCategory = categories[0]; // Seleccionar la primera por defecto
+                
+                renderNav();
+                renderContent(currentCategory);
+            } catch (error) {
+                console.error('Error al cargar el Codex:', error);
+                document.getElementById('content-area').innerHTML = '<p style="color:var(--naranja);">Error crítico: No se pudieron sincronizar los registros del servidor EDE.</p>';
+            }
+        }
+
+        // Renderizar botones del menú lateral
+        function renderNav() {
+            const navContainer = document.getElementById('nav-categories');
+            navContainer.innerHTML = '';
+            
+            // Mapeo de nombres limpios para las categorías del JSON
+            const catMap = {
+                'manifiestos': 'MANIFIESTOS Y LEYES',
+                'medicina': 'MEDICINA Y TECNOLOGÍA',
+                'biologica': 'REGISTROS BIOLÓGICOS',
+                'tecnologia': 'INGENIERÍA Y NAVES'
+            };
+
+            const categories = [...new Set(codexData.map(item => item.categoria))];
+
+            categories.forEach(cat => {
+                const btn = document.createElement('button');
+                btn.className = `category-btn ${cat === currentCategory ? 'active' : ''}`;
+                btn.textContent = catMap[cat] || cat.toUpperCase();
+                btn.onclick = () => {
+                    currentCategory = cat;
+                    renderNav();
+                    renderContent(cat);
+                };
+                navContainer.appendChild(btn);
+            });
+        }
+
+        // Renderizar las tarjetas de la categoría seleccionada
+        function renderContent(category) {
+            const contentArea = document.getElementById('content-area');
+            const items = codexData.filter(item => item.categoria === category);
+            
+            if (items.length === 0) {
+                contentArea.innerHTML = '<h2>REGISTRO VACÍO</h2><p>No se encontraron datos en este sector.</p>';
+                return;
+            }
+
+            const categoryTitle = items[0].categoriaNombre || category.toUpperCase();
+
+            let html = `
+                <h2>${categoryTitle}</h2>
+                <p>Registros oficiales enlazados a la red de datos EDE para consulta táctica y general.</p>
+            `;
+
+            items.forEach(item => {
+                html += `
+                    <div class="data-card" onclick="openModal('${item.id}')">
+                        <h4>${item.titulo}</h4>
+                        <span>${item.clasificacion}</span>
+                        <p>${item.descripcion}</p>
+                        <span class="card-hint">[CLICK PARA ABRIR REGISTRO AMPLIADO &rarr;]</span>
+                    </div>
+                `;
+            });
+
+            contentArea.innerHTML = html;
+        }
+
+        // Abrir el Modal con la información detallada
+        function openModal(id) {
+            const item = codexData.find(d => d.id === id);
+            if (!item) return;
+
+            document.getElementById('modal-title').textContent = item.titulo;
+            document.getElementById('modal-class').textContent = item.clasificacion;
+            document.getElementById('modal-desc').textContent = item.informacionAmpliada || item.descripcion;
+
+            const modal = document.getElementById('codex-modal');
+            modal.style.display = 'flex';
+        }
+
+        // Cerrar el Modal
+        function closeModal() {
+            document.getElementById('codex-modal').style.display = 'none';
+        }
+
+        // Cerrar haciendo clic fuera de la caja del modal
+        window.onclick = function(event) {
+            const modal = document.getElementById('codex-modal');
+            if (event.target === modal) {
+                closeModal();
+            }
+        }
+
+        // Iniciar carga al abrir la página
+        window.onload = loadCodex;
+    </script>
+</body>
+</html>
