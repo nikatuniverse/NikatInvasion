@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NIKAT NEXUS | LECTOR</title>
-    <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@300;400;600;700&family=Merriweather&family=Courier+Prime&family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+    <title>NIKAT NEXUS | ARCHIVOS EDE</title>
+    <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@300;400;600;700&family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
     <link rel="icon" type="image/png" href="imagenes/iconoae.png">
     <style>
 :root {
@@ -151,7 +151,7 @@ header.top-header {
     transform: translateY(-2px);
 }
 
-/* CONTENEDOR DE DISEÑO PRINCIPAL (3 columnas: NAV - LECTOR - ASIDE) */
+/* CONTENEDOR DE DISEÑO PRINCIPAL (2 columnas: GALERÍA RELATOS - ASIDE) */
 .page-layout {
     display: flex;
     flex: 1;
@@ -160,72 +160,14 @@ header.top-header {
     z-index: 2;
 }
 
-/* PANEL IZQUIERDO: ARCHIVOS EDE */
-nav {
-    width: 300px;
-    background: rgba(5, 10, 15, 0.85);
-    backdrop-filter: blur(10px);
-    padding: 30px;
-    height: calc(100vh - 73px);
-    position: sticky;
-    top: 73px;
-    border-right: 1px solid rgba(0, 180, 255, 0.4);
-    box-sizing: border-box;
-    z-index: 10;
-    overflow-y: auto;
-}
-
-/* TÍTULO / BOTÓN DESPLEGABLE DE ARCHIVOS EDE */
-.nav-toggle {
-    margin-top: 0;
-    color: var(--azul);
-    font-family: 'Orbitron', sans-serif;
-    font-size: 0.85rem;
-    letter-spacing: 2px;
-    text-align: center;
-    margin-bottom: 20px;
-    padding: 10px;
-    background: rgba(0, 180, 255, 0.1);
-    border: 1px solid var(--azul);
-    border-radius: 4px;
-    box-sizing: border-box;
-    user-select: none;
-}
-
-/* BOTONES DE RELATOS */
-.btn { 
-    display: block; 
-    width: 100%; 
-    padding: 10px 15px; 
-    background: rgba(0, 180, 255, 0.1); 
-    color: var(--azul); 
-    text-align: center; 
-    border: 1px solid var(--azul); 
-    cursor: pointer; 
-    border-radius: 4px; 
-    margin-bottom: 12px; 
-    font-family: 'Orbitron', sans-serif;
-    font-size: 0.65rem; 
-    text-transform: uppercase; 
-    letter-spacing: 1px; 
-    transition: 0.3s;
-    box-sizing: border-box;
-}
-.btn:hover { 
-    background: var(--azul); 
-    color: #030812; 
-    box-shadow: 0 0 12px rgba(0, 180, 255, 0.6); 
-    transform: translateY(-2px);
-}
-
-/* ESTRUCTURA DEL LECTOR CENTRAL */
-#lector-container { 
+/* CONTENEDOR CENTRAL DE RELATOS */
+#relatos-container { 
     padding: 40px; 
     flex: 1; 
     display: flex; 
     flex-direction: column; 
     box-sizing: border-box; 
-    max-width: 800px;
+    max-width: 1150px;
     margin: 0 auto;
 }
 
@@ -236,72 +178,109 @@ nav {
     display: flex; 
     justify-content: space-between; 
     align-items: center; 
-    margin-bottom: 25px; 
+    margin-bottom: 30px; 
 }
 
-#titulo-cap {
+.section-title {
+    margin: 0; 
+    font-size: 1.2rem; 
+    color: var(--azul);
     font-family: 'Orbitron', sans-serif;
     letter-spacing: 2px;
 }
 
-.modos { display: flex; gap: 8px; }
-.btn-modo { 
-    cursor: pointer; 
-    border: 1px solid rgba(0, 180, 255, 0.4); 
-    background: rgba(5, 10, 15, 0.85); 
-    color: #e0f4ff;
-    padding: 6px 10px; 
-    border-radius: 4px; 
-    font-size: 0.85rem; 
-    transition: 0.3s; 
+.section-subtitle {
+    font-size: 0.8rem;
+    color: #8ab4d8;
+    font-family: 'Exo 2', sans-serif;
 }
-.btn-modo:hover { border-color: var(--azul); background: rgba(0, 180, 255, 0.15); box-shadow: 0 0 8px rgba(0, 180, 255, 0.4); }
 
-#lector { 
-    width: 100%; 
-    min-height: 500px;
-    max-height: 70vh; 
-    margin: 0 auto; 
-    overflow-y: auto; 
-    padding: 40px;
-    background: #f4ecd8; 
-    color: #5c4b37; 
-    font-family: 'Merriweather', serif;
-    line-height: 1.8; 
-    border: 1px solid rgba(0, 180, 255, 0.5); 
-    box-sizing: border-box;
-    user-select: none; 
-    position: relative;
+/* GRID DE 3 COLUMNAS PARA RELATOS */
+.stories-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+    width: 100%;
+}
+
+/* TARJETA DE CADA RELATO */
+.story-card {
+    background: rgba(5, 10, 15, 0.85);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(0, 180, 255, 0.35);
+    border-radius: 8px;
+    padding: 18px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    text-align: center;
+    transition: all 0.3s ease;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.6);
+}
+
+.story-card:hover {
+    border-color: var(--azul);
+    box-shadow: 0 0 20px rgba(0, 180, 255, 0.35);
+    transform: translateY(-5px);
+}
+
+.story-cover-link {
+    display: block;
+    text-decoration: none;
+    overflow: hidden;
     border-radius: 6px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.7);
-    transition: opacity 0.3s ease-in-out; 
-    opacity: 1; 
 }
 
-/* MARCA DE AGUA (Copyright) */
-#lector::before {
-    content: "© NIKAT SAGA"; 
-    position: absolute; 
-    top: 50%; left: 50%;
-    transform: translate(-50%, -50%) rotate(-45deg);
-    font-size: 5rem; 
-    color: rgba(0, 0, 0, 0.07); 
-    pointer-events: none;
-    z-index: 0; 
-    white-space: nowrap; 
-    font-family: 'Orbitron', sans-serif; 
-    letter-spacing: 10px;
+.story-cover-img {
+    width: 100%;
+    height: auto;
+    max-height: 360px;
+    object-fit: contain;
+    border-radius: 6px;
+    border: 1px solid rgba(0, 180, 255, 0.25);
+    display: block;
+    margin: 0 auto;
+    transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-body.dark #lector { background: rgba(5, 10, 15, 0.9); color: #d1d1d1; border-color: rgba(0, 180, 255, 0.4); backdrop-filter: blur(8px); }
-body.dark #lector::before { color: rgba(255, 255, 255, 0.03); }
+.story-card:hover .story-cover-img {
+    transform: scale(1.02);
+    border-color: #ffffff;
+    box-shadow: 0 0 12px rgba(0, 180, 255, 0.5);
+}
 
-body.claro #lector { background: #ffffff; color: #1e293b; border-color: #cbd5e1; }
-body.claro #lector::before { color: rgba(0, 0, 0, 0.04); }
+.story-title {
+    margin: 16px 0 14px 0;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.9rem;
+    letter-spacing: 1.5px;
+    color: #ffffff;
+    text-transform: uppercase;
+}
 
-/* SCROLL PERSONALIZADO */
-#lector::-webkit-scrollbar { width: 8px; }
-#lector::-webkit-scrollbar-thumb { background: var(--azul); border-radius: 4px; }
+.inkitt-btn {
+    display: block;
+    width: 100%;
+    padding: 11px 15px;
+    background: rgba(0, 180, 255, 0.12);
+    color: var(--azul);
+    text-decoration: none;
+    border: 1px solid var(--azul);
+    border-radius: 4px;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+}
+
+.inkitt-btn:hover {
+    background: var(--azul);
+    color: #030812;
+    box-shadow: 0 0 15px rgba(0, 180, 255, 0.7);
+}
 
 /* PANEL DERECHO: ASIDE DE SAGA */
 aside { 
@@ -341,105 +320,32 @@ aside {
 }
 
 /* AJUSTE RESPONSIVE */
-@media (min-width: 769px) {
-    .nav-content { display: block !important; }
-    .nav-toggle { cursor: default; }
-}
-
 @media (max-width: 1100px) {
     .page-layout { flex-direction: column; }
-    nav, aside { 
+    aside { 
         position: relative; 
         width: 100%; 
         height: auto; 
         top: 0;
-        border: none;
-        border-bottom: 1px solid rgba(0, 180, 255, 0.4); 
+        border-left: none;
+        border-top: 1px solid rgba(0, 180, 255, 0.4); 
     }
-    #lector-container { max-width: 100%; padding: 20px; }
+    #relatos-container { max-width: 100%; padding: 25px; }
+    .stories-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
 }
 
-@media(max-width: 768px) {
+@media (max-width: 650px) {
     header.top-header { padding: 15px 20px; flex-direction: column; gap: 15px; }
-    .nav-content { display: none; }
-    .nav-content.active { display: block; }
-    .nav-toggle { cursor: pointer; }
-}
-
-/* CONTENEDOR DE CADA PORTADA EN EL NAV */
-.nav-portada-container {
-    background: rgba(5, 10, 15, 0.85);
-    backdrop-filter: blur(8px);
-    padding: 12px;
-    border: 1px solid rgba(0, 180, 255, 0.4);
-    border-radius: 6px;
-    margin-bottom: 20px;
-    text-align: center;
-    transition: 0.3s;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
-    cursor: pointer;
-}
-
-.nav-portada-container:hover {
-    border-color: var(--azul);
-    box-shadow: 0 0 15px rgba(0, 180, 255, 0.4);
-    transform: translateY(-3px);
-}
-
-/* LA IMAGEN SE MANTIENE ÍNTEGRA SIN RECORTARSE */
-.nav-portada-img {
-    width: 100%;
-    height: auto;           /* Altura automática según proporción original */
-    max-height: 320px;      /* Evita que imágenes demasiado altas desborden el menú */
-    object-fit: contain;    /* Clave: asegura que se vea toda la imagen completa */
-    border-radius: 4px;
-    border: 1px solid rgba(0, 180, 255, 0.3);
-    display: block;
-    margin: 0 auto;
-    transition: 0.2s;
-}
-
-.nav-portada-container:hover .nav-portada-img {
-    border-color: #ffffff;
-    box-shadow: 0 0 10px var(--azul);
-}
-
-/* TÍTULO DEBAJO DE LA PORTADA */
-.nav-portada-titulo {
-    margin-top: 10px;
-    font-family: 'Orbitron', sans-serif;
-    font-size: 0.7rem;
-    letter-spacing: 1px;
-    color: #e0f4ff;
-    text-transform: uppercase;
-}
-
-/* --- AJUSTES ESPECÍFICOS PARA MÓVILES --- */
-@media (max-width: 768px) {
-    /* Ocultar las portadas visuales en el menú móvil */
-    .nav-portada-img {
-        display: none !important;
-    }
-
-    /* Ajustar el contenedor para que actúe como un botón plano */
-    .nav-portada-container {
-        padding: 15px !important;
-        margin-bottom: 10px !important;
-        background: rgba(0, 180, 255, 0.05) !important;
-        border: 1px solid var(--azul) !important;
-        cursor: pointer;
-    }
-
-    /* Asegurar que el título se vea bien como botón */
-    .nav-portada-titulo {
-        margin-top: 0 !important;
-        font-size: 0.85rem !important;
-        font-weight: bold;
+    #header-fijo { flex-direction: column; align-items: flex-start; gap: 8px; }
+    .stories-grid {
+        grid-template-columns: 1fr;
     }
 }
     </style>
 </head>
-<body class="dark">
+<body>
 
     <div class="space-bg"></div>
     <div id="random-events-layer"></div>
@@ -458,37 +364,69 @@ aside {
     </header>
 
     <div class="page-layout">
-        <!-- NAV IZQUIERDO: ARCHIVOS EDE -->
-        <nav>
-            <h3 class="nav-toggle" id="menu-toggle">ARCHIVOS EDE ▾</h3>
-            <div id="lista-relatos" class="nav-content">
-                <!-- Botón Relato 1 -->
-                <div class="nav-portada-container" onclick="cargar('textos/NIKAT_CAUTIVA.txt', 'NIKAT CAUTIVA')">
-                    <img src="imagenes/cautiva.png" alt="Nikat Cautiva" class="nav-portada-img">
-                    <div class="nav-portada-titulo">NIKAT CAUTIVA</div>
-                </div>
-                
-                <!-- Botón Relato 2 -->
-                <div class="nav-portada-container" onclick="cargar('textos/NIKAT_DESERTOR.txt', 'NIKAT DESERTOR')">
-                    <img src="imagenes/desertor.png" alt="Nikat Desertor" class="nav-portada-img">
-                    <div class="nav-portada-titulo">NIKAT DESERTOR</div>
-                </div>
-            </div>
-        </nav>
-
-        <!-- MAIN CENTRAL: LECTOR -->
-        <main id="lector-container">
+        <!-- MAIN CENTRAL: GALERÍA DE RELATOS EN INKITT -->
+        <main id="relatos-container">
             <div id="header-fijo">
-                <h2 id="titulo-cap" style="margin:0; font-size: 1.1rem; color: var(--azul);">ARCHIVO LECTOR</h2>
-                <div class="modos">
-                    <button class="btn-modo" onclick="cambiarModo('claro')" title="Modo Claro">☀️</button>
-                    <button class="btn-modo" onclick="cambiarModo('dark')" title="Modo Oscuro">🌙</button>
-                    <button class="btn-modo" onclick="cambiarModo('papel')" title="Modo Papel">📖</button>
-                </div>
+                <h1 class="section-title">ARCHIVOS EDE // RELATOS</h1>
+                <span class="section-subtitle">LECTURA GRATUITA EN INKITT</span>
             </div>
-            <div id="lector">
-                <p>Selecciona un archivo desde el panel izquierdo para iniciar la lectura desclasificada.</p>
-            </div>
+
+            <section class="stories-grid">
+                
+                <!-- RELATO 1 -->
+                <article class="story-card">
+                    <div>
+                        <a href="https://www.inkitt.com/stories/1803687" target="_blank" rel="noopener noreferrer" class="story-cover-link">
+                            <img src="imagenes/cautiva.png" alt="Nikat Cautiva" class="story-cover-img">
+                        </a>
+                        <h2 class="story-title">NIKAT CAUTIVA</h2>
+                    </div>
+                    <a href="https://www.inkitt.com/stories/1803687" target="_blank" rel="noopener noreferrer" class="inkitt-btn">
+                        LEER EN INKITT ↗
+                    </a>
+                </article>
+
+                <!-- RELATO 2 -->
+                <article class="story-card">
+                    <div>
+                        <a href="https://www.inkitt.com/stories/1855672" target="_blank" rel="noopener noreferrer" class="story-cover-link">
+                            <img src="imagenes/desertor.png" alt="Nikat Desertor" class="story-cover-img">
+                        </a>
+                        <h2 class="story-title">NIKAT DESERTOR</h2>
+                    </div>
+                    <a href="https://www.inkitt.com/stories/1855672" target="_blank" rel="noopener noreferrer" class="inkitt-btn">
+                        LEER EN INKITT ↗
+                    </a>
+                </article>
+
+                <article class="story-card">
+                    <div>
+                        <a href="https://www.inkitt.com/stories/1888822" target="_blank" rel="noopener noreferrer" class="story-cover-link">
+                            <img src="imagenes/57.png" alt="Título del Relato" class="story-cover-img">
+                        </a>
+                        <h2 class="story-title">NIKAT PULSO</h2>
+                    </div>
+                    <a href="https://www.inkitt.com/stories/1888822" target="_blank" rel="noopener noreferrer" class="inkitt-btn">
+                        LEER EN INKITT ↗
+                    </a>
+                </article>
+
+                <!-- 
+                PLANTILLA PARA AGREGAR NUEVOS RELATOS (Se irán acomodando de 3 en 3):
+                <article class="story-card">
+                    <div>
+                        <a href="ENLACE_DE_INKITT" target="_blank" rel="noopener noreferrer" class="story-cover-link">
+                            <img src="imagenes/NUEVA_PORTADA.png" alt="Título del Relato" class="story-cover-img">
+                        </a>
+                        <h2 class="story-title">TÍTULO DEL RELATO</h2>
+                    </div>
+                    <a href="ENLACE_DE_INKITT" target="_blank" rel="noopener noreferrer" class="inkitt-btn">
+                        LEER EN INKITT ↗
+                    </a>
+                </article>
+                -->
+
+            </section>
         </main>
 
         <!-- ASIDE DERECHO: OBRA OFICIAL -->
@@ -499,13 +437,18 @@ aside {
                 <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 15px;">
                     <!-- Libro 1 -->
                     <div style="text-align: center;">
-                        <img src="imagenes/portada1.png" alt="Vol 1" style="width:100%; border-radius:4px; border: 1px solid rgba(0, 180, 255, 0.3);">
+                        <img src="imagenes/portada1.png" alt="Vol 1" style="width: 100%; aspect-ratio: 2 / 3; object-fit: cover; display: block; border-radius: 4px; border: 1px solid rgba(0, 180, 255, 0.3);">
                         <a href="https://www.amazon.com/-/es/Jonatan-Arley-Hernández-Chavarro/dp/B0GPNXK7NS" class="buy-button" style="margin-top:8px; padding:6px; font-size:0.6rem;" target="_blank">VOL I</a>
                     </div>
                     <!-- Libro 2 -->
                     <div style="text-align: center;">
-                        <img src="imagenes/portada2.png" alt="Vol 2" style="width:100%; border-radius:4px; border: 1px solid rgba(0, 180, 255, 0.3);">
+                        <img src="imagenes/portada2.png" alt="Vol 2" style="width: 100%; aspect-ratio: 2 / 3; object-fit: cover; display: block; border-radius: 4px; border: 1px solid rgba(0, 180, 255, 0.3);">
                         <a href="https://www.amazon.com/-/es/J-Hernández/dp/B0H4S4S2S2/ref=tmm_pap_swatch_0" class="buy-button" style="margin-top:8px; padding:6px; font-size:0.6rem;" target="_blank">VOL II</a>
+                    </div>
+                    <!-- Libro 3 (Centrado abajo con el mismo ancho exacto) -->
+                    <div style="text-align: center; grid-column: 1 / -1; width: calc(50% - 5px); margin: 0 auto;">
+                        <img src="imagenes/portada3.png" alt="Vol 3" style="width: 100%; aspect-ratio: 2 / 3; object-fit: cover; display: block; border-radius: 4px; border: 1px solid rgba(0, 180, 255, 0.3);">
+                        <a href="https://www.amazon.com/dp/B0HRSGZW63" class="buy-button" style="margin-top:8px; padding:6px; font-size:0.6rem;" target="_blank">VOL III</a>
                     </div>
                 </div>
 
@@ -528,39 +471,7 @@ aside {
     </div>
 
     <script>
-        function cargar(archivo, nombreCapitulo) {
-            const lector = document.getElementById('lector');
-            lector.style.opacity = 0;
-            setTimeout(() => {
-                fetch(archivo)
-                    .then(res => res.text())
-                    .then(data => {
-                        lector.innerHTML = `<p>${data.replace(/\n/g, '</p><p>')}</p>`;
-                        lector.scrollTop = 0;
-                        document.getElementById('titulo-cap').innerText = nombreCapitulo;
-                        lector.style.opacity = 1;
-                    });
-            }, 300);
-        }
-
-        function cambiarModo(modo) { 
-            // Limpia las clases de modo y aplica la seleccionada
-            document.body.classList.remove('dark', 'claro', 'papel');
-            document.body.className = modo; 
-        }
-
-        // Script para el menú desplegable móvil de Archivos EDE
-        document.getElementById('menu-toggle').addEventListener('click', function() {
-            if (window.innerWidth <= 768) {
-                const lista = document.getElementById('lista-relatos');
-                lista.classList.toggle('active');
-                this.textContent = this.textContent.includes('▾') ? 'ARCHIVOS EDE ▴' : 'ARCHIVOS EDE ▾';
-            }
-        });
-
-        document.addEventListener('contextmenu', e => e.preventDefault());
-
-        // Script para generar meteoritos y sondas de fondo idéntico al index principal
+        // Script para generar meteoritos y sondas de fondo
         function spawnSpaceDebris() {
             const layer = document.getElementById('random-events-layer');
             if (!layer) return;
