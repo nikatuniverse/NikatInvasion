@@ -298,7 +298,7 @@
     const ambientLight = new THREE.AmbientLight(0x222222);
     scene.add(ambientLight);
 
-    const sunLight = new THREE.PointLight(0xffffff, 2.5, 1200);
+    const sunLight = new THREE.PointLight(0xffffff, 1.5, 1200);
     sunLight.castShadow = true;
     scene.add(sunLight);
 
@@ -465,19 +465,69 @@
       }
       
       else if (data.name === 'Rakum') {
-        geo = new THREE.SphereGeometry(data.size, 32, 32);
-        mat = new THREE.MeshStandardMaterial({ 
-          map: textureLoader.load('imagenes/rakumtextura.jpg'), 
-          roughness: 0.6 
+        const rakumTex = textureLoader.load('imagenes/rakumtextura.jpg');
+        rakumTex.wrapS = THREE.RepeatWrapping;
+        rakumTex.wrapT = THREE.RepeatWrapping;
+
+        const halfLen = data.size * 1.15; // Largo total = 2.3x el tamaño base
+        const innerR = data.size * 0.28;  // Radio del agujero central
+        const outerR = data.size * 0.72;  // Radio exterior de la roca (grosor sólido)
+
+        // Perfil cerrado (Vector2: x = radio desde el eje, y = altura a lo largo)
+        // Sube por el exterior, cruza el borde superior, baja por el túnel interior y cierra abajo
+        const profile = [
+          new THREE.Vector2(innerR, -halfLen),
+          new THREE.Vector2(outerR * 0.85, -halfLen),
+          new THREE.Vector2(outerR, -halfLen * 0.45),
+          new THREE.Vector2(outerR * 0.95, halfLen * 0.45),
+          new THREE.Vector2(outerR * 0.82, halfLen),
+          new THREE.Vector2(innerR, halfLen),
+          new THREE.Vector2(innerR * 1.15, halfLen * 0.3),
+          new THREE.Vector2(innerR * 0.9, -halfLen * 0.3),
+          new THREE.Vector2(innerR, -halfLen)
+        ];
+
+        geo = new THREE.LatheGeometry(profile, 24);
+
+        // Deformación 3D irregular tanto en el exterior como en las paredes internas y bordes
+        const posAttr = geo.attributes.position;
+        const v = new THREE.Vector3();
+        for (let i = 0; i < posAttr.count; i++) {
+          v.fromBufferAttribute(posAttr, i);
+
+          const distRadial = Math.sqrt(v.x * v.x + v.z * v.z);
+          const angle = Math.atan2(v.z, v.x);
+
+          // Ruido combinado radial y longitudinal para que no quede cilíndrico ni liso
+          const radialBump =
+            1 +
+            0.18 * Math.sin(angle * 3 + v.y * 8) +
+            0.12 * Math.cos(angle * 5 - v.y * 12);
+          const axialBump = 0.08 * Math.sin(angle * 4 + distRadial * 14);
+
+          v.x *= radialBump;
+          v.z *= radialBump;
+          v.y += axialBump * data.size;
+
+          posAttr.setXYZ(i, v.x, v.y, v.z);
+        }
+        geo.computeVertexNormals();
+
+        mat = new THREE.MeshStandardMaterial({
+          map: rakumTex,
+          roughness: 0.9,
+          metalness: 0.1
         });
         mesh = new THREE.Mesh(geo, mat);
-      } 
+        mesh.userData.isRakum = true;
+        mesh.rotation.set(0.4, 0.2, 0.7);
+      }
       
       else if (data.name === 'Taryn 3') {
         geo = new THREE.SphereGeometry(data.size, 32, 32);
         mat = new THREE.MeshStandardMaterial({ 
-          map: textureLoader.load('imagenes/taryntextura.jpg'), 
-          roughness: 0.6 
+          map: textureLoader.load('imagenes/taryn.jpg'), 
+          roughness: 0.9 
         });
         mesh = new THREE.Mesh(geo, mat);
       } 
@@ -485,7 +535,7 @@
       else if (data.name === 'Volstek') {
         geo = new THREE.SphereGeometry(data.size, 32, 32);
         mat = new THREE.MeshStandardMaterial({ 
-          map: textureLoader.load('imagenes/volstektextura.jpg'), 
+          map: textureLoader.load('imagenes/volstek.jpg'), 
           roughness: 0.6 
         });
         mesh = new THREE.Mesh(geo, mat);
@@ -494,7 +544,7 @@
       else if (data.name === 'Dravos') {
         geo = new THREE.SphereGeometry(data.size, 32, 32);
         mat = new THREE.MeshStandardMaterial({ 
-          map: textureLoader.load('imagenes/dravosktextura.jpg'), 
+          map: textureLoader.load('imagenes/dravos.jpg'), 
           roughness: 0.6 
         });
         mesh = new THREE.Mesh(geo, mat);
